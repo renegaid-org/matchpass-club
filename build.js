@@ -74,6 +74,30 @@ function officerNip05Key(officer, club, index) {
   return `${base}.${slug}`;
 }
 
+function groupOfficers(officers) {
+  const groups = { admin: [], safeguarding: [], steward: [], other: [] };
+  for (const o of officers) {
+    const key = roleToKey(o.role);
+    if (key === 'admin') groups.admin.push(o);
+    else if (key === 'safeguarding') groups.safeguarding.push(o);
+    else if (key === 'steward') groups.steward.push(o);
+    else groups.other.push(o);
+  }
+  return groups;
+}
+
+function renderOfficerCard(officer, club, index) {
+  const nip05 = officerNip05Key(officer, club, index) + '@matchpass.club';
+  return `
+        <div class="officer-card">
+          <div class="officer-role">${escapeHtml(officer.role)}</div>
+          ${officer.name ? `<div class="officer-name">${escapeHtml(officer.name)}</div>` : ''}
+          <div class="officer-npub" title="${escapeHtml(officer.npub)}">${truncateNpub(officer.npub)}</div>
+          <div class="officer-nip05">${escapeHtml(nip05)}</div>
+          <div class="officer-verified">${escapeHtml(officer.verifiedBy || '')}</div>
+        </div>`;
+}
+
 // ---------------------------------------------------------------------------
 // Shared CSS
 // ---------------------------------------------------------------------------
@@ -344,6 +368,23 @@ const CSS_PAGE = `
   color: var(--text-dim);
   font-style: italic;
 }
+.officer-nip05 {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--green-bright);
+  margin-bottom: 0.3rem;
+}
+.officer-group-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin: 1rem 0 0.5rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--border-light);
+}
+.officer-group-label:first-child { margin-top: 0; }
 
 /* Connected clubs */
 .connected-list {
@@ -536,15 +577,25 @@ function activePage(club, allClubs) {
     ? `${escapeHtml(club.league)} &mdash; ${escapeHtml(club.division)}`
     : escapeHtml(club.league);
 
-  // Officers section
-  const officerCards = (club.officers || []).map(o => `
-        <div class="officer-card">
-          <div class="officer-role">${escapeHtml(o.role)}</div>
-          ${o.name ? `<div class="officer-name">${escapeHtml(o.name)}</div>` : ''}
-          <div class="officer-npub" title="${escapeHtml(o.npub)}">${escapeHtml(o.npub)}</div>
-          <div class="officer-verified">${escapeHtml(o.verifiedBy)}</div>
-        </div>`
-  ).join('\n');
+  // Officers section — grouped by role
+  const groups = groupOfficers(club.officers || []);
+  const renderGroup = (label, officers) => {
+    if (officers.length === 0) return '';
+    let stewardIdx = 0;
+    const cards = officers.map(o => {
+      const card = renderOfficerCard(o, club, stewardIdx);
+      if (roleToKey(o.role) === 'steward') stewardIdx++;
+      return card;
+    }).join('\n');
+    return `<div class="officer-group-label">${escapeHtml(label)}</div>\n${cards}`;
+  };
+
+  const officerCards = [
+    renderGroup('Club Administration', groups.admin),
+    renderGroup('Safeguarding', groups.safeguarding),
+    renderGroup('Stewards', groups.steward),
+    renderGroup('Other Officers', groups.other),
+  ].filter(Boolean).join('\n');
 
   // Connected clubs
   const connected = (club.connectedClubs || [])
