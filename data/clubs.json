@@ -26,6 +26,11 @@
           "role": "Safety Officer",
           "npub": "npub1placeholder_belper_safety",
           "verifiedBy": "Verified in person by pilot network"
+        },
+        {
+          "role": "Admin",
+          "npub": "npub1placeholder_belper_admin",
+          "verifiedBy": "Verified in person by pilot network"
         }
       ],
       "connectedClubs": [
@@ -49,6 +54,11 @@
         {
           "role": "Safeguarding Officer",
           "npub": "npub1placeholder_carlton_safeguarding",
+          "verifiedBy": "Verified in person by pilot network"
+        },
+        {
+          "role": "Admin",
+          "npub": "npub1placeholder_carlton_admin",
           "verifiedBy": "Verified in person by pilot network"
         }
       ],
@@ -76,7 +86,7 @@
           "verifiedBy": "Verified in person by pilot network"
         },
         {
-          "role": "Club Admin",
+          "role": "Admin",
           "npub": "npub1placeholder_realbedford_admin",
           "verifiedBy": "Verified in person by pilot network"
         }
