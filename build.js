@@ -10,6 +10,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { nip19 } = require('nostr-tools');
 
 const DATA_FILE = path.join(__dirname, 'data', 'clubs.json');
 const DIST_DIR = path.join(__dirname, 'dist');
@@ -36,6 +37,41 @@ function formatDate(iso) {
 function truncateNpub(npub) {
   if (!npub || npub.length < 20) return npub || '';
   return npub.slice(0, 12) + '...' + npub.slice(-8);
+}
+
+function npubToHex(npub) {
+  if (!npub || !npub.startsWith('npub1')) return null;
+  try {
+    const { type, data } = nip19.decode(npub);
+    if (type !== 'npub') return null;
+    return data;
+  } catch {
+    return null;
+  }
+}
+
+function roleToKey(role) {
+  const map = {
+    'Admin': 'admin',
+    'Club Admin': 'admin',
+    'Safeguarding Officer': 'safeguarding',
+    'Safety Officer': 'safety',
+    'Steward': 'steward',
+  };
+  return map[role] || role.split(' ')[0].toLowerCase();
+}
+
+// Note: the `index` parameter is only used for unnamed stewards (to produce steward-1, steward-2, etc.)
+function officerNip05Key(officer, club, index) {
+  const base = roleToKey(officer.role);
+  const slug = club.slug.replace(/-/g, '');
+  if (base === 'steward' && officer.name) {
+    return `${base}-${officer.name.toLowerCase().replace(/\s+/g, '-')}.${slug}`;
+  }
+  if (base === 'steward') {
+    return `${base}-${index + 1}.${slug}`;
+  }
+  return `${base}.${slug}`;
 }
 
 // ---------------------------------------------------------------------------
@@ -1208,12 +1244,17 @@ function nostrJson(clubs) {
   const names = {};
   for (const club of clubs) {
     if (club.status !== 'active' || !club.officers) continue;
+    let stewardIndex = 0;
     for (const officer of club.officers) {
-      // Convert role to key: "Safeguarding Officer" → "safeguarding"
-      const roleKey = officer.role.split(' ')[0].toLowerCase();
-      const key = `${roleKey}_${club.slug}`;
-      // npub → hex would need nostr-tools; store npub as placeholder
-      names[key] = officer.npub;
+      const hex = npubToHex(officer.npub);
+      if (!hex) continue;
+      const key = officerNip05Key(officer, club, stewardIndex);
+      if (names[key]) {
+        console.warn(`  NIP-05 key collision: "${key}" — skipping duplicate for ${club.slug}`);
+        continue;
+      }
+      names[key] = hex;
+      if (roleToKey(officer.role) === 'steward') stewardIndex++;
     }
   }
   return JSON.stringify({ names }, null, 2);
