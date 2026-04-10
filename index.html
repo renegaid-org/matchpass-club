@@ -1,0 +1,3443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MatchPass — Football's Identity Infrastructure</title>
+  <meta name="description" content="MatchPass gives every football club — from Sunday League to National League — the digital safety and identity layer the game has never had. Free to implement. Sustained by the community.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ═══════════════════════════════════════════
+       TOKENS
+    ═══════════════════════════════════════════ */
+    :root {
+      --dark:        #060b14;
+      --dark2:       #0d1526;
+      --dark3:       #162032;
+      --dark4:       #1e2d42;
+      --green:       #22c55e;
+      --green-light: #4ade80;
+      --green-dim:   #166534;
+      --green-pale:  rgba(34,197,94,0.08);
+      --gold:        #fbbf24;
+      --gold-dim:    rgba(251,191,36,0.12);
+      --red:         #ef4444;
+      --red-dim:     rgba(239,68,68,0.12);
+      --yellow-card: #facc15;
+      --yellow-dim:  rgba(250,204,21,0.15);
+      --white:       #f8fafc;
+      --white-80:    rgba(248,250,252,0.80);
+      --white-50:    rgba(248,250,252,0.50);
+      --white-20:    rgba(248,250,252,0.20);
+      --white-08:    rgba(248,250,252,0.08);
+      --white-04:    rgba(248,250,252,0.04);
+      --muted:       #64748b;
+      --border:      rgba(255,255,255,0.08);
+      --border-g:    rgba(34,197,94,0.25);
+
+      --f-display: 'Bebas Neue', 'Impact', sans-serif;
+      --f-serif:   'Playfair Display', Georgia, serif;
+      --f-body:    'DM Sans', system-ui, sans-serif;
+      --f-mono:    'IBM Plex Mono', monospace;
+
+      --max: 1140px;
+      --radius: 8px;
+    }
+
+    /* ═══════════════════════════════════════════
+       RESET + BASE
+    ═══════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: var(--f-body);
+      background: var(--dark);
+      color: var(--white);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    .container {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    /* ═══════════════════════════════════════════
+       NAV
+    ═══════════════════════════════════════════ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(6,11,20,0.90);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
+    }
+
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: var(--max); margin: 0 auto; padding: 0 2rem;
+      height: 64px;
+    }
+
+    .nav-logo {
+      font-family: var(--f-display);
+      font-size: 1.6rem;
+      letter-spacing: 0.05em;
+      color: var(--white);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+
+    .nav-logo span {
+      color: var(--green);
+    }
+
+    .nav-logo .badge {
+      font-family: var(--f-mono);
+      font-size: 0.65rem;
+      font-weight: 500;
+      background: var(--green-pale);
+      border: 1px solid var(--border-g);
+      color: var(--green-light);
+      padding: 0.15rem 0.4rem;
+      border-radius: 3px;
+      letter-spacing: 0.08em;
+    }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 0.25rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--white-80);
+      padding: 0.4rem 0.75rem;
+      border-radius: var(--radius);
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--white);
+      background: var(--white-08);
+    }
+
+    .nav-cta {
+      background: var(--green) !important;
+      color: var(--dark) !important;
+      font-weight: 600 !important;
+    }
+
+    .nav-cta:hover {
+      background: var(--green-light) !important;
+    }
+
+    .nav-hamburger {
+      display: none;
+      flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 8px;
+    }
+
+    .nav-hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--white); border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    /* ═══════════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════════ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex; align-items: center;
+      overflow: hidden;
+      padding-top: 64px;
+    }
+
+    /* Stadium lights effect */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 20% 0%, rgba(34,197,94,0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 80% 0%, rgba(34,197,94,0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 100% 60% at 50% 100%, rgba(22,101,52,0.15) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* Pitch lines */
+    .hero::after {
+      content: '';
+      position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 300px; height: 180px;
+      border: 1px solid rgba(34,197,94,0.08);
+      border-bottom: none;
+      border-radius: 150px 150px 0 0;
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center;
+      padding: 6rem 0 4rem;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--f-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--green);
+      margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 24px; height: 1px;
+      background: var(--green);
+    }
+
+    h1.hero-title {
+      font-family: var(--f-display);
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+
+    h1.hero-title em {
+      color: var(--green);
+      font-style: normal;
+    }
+
+    .hero-desc {
+      font-size: 1.1rem;
+      color: var(--white-80);
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+      max-width: 480px;
+    }
+
+    .hero-stat-bar {
+      display: flex; gap: 0.5rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-stat {
+      background: var(--white-04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.5rem 1rem;
+      font-family: var(--f-mono);
+    }
+
+    .hero-stat strong {
+      display: block;
+      font-size: 1.3rem;
+      color: var(--green);
+      line-height: 1.2;
+    }
+
+    .hero-stat span {
+      font-size: 0.65rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .hero-actions {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: var(--green);
+      color: var(--dark);
+      font-family: var(--f-body);
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 0.8rem 1.75rem;
+      border-radius: var(--radius);
+      border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      letter-spacing: 0.01em;
+    }
+
+    .btn-primary:hover {
+      background: var(--green-light);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: transparent;
+      color: var(--white);
+      font-family: var(--f-body);
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 0.8rem 1.75rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .btn-secondary:hover {
+      background: var(--white-08);
+      border-color: var(--white-20);
+    }
+
+    /* Hero right — animated scanline device */
+    .hero-visual {
+      position: relative;
+      display: flex; justify-content: center; align-items: center;
+    }
+
+    /* ═══════════════════════════════════════════
+       STAT TICKER
+    ═══════════════════════════════════════════ */
+    .stat-ticker {
+      background: var(--dark2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 1.5rem 0;
+      overflow: hidden;
+    }
+
+    .ticker-inner {
+      display: flex; gap: 0;
+      animation: ticker 40s linear infinite;
+    }
+
+    .ticker-inner:hover { animation-play-state: paused; }
+
+    .ticker-item {
+      display: flex; align-items: center; gap: 2rem;
+      padding: 0 3rem;
+      border-right: 1px solid var(--border);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .ticker-num {
+      font-family: var(--f-display);
+      font-size: 2rem;
+      color: var(--green);
+      letter-spacing: 0.05em;
+    }
+
+    .ticker-label {
+      font-size: 0.8rem;
+      color: var(--white-50);
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      line-height: 1.3;
+    }
+
+    .ticker-label strong {
+      display: block;
+      color: var(--white-80);
+      font-weight: 500;
+    }
+
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ═══════════════════════════════════════════
+       SECTION SHARED
+    ═══════════════════════════════════════════ */
+    section { padding: 7rem 0; }
+
+    .section-eyebrow {
+      font-family: var(--f-mono);
+      font-size: 0.72rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--green);
+      margin-bottom: 0.75rem;
+    }
+
+    h2.section-title {
+      font-family: var(--f-display);
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      line-height: 1.0;
+      letter-spacing: 0.03em;
+      color: var(--white);
+      margin-bottom: 1.25rem;
+    }
+
+    h2.section-title em {
+      color: var(--green);
+      font-style: normal;
+    }
+
+    .section-lead {
+      font-family: var(--f-serif);
+      font-size: 1.2rem;
+      font-style: italic;
+      color: var(--white-80);
+      line-height: 1.75;
+      max-width: 640px;
+      margin-bottom: 3rem;
+    }
+
+    .section-alt { background: var(--dark2); }
+    .section-darker { background: var(--dark3); }
+
+    /* ═══════════════════════════════════════════
+       THE PROBLEM
+    ═══════════════════════════════════════════ */
+    .problem-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem; margin-top: 3rem;
+    }
+
+    .problem-card {
+      background: var(--white-04);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+
+    .problem-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    }
+
+    .problem-card.red::before { background: var(--red); }
+    .problem-card.amber::before { background: var(--gold); }
+    .problem-card.yellow::before { background: var(--yellow-card); }
+
+    .problem-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--white-20);
+    }
+
+    .problem-num {
+      font-family: var(--f-display);
+      font-size: 4rem;
+      line-height: 1;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .problem-card.red .problem-num { color: var(--red); }
+    .problem-card.amber .problem-num { color: var(--gold); }
+    .problem-card.yellow .problem-num { color: var(--yellow-card); }
+
+    .problem-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--white);
+    }
+
+    .problem-card p {
+      font-size: 0.88rem;
+      color: var(--white-50);
+      line-height: 1.7;
+    }
+
+    .problem-source {
+      font-family: var(--f-mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      margin-top: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* ═══════════════════════════════════════════
+       HOW IT WORKS
+    ═══════════════════════════════════════════ */
+    .how-header {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 3rem; align-items: start;
+      margin-bottom: 4rem;
+    }
+
+    .how-steps {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .how-step {
+      position: relative;
+    }
+
+    .how-step-num {
+      font-family: var(--f-display);
+      font-size: 5rem;
+      line-height: 1;
+      color: var(--green);
+      opacity: 0.15;
+      position: absolute; top: 0; right: 0;
+      letter-spacing: 0.02em;
+    }
+
+    .how-step-icon {
+      width: 48px; height: 48px;
+      background: var(--green-pale);
+      border: 1px solid var(--border-g);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .how-step h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+      color: var(--white);
+    }
+
+    .how-step p {
+      font-size: 0.88rem;
+      color: var(--white-50);
+      line-height: 1.7;
+    }
+
+    .how-connector {
+      display: flex; align-items: center; justify-content: center;
+      padding-top: 2rem;
+    }
+
+    /* Roles panel */
+    .roles-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem; margin-top: 3rem;
+    }
+
+    .role-card {
+      background: var(--dark3);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      position: relative;
+    }
+
+    .role-card.active-role {
+      border-color: var(--border-g);
+      background: var(--green-pale);
+    }
+
+    .role-badge {
+      font-family: var(--f-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      margin-bottom: 1.25rem;
+      display: inline-block;
+    }
+
+    .role-badge.club { background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(251,191,36,0.2); }
+    .role-badge.steward { background: var(--green-pale); color: var(--green); border: 1px solid var(--border-g); }
+    .role-badge.fan { background: var(--white-04); color: var(--white-80); border: 1px solid var(--border); }
+
+    .role-card h3 {
+      font-size: 1.1rem; font-weight: 600;
+      margin-bottom: 1rem; color: var(--white);
+    }
+
+    .role-list {
+      list-style: none;
+    }
+
+    .role-list li {
+      font-size: 0.88rem;
+      color: var(--white-80);
+      padding: 0.35rem 0;
+      padding-left: 1.25rem;
+      position: relative;
+      border-bottom: 1px solid var(--white-04);
+    }
+
+    .role-list li::before {
+      content: '→';
+      position: absolute; left: 0;
+      color: var(--green);
+    }
+
+    /* ═══════════════════════════════════════════
+       CARD SYSTEM
+    ═══════════════════════════════════════════ */
+    .cards-header {
+      max-width: 640px;
+    }
+
+    .cards-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 1.25rem; margin: 3rem 0;
+    }
+
+    .football-card {
+      aspect-ratio: 3/4;
+      border-radius: 10px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 1.5rem 1rem;
+      position: relative;
+      cursor: default;
+      transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+      transform-style: preserve-3d;
+    }
+
+    .football-card:hover { transform: translateY(-8px) rotate(-2deg); }
+
+    .fc-yellow {
+      background: linear-gradient(160deg, #facc15 0%, #ca8a04 100%);
+      box-shadow: 0 8px 32px rgba(250,204,21,0.3);
+    }
+
+    .fc-red {
+      background: linear-gradient(160deg, #ef4444 0%, #991b1b 100%);
+      box-shadow: 0 8px 32px rgba(239,68,68,0.3);
+    }
+
+    .fc-autoref {
+      background: linear-gradient(160deg, #f97316 0%, #9a3412 100%);
+      box-shadow: 0 8px 32px rgba(249,115,22,0.3);
+    }
+
+    .fc-suspension {
+      background: linear-gradient(160deg, #6366f1 0%, #3730a3 100%);
+      box-shadow: 0 8px 32px rgba(99,102,241,0.3);
+    }
+
+    .fc-ban {
+      background: linear-gradient(160deg, #374151 0%, #111827 100%);
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+
+    .fc-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .fc-name {
+      font-family: var(--f-display);
+      font-size: 1rem;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.95);
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .fc-sub {
+      font-family: var(--f-mono);
+      font-size: 0.6rem;
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      margin-top: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .card-rules-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .card-rule {
+      background: var(--white-04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+
+    .card-rule h4 {
+      font-size: 0.9rem; font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-family: var(--f-mono);
+    }
+
+    .card-rule p {
+      font-size: 0.88rem;
+      color: var(--white-80);
+      line-height: 1.7;
+    }
+
+    /* ═══════════════════════════════════════════
+       CROSS-CLUB NETWORK
+    ═══════════════════════════════════════════ */
+    .network-visual {
+      display: flex; justify-content: center;
+      padding: 3rem 0 2rem;
+    }
+
+    .network-map {
+      position: relative;
+      width: 500px; height: 340px;
+    }
+
+    .network-node {
+      position: absolute;
+      width: 68px; height: 68px;
+      background: var(--dark3);
+      border: 2px solid var(--border-g);
+      border-radius: 50%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      font-family: var(--f-mono);
+      font-size: 0.55rem;
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      text-align: center;
+      cursor: default;
+      transition: border-color 0.3s, background 0.3s;
+    }
+
+    .network-node:hover {
+      border-color: var(--green);
+      background: var(--green-pale);
+    }
+
+    .network-node .nn-abbr {
+      font-family: var(--f-display);
+      font-size: 1.1rem;
+      letter-spacing: 0.05em;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 0.15rem;
+    }
+
+    .network-node.hub {
+      width: 88px; height: 88px;
+      background: var(--green-pale);
+      border-color: var(--green);
+      border-width: 2px;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .network-node.hub .nn-abbr {
+      font-size: 0.7rem;
+      color: var(--green);
+    }
+
+    /* Nodes are children 1-7 inside .network-map (after the SVG which is also a child).
+       SVG is child 1, so nodes are children 2-8. Hub (.hub) overrides its own position. */
+    .network-node:nth-child(2) { top: 10px; left: 40px; }
+    .network-node:nth-child(3) { top: 10px; left: 200px; }
+    .network-node:nth-child(4) { top: 10px; right: 40px; }
+    .network-node:nth-child(5) { top: 50%; left: 50%; transform: translate(-50%, -50%); }
+    .network-node:nth-child(6) { bottom: 10px; left: 40px; }
+    .network-node:nth-child(7) { bottom: 10px; left: 200px; }
+    .network-node:nth-child(8) { bottom: 10px; right: 40px; }
+
+    /* SVG connector lines are handled below */
+
+    .network-caption {
+      text-align: center;
+      font-size: 0.88rem;
+      color: var(--white-50);
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .network-points {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem; margin-top: 3rem;
+    }
+
+    .network-point {
+      text-align: center;
+      padding: 1.5rem;
+    }
+
+    .network-point-icon {
+      font-size: 2rem; margin-bottom: 0.75rem;
+    }
+
+    .network-point h4 {
+      font-size: 0.95rem; font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .network-point p {
+      font-size: 0.85rem; color: var(--white-50);
+      line-height: 1.7;
+    }
+
+    /* ═══════════════════════════════════════════
+       PHONE MOCKUPS / USER GUIDES
+    ═══════════════════════════════════════════ */
+    .guides-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 3rem; align-items: start;
+    }
+
+    .guide-block {}
+
+    .guide-block h3 {
+      font-family: var(--f-display);
+      font-size: 1.6rem;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.6rem;
+    }
+
+    .guide-block .guide-role {
+      font-family: var(--f-mono);
+      font-size: 0.7rem;
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+
+    .guide-block p {
+      font-size: 0.9rem;
+      color: var(--white-80);
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
+    }
+
+    .guide-steps {
+      list-style: none;
+      counter-reset: step;
+      margin-bottom: 2rem;
+    }
+
+    .guide-steps li {
+      counter-increment: step;
+      font-size: 0.88rem;
+      color: var(--white-80);
+      padding: 0.6rem 0 0.6rem 2.5rem;
+      position: relative;
+      border-bottom: 1px solid var(--white-04);
+    }
+
+    .guide-steps li::before {
+      content: counter(step);
+      position: absolute; left: 0;
+      width: 22px; height: 22px;
+      background: var(--green-pale);
+      border: 1px solid var(--border-g);
+      border-radius: 50%;
+      font-family: var(--f-mono);
+      font-size: 0.7rem;
+      color: var(--green);
+      display: flex; align-items: center; justify-content: center;
+      top: 0.65rem;
+    }
+
+    /* Phone mockup */
+    .phone {
+      width: 220px;
+      background: #0a0f1a;
+      border: 2px solid #2a3a4a;
+      border-radius: 36px;
+      padding: 8px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.7), 0 0 0 1px #1a2a3a;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .phone::before {
+      content: '';
+      position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
+      width: 60px; height: 5px;
+      background: #1a2a3a; border-radius: 3px; z-index: 2;
+    }
+
+    .phone-screen {
+      background: var(--dark2);
+      border-radius: 28px;
+      overflow: hidden;
+      min-height: 420px;
+    }
+
+    .pscreen-header {
+      background: #0d1a2a;
+      padding: 2rem 1rem 0.75rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .pscreen-title {
+      font-family: var(--f-display);
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+      color: var(--white);
+    }
+
+    .pscreen-title span { color: var(--green); }
+
+    .pscreen-status {
+      font-family: var(--f-mono);
+      font-size: 0.55rem;
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .pscreen-body {
+      padding: 1rem;
+    }
+
+    /* Gate scanner screen */
+    .scan-area {
+      background: #0a1520;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-bottom: 0.75rem;
+      min-height: 120px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .scan-area::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--green), transparent);
+      animation: scanline 2s ease-in-out infinite;
+    }
+
+    @keyframes scanline {
+      0% { top: 0; opacity: 1; }
+      100% { top: 100%; opacity: 0; }
+    }
+
+    .scan-result {
+      text-align: center;
+    }
+
+    .scan-icon {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; font-weight: 700;
+      margin: 0 auto 0.5rem;
+    }
+
+    .scan-icon.pass { background: rgba(34,197,94,0.15); color: var(--green); }
+    .scan-icon.warn { background: rgba(250,204,21,0.15); color: var(--yellow-card); }
+    .scan-icon.fail { background: rgba(239,68,68,0.15); color: var(--red); }
+
+    .scan-name {
+      font-family: var(--f-mono);
+      font-size: 0.75rem;
+      color: var(--white);
+      margin-bottom: 0.25rem;
+    }
+
+    .scan-badge {
+      font-family: var(--f-mono);
+      font-size: 0.55rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.15rem 0.5rem;
+      border-radius: 3px;
+    }
+
+    .scan-badge.clear { background: rgba(34,197,94,0.15); color: var(--green); border: 1px solid rgba(34,197,94,0.3); }
+    .scan-badge.caution { background: var(--yellow-dim); color: var(--yellow-card); border: 1px solid rgba(250,204,21,0.3); }
+    .scan-badge.denied { background: var(--red-dim); color: var(--red); border: 1px solid rgba(239,68,68,0.3); }
+
+    .pscreen-fan-row {
+      display: flex; align-items: center; gap: 0.6rem;
+      padding: 0.5rem;
+      background: var(--white-04);
+      border-radius: 8px;
+      margin-bottom: 0.4rem;
+    }
+
+    .pscreen-fan-avatar {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #166534, #22c55e);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; font-weight: 600; color: var(--white);
+      flex-shrink: 0;
+    }
+
+    .pscreen-fan-info { flex: 1; min-width: 0; }
+
+    .pscreen-fan-name {
+      font-size: 0.7rem; font-weight: 600; color: var(--white);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+
+    .pscreen-fan-sub {
+      font-family: var(--f-mono);
+      font-size: 0.55rem; color: var(--muted);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+
+    .pscreen-fan-status {
+      flex-shrink: 0;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem;
+    }
+
+    .pscreen-fan-status.ok { background: rgba(34,197,94,0.15); color: var(--green); }
+    .pscreen-fan-status.bad { background: var(--red-dim); color: var(--red); }
+
+    /* Card issue screen */
+    .card-issue-area {
+      padding: 0.75rem;
+    }
+
+    .mini-card {
+      width: 100%; aspect-ratio: 1.6;
+      border-radius: 8px;
+      display: flex; flex-direction: column;
+      justify-content: flex-end;
+      padding: 0.75rem;
+      margin-bottom: 0.75rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mini-card.yellow {
+      background: linear-gradient(135deg, #facc15, #a16207);
+      box-shadow: 0 4px 16px rgba(250,204,21,0.3);
+    }
+
+    .mini-card.red {
+      background: linear-gradient(135deg, #ef4444, #7f1d1d);
+      box-shadow: 0 4px 16px rgba(239,68,68,0.3);
+    }
+
+    .mini-card-label {
+      font-family: var(--f-display);
+      font-size: 1.3rem;
+      letter-spacing: 0.05em;
+      color: rgba(255,255,255,0.95);
+    }
+
+    .mini-card-sub {
+      font-family: var(--f-mono);
+      font-size: 0.55rem;
+      color: rgba(255,255,255,0.6);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .card-form-row {
+      margin-bottom: 0.5rem;
+    }
+
+    .card-form-label {
+      font-family: var(--f-mono);
+      font-size: 0.55rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 0.2rem;
+    }
+
+    .card-form-input {
+      background: var(--white-04);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.35rem 0.5rem;
+      font-size: 0.7rem;
+      color: var(--white);
+      width: 100%;
+      font-family: var(--f-mono);
+    }
+
+    /* Dashboard tablet mockup */
+    .tablet {
+      background: #0a0f1a;
+      border: 2px solid #2a3a4a;
+      border-radius: 20px;
+      padding: 8px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.7);
+      position: relative;
+    }
+
+    .tablet::before {
+      content: '';
+      position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
+      width: 40px; height: 4px;
+      background: #1a2a3a; border-radius: 2px;
+    }
+
+    .tablet-screen {
+      background: var(--dark2);
+      border-radius: 14px;
+      overflow: hidden;
+      min-height: 300px;
+    }
+
+    .dash-header {
+      background: #0d1a2a;
+      padding: 0.75rem 1rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .dash-title {
+      font-family: var(--f-display);
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+    }
+
+    .dash-title span { color: var(--green); }
+
+    .dash-club {
+      font-family: var(--f-mono);
+      font-size: 0.6rem;
+      color: var(--green);
+      background: var(--green-pale);
+      padding: 0.15rem 0.5rem;
+      border-radius: 3px;
+    }
+
+    .dash-body {
+      padding: 0.75rem;
+    }
+
+    .dash-stats-row {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0.5rem; margin-bottom: 0.75rem;
+    }
+
+    .dash-stat-box {
+      background: var(--white-04);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.5rem;
+      text-align: center;
+    }
+
+    .dash-stat-num {
+      font-family: var(--f-display);
+      font-size: 1.1rem;
+      letter-spacing: 0.03em;
+      color: var(--green);
+      line-height: 1;
+    }
+
+    .dash-stat-label {
+      font-family: var(--f-mono);
+      font-size: 0.5rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 0.15rem;
+    }
+
+    .dash-table {
+      background: var(--white-04);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .dash-table-header {
+      display: grid; grid-template-columns: 1fr 1fr 1fr 60px;
+      gap: 0.25rem;
+      padding: 0.4rem 0.5rem;
+      background: var(--dark3);
+    }
+
+    .dash-th {
+      font-family: var(--f-mono);
+      font-size: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+
+    .dash-row {
+      display: grid; grid-template-columns: 1fr 1fr 1fr 60px;
+      gap: 0.25rem;
+      padding: 0.35rem 0.5rem;
+      border-bottom: 1px solid var(--white-04);
+      align-items: center;
+    }
+
+    .dash-cell {
+      font-size: 0.6rem;
+      color: var(--white-80);
+      font-family: var(--f-mono);
+    }
+
+    .dash-cell-badge {
+      display: inline-flex;
+      width: 16px; height: 16px;
+      border-radius: 3px;
+      align-items: center; justify-content: center;
+      font-size: 0.5rem;
+      font-weight: 700;
+    }
+
+    .badge-y { background: var(--yellow-dim); color: var(--yellow-card); }
+    .badge-r { background: var(--red-dim); color: var(--red); }
+    .badge-g { background: var(--green-pale); color: var(--green); }
+
+    /* Fan pass mockup */
+    .fan-pass-screen {
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .qr-placeholder {
+      width: 100px; height: 100px;
+      margin: 0 auto 0.75rem;
+      background: var(--white);
+      border-radius: 8px;
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      grid-template-rows: repeat(7, 1fr);
+      gap: 1px;
+      padding: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .qr-cell {
+      background: var(--dark);
+      border-radius: 1px;
+    }
+
+    .qr-refresh {
+      font-family: var(--f-mono);
+      font-size: 0.55rem;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .qr-refresh span {
+      color: var(--green);
+    }
+
+    .fan-rep {
+      display: flex; gap: 0.4rem; justify-content: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .rep-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+    }
+
+    .rep-dot.ok { background: var(--green); }
+    .rep-dot.empty { background: var(--white-08); border: 1px solid var(--border); }
+
+    .fan-cred-row {
+      display: flex; align-items: center; gap: 0.4rem;
+      padding: 0.4rem;
+      background: var(--white-04);
+      border-radius: 6px;
+      margin-bottom: 0.3rem;
+    }
+
+    .fan-cred-icon { font-size: 0.8rem; }
+
+    .fan-cred-text {
+      font-family: var(--f-mono);
+      font-size: 0.6rem;
+      color: var(--white-80);
+    }
+
+    .fan-cred-status {
+      margin-left: auto;
+      font-family: var(--f-mono);
+      font-size: 0.55rem;
+      padding: 0.1rem 0.3rem;
+      border-radius: 3px;
+    }
+
+    .cred-active { background: var(--green-pale); color: var(--green); }
+    .cred-warn { background: var(--yellow-dim); color: var(--yellow-card); }
+
+    /* ═══════════════════════════════════════════
+       COMPARISON TABLE
+    ═══════════════════════════════════════════ */
+    .compare-header {
+      max-width: 640px; margin-bottom: 3rem;
+    }
+
+    .compare-table-wrap {
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      min-width: 700px;
+    }
+
+    .compare-table thead tr {
+      background: var(--dark3);
+    }
+
+    .compare-table th {
+      padding: 1rem 1.25rem;
+      text-align: left;
+      font-weight: 600;
+      color: var(--white);
+      font-size: 0.85rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .compare-table th.matchpass-col {
+      background: var(--green-pale);
+      color: var(--green-light);
+      border-top: 3px solid var(--green);
+    }
+
+    .compare-table td {
+      padding: 0.85rem 1.25rem;
+      border-bottom: 1px solid var(--white-04);
+      color: var(--white-80);
+      vertical-align: middle;
+    }
+
+    .compare-table tr:last-child td { border-bottom: none; }
+
+    .compare-table tr:hover td { background: var(--white-04); }
+
+    .compare-table td.matchpass-col {
+      background: var(--green-pale);
+    }
+
+    .compare-table td.feature-name {
+      font-weight: 500;
+      color: var(--white);
+    }
+
+    .ct-yes { color: var(--green); font-size: 1.1rem; }
+    .ct-no { color: var(--muted); font-size: 1.1rem; }
+    .ct-partial { color: var(--gold); font-size: 0.8rem; font-family: var(--f-mono); }
+    .ct-cost { font-family: var(--f-mono); font-size: 0.8rem; }
+    .ct-free { color: var(--green); font-family: var(--f-mono); font-weight: 600; }
+
+    /* ═══════════════════════════════════════════
+       V4V MODEL
+    ═══════════════════════════════════════════ */
+    .v4v-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: start;
+    }
+
+    .v4v-principle {
+      font-family: var(--f-serif);
+      font-size: 1.4rem;
+      font-style: italic;
+      color: var(--white-80);
+      line-height: 1.65;
+      padding-left: 1.5rem;
+      border-left: 3px solid var(--green);
+      margin-bottom: 2rem;
+    }
+
+    .v4v-flow {
+      display: flex; flex-direction: column; gap: 0;
+    }
+
+    .v4v-node {
+      display: flex; gap: 1.25rem;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--white-04);
+      align-items: flex-start;
+    }
+
+    .v4v-node:last-child { border-bottom: none; }
+
+    .v4v-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: var(--green-pale);
+      border: 1px solid var(--border-g);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .v4v-text h4 {
+      font-size: 0.95rem; font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .v4v-text p {
+      font-size: 0.85rem;
+      color: var(--white-50);
+      line-height: 1.65;
+    }
+
+    .v4v-tiers {
+      margin-top: 0.5rem;
+    }
+
+    .v4v-tier {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius);
+      margin-bottom: 0.5rem;
+      border: 1px solid var(--border);
+      background: var(--white-04);
+      transition: border-color 0.2s;
+    }
+
+    .v4v-tier:hover { border-color: var(--border-g); }
+
+    .v4v-tier-amount {
+      font-family: var(--f-display);
+      font-size: 1.5rem;
+      color: var(--green);
+      letter-spacing: 0.02em;
+      min-width: 60px;
+    }
+
+    .v4v-tier-info h5 {
+      font-size: 0.9rem; font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .v4v-tier-info p {
+      font-size: 0.8rem; color: var(--white-50);
+    }
+
+    /* ═══════════════════════════════════════════
+       DONATE
+    ═══════════════════════════════════════════ */
+    .donate-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.5rem; margin-top: 3rem;
+    }
+
+    .donate-card {
+      background: var(--dark3);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      transition: border-color 0.3s;
+    }
+
+    .donate-card:hover { border-color: var(--border-g); }
+
+    .donate-card h3 {
+      display: flex; align-items: center; gap: 0.6rem;
+      font-size: 1.1rem; font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .donate-card .dc-icon {
+      width: 32px; height: 32px;
+      background: var(--green-pale);
+      border: 1px solid var(--border-g);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem;
+    }
+
+    .donate-card p {
+      font-size: 0.88rem; color: var(--white-50);
+      line-height: 1.7; margin-bottom: 1.25rem;
+    }
+
+    .donate-detail {
+      background: var(--white-04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+    }
+
+    .donate-row {
+      display: flex; gap: 0.5rem;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid var(--white-04);
+      align-items: center;
+    }
+
+    .donate-row:last-child { border-bottom: none; }
+
+    .donate-label {
+      font-family: var(--f-mono);
+      font-size: 0.68rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      min-width: 90px;
+    }
+
+    .donate-value {
+      font-family: var(--f-mono);
+      font-size: 0.75rem;
+      color: var(--white);
+      word-break: break-all;
+    }
+
+    .donate-value.highlight { color: var(--green); }
+
+    .btc-address-block {
+      background: var(--white-04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem;
+    }
+
+    .btc-address {
+      font-family: var(--f-mono);
+      font-size: 0.72rem;
+      color: var(--gold);
+      word-break: break-all;
+      line-height: 1.6;
+      letter-spacing: 0.04em;
+    }
+
+    .btc-qr {
+      width: 120px; height: 120px;
+      margin: 1rem auto 0;
+      background: var(--white);
+      border-radius: 8px;
+      padding: 10px;
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      grid-template-rows: repeat(9, 1fr);
+      gap: 1px;
+    }
+
+    .btc-qr-cell {
+      background: var(--dark);
+      border-radius: 1px;
+    }
+
+    .donate-note {
+      font-family: var(--f-mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      margin-top: 1rem;
+      padding: 0.5rem 0.75rem;
+      background: var(--white-04);
+      border-radius: 4px;
+      line-height: 1.6;
+    }
+
+    /* ═══════════════════════════════════════════
+       IMPLEMENTATION
+    ═══════════════════════════════════════════ */
+    .impl-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: start;
+    }
+
+    .impl-steps {
+      counter-reset: impl-step;
+      display: flex; flex-direction: column; gap: 0;
+    }
+
+    .impl-step {
+      counter-increment: impl-step;
+      display: flex; gap: 1.5rem;
+      padding: 1.75rem 0;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+
+    .impl-step:last-child { border-bottom: none; }
+
+    .impl-step-num {
+      width: 40px; height: 40px;
+      background: var(--green-pale);
+      border: 1px solid var(--border-g);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--f-display);
+      font-size: 1.1rem;
+      color: var(--green);
+      flex-shrink: 0;
+    }
+
+    .impl-step-content h4 {
+      font-size: 1rem; font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .impl-step-content p {
+      font-size: 0.88rem;
+      color: var(--white-50);
+      line-height: 1.7;
+    }
+
+    .impl-step-content .impl-note {
+      font-family: var(--f-mono);
+      font-size: 0.72rem;
+      color: var(--green);
+      margin-top: 0.5rem;
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+
+    .impl-requirements {
+      background: var(--dark3);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+    }
+
+    .impl-requirements h3 {
+      font-size: 1rem; font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: var(--green);
+      font-family: var(--f-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .req-item {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--white-04);
+    }
+
+    .req-item:last-child { border-bottom: none; }
+
+    .req-check {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: var(--green-pale);
+      border: 1px solid var(--border-g);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--green);
+      font-size: 0.7rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .req-text {
+      font-size: 0.88rem; color: var(--white-80);
+      line-height: 1.6;
+    }
+
+    .req-text span {
+      display: block; font-size: 0.78rem; color: var(--muted);
+      margin-top: 0.15rem;
+    }
+
+    /* ═══════════════════════════════════════════
+       FAQ
+    ═══════════════════════════════════════════ */
+    .faq-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .faq-item {
+      background: var(--dark2);
+      padding: 0;
+    }
+
+    .faq-question {
+      width: 100%; text-align: left;
+      background: none; border: none;
+      padding: 1.5rem;
+      display: flex; align-items: flex-start; gap: 1rem;
+      cursor: pointer;
+      color: var(--white);
+      font-family: var(--f-body);
+      font-size: 0.95rem;
+      font-weight: 600;
+      line-height: 1.4;
+      border-bottom: 1px solid transparent;
+      transition: background 0.2s;
+    }
+
+    .faq-question:hover { background: var(--white-04); }
+
+    .faq-question.open {
+      color: var(--green);
+      border-bottom-color: var(--border);
+    }
+
+    .faq-q-icon {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: var(--green-pale);
+      border: 1px solid var(--border-g);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 700;
+      color: var(--green);
+      flex-shrink: 0; margin-top: 0.1rem;
+    }
+
+    .faq-arrow {
+      margin-left: auto; flex-shrink: 0;
+      font-size: 0.8rem;
+      color: var(--muted);
+      transition: transform 0.3s;
+    }
+
+    .faq-question.open .faq-arrow { transform: rotate(180deg); }
+
+    .faq-answer {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+
+    .faq-answer.open { max-height: 400px; }
+
+    .faq-answer-inner {
+      padding: 1rem 1.5rem 1.5rem;
+      font-size: 0.88rem;
+      color: var(--white-80);
+      line-height: 1.75;
+      padding-left: 3.5rem;
+    }
+
+    .faq-answer-inner a {
+      color: var(--green);
+      text-decoration: underline;
+    }
+
+    /* ═══════════════════════════════════════════
+       CTA BAND
+    ═══════════════════════════════════════════ */
+    .cta-band {
+      background: var(--green-dim);
+      border-top: 1px solid var(--border-g);
+      border-bottom: 1px solid var(--border-g);
+      padding: 5rem 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-band::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 80% at 50% 50%, rgba(34,197,94,0.08) 0%, transparent 70%);
+    }
+
+    .cta-band h2 {
+      font-family: var(--f-display);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      letter-spacing: 0.03em;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .cta-band p {
+      font-size: 1.1rem;
+      color: var(--white-80);
+      max-width: 580px;
+      margin: 0 auto 2.5rem;
+      position: relative;
+    }
+
+    .cta-band .actions {
+      display: flex; gap: 1rem;
+      justify-content: center; flex-wrap: wrap;
+      position: relative;
+    }
+
+    /* ═══════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════ */
+    footer {
+      background: var(--dark);
+      border-top: 1px solid var(--border);
+      padding: 3rem 0 2rem;
+    }
+
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem; margin-bottom: 3rem;
+    }
+
+    .footer-brand p {
+      font-size: 0.88rem; color: var(--white-50);
+      line-height: 1.75; margin-top: 0.75rem;
+      max-width: 280px;
+    }
+
+    .footer-col h4 {
+      font-family: var(--f-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .footer-col ul { list-style: none; }
+
+    .footer-col ul li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-col ul a {
+      font-size: 0.88rem;
+      color: var(--white-50);
+      transition: color 0.2s;
+    }
+
+    .footer-col ul a:hover { color: var(--green); }
+
+    .footer-bottom {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-legal {
+      font-size: 0.78rem; color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .footer-meta {
+      font-family: var(--f-mono);
+      font-size: 0.68rem;
+      color: var(--muted);
+      text-align: right;
+    }
+
+    .footer-meta a { color: var(--green); }
+
+    /* ═══════════════════════════════════════════
+       UTILITIES
+    ═══════════════════════════════════════════ */
+    .tag {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      font-family: var(--f-mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .tag-green { background: var(--green-pale); color: var(--green-light); border: 1px solid var(--border-g); }
+    .tag-gold { background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(251,191,36,0.2); }
+    .tag-red { background: var(--red-dim); color: var(--red); border: 1px solid rgba(239,68,68,0.2); }
+
+    .text-green { color: var(--green); }
+    .text-gold { color: var(--gold); }
+    .text-muted { color: var(--muted); }
+
+    .divider {
+      height: 1px; background: var(--border);
+      margin: 2rem 0;
+    }
+
+    /* FADE IN animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ═══════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════ */
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-visual { display: none; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .how-steps { grid-template-columns: 1fr; }
+      .roles-grid { grid-template-columns: 1fr; }
+      .cards-grid { grid-template-columns: repeat(3, 1fr); }
+      .guides-grid { grid-template-columns: 1fr; }
+      .network-points { grid-template-columns: 1fr 1fr; }
+      .v4v-grid { grid-template-columns: 1fr; }
+      .donate-grid { grid-template-columns: 1fr; }
+      .impl-grid { grid-template-columns: 1fr; }
+      .faq-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .how-header { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+    }
+
+    @media (max-width: 600px) {
+      .cards-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+      .compare-table-wrap { font-size: 0.8rem; }
+      .dash-stats-row { grid-template-columns: repeat(2, 1fr); }
+      .network-points { grid-template-columns: 1fr; }
+    }
+
+    /* Mobile nav drawer */
+    .mobile-nav {
+      display: none;
+      position: fixed; top: 64px; left: 0; right: 0; z-index: 99;
+      background: var(--dark2);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem 1.5rem;
+    }
+
+    .mobile-nav.open { display: block; }
+
+    .mobile-nav a {
+      display: block;
+      padding: 0.7rem 0;
+      border-bottom: 1px solid var(--white-04);
+      font-size: 0.95rem;
+      color: var(--white-80);
+    }
+
+    .mobile-nav a:hover { color: var(--green); }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       NAV
+  ═══════════════════════════════════════════ -->
+  <nav id="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        MATCH<span>PASS</span>
+        <span class="badge">.club</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#card-system">Card System</a></li>
+        <li><a href="#for-clubs">For Clubs</a></li>
+        <li><a href="#user-guides">User Guides</a></li>
+        <li><a href="#v4v">V4V Model</a></li>
+        <li><a href="#implement">Implement</a></li>
+        <li><a href="#donate" class="nav-cta">Support MatchPass</a></li>
+      </ul>
+      <div class="nav-hamburger" id="hamburger" onclick="toggleMobileNav()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#how-it-works" onclick="toggleMobileNav()">How It Works</a>
+    <a href="#card-system" onclick="toggleMobileNav()">Card System</a>
+    <a href="#for-clubs" onclick="toggleMobileNav()">For Clubs</a>
+    <a href="#user-guides" onclick="toggleMobileNav()">User Guides</a>
+    <a href="#comparison" onclick="toggleMobileNav()">Compare</a>
+    <a href="#v4v" onclick="toggleMobileNav()">V4V Model</a>
+    <a href="#implement" onclick="toggleMobileNav()">Implement</a>
+    <a href="#donate" onclick="toggleMobileNav()">Donate</a>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       HERO
+  ═══════════════════════════════════════════ -->
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content fade-in">
+          <p class="hero-eyebrow">Football's Safety Infrastructure</p>
+          <h1 class="hero-title">
+            The Identity<br>Layer<br>Football<br><em>Never Had.</em>
+          </h1>
+          <p class="hero-desc">
+            2,439 active banning orders. 1,583 matches with incidents in 2024/25. The enforcement infrastructure can't keep up. MatchPass gives every club — from Sunday League to the National League — the digital safety layer the game has been waiting for.
+          </p>
+          <div class="hero-stat-bar">
+            <div class="hero-stat">
+              <strong class="counter" data-target="2439">0</strong>
+              <span>Active FBOs</span>
+            </div>
+            <div class="hero-stat">
+              <strong class="counter" data-target="1583">0</strong>
+              <span>Match Incidents</span>
+            </div>
+            <div class="hero-stat">
+              <strong>£70M</strong>
+              <span>Annual Policing Cost</span>
+            </div>
+            <div class="hero-stat">
+              <strong>£0</strong>
+              <span>Cost to Implement</span>
+            </div>
+          </div>
+          <div class="hero-actions">
+            <a href="#implement" class="btn-primary">Implement at Your Club →</a>
+            <a href="#how-it-works" class="btn-secondary">See How It Works</a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <!-- Animated gate scanner mockup -->
+          <div class="phone" style="transform: rotate(3deg) translateY(-20px);">
+            <div class="phone-screen">
+              <div class="pscreen-header">
+                <div class="pscreen-title">MATCH<span>PASS</span></div>
+                <div class="pscreen-status">● LIVE</div>
+              </div>
+              <div class="pscreen-body">
+                <div class="scan-area">
+                  <div class="scan-result">
+                    <div class="scan-icon pass">✓</div>
+                    <div class="scan-name">T. HARTLEY · #4821</div>
+                    <div class="scan-badge clear">Clear to Enter</div>
+                  </div>
+                </div>
+                <div class="pscreen-fan-row">
+                  <div class="pscreen-fan-avatar">JH</div>
+                  <div class="pscreen-fan-info">
+                    <div class="pscreen-fan-name">James Hartley</div>
+                    <div class="pscreen-fan-sub">Season ticket · North Stand</div>
+                  </div>
+                  <div class="pscreen-fan-status ok">✓</div>
+                </div>
+                <div class="pscreen-fan-row">
+                  <div class="pscreen-fan-avatar" style="background: linear-gradient(135deg,#4338ca,#6366f1)">SM</div>
+                  <div class="pscreen-fan-info">
+                    <div class="pscreen-fan-name">Sarah Mahmood</div>
+                    <div class="pscreen-fan-sub">Match ticket · Block C</div>
+                  </div>
+                  <div class="pscreen-fan-status ok">✓</div>
+                </div>
+                <div class="pscreen-fan-row">
+                  <div class="pscreen-fan-avatar" style="background: linear-gradient(135deg,#991b1b,#ef4444)">RP</div>
+                  <div class="pscreen-fan-info">
+                    <div class="pscreen-fan-name">R. Patterson</div>
+                    <div class="pscreen-fan-sub">⚠ Active ban — 4 matches</div>
+                  </div>
+                  <div class="pscreen-fan-status bad">✕</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       STAT TICKER
+  ═══════════════════════════════════════════ -->
+  <div class="stat-ticker">
+    <div class="ticker-inner" id="ticker">
+      <!-- Items duplicated for seamless loop -->
+      <div class="ticker-item">
+        <span class="ticker-num">2,439</span>
+        <span class="ticker-label"><strong>Active Banning Orders</strong>Highest since 2012/13 · up 12% YoY</span>
+      </div>
+      <div class="ticker-item">
+        <span class="ticker-num">685</span>
+        <span class="ticker-label"><strong>New Orders Issued</strong>In 2024/25 · enforcement can't scale</span>
+      </div>
+      <div class="ticker-item">
+        <span class="ticker-num">1,583</span>
+        <span class="ticker-label"><strong>Matches with Incidents</strong>Up 18% · hate crime, pyro, missiles</span>
+      </div>
+      <div class="ticker-item">
+        <span class="ticker-num">£70M</span>
+        <span class="ticker-label"><strong>Annual Policing Cost</strong>Taxpayers cover £56M — clubs pay £15M</span>
+      </div>
+      <div class="ticker-item">
+        <span class="ticker-num">£12/hr</span>
+        <span class="ticker-label"><strong>Average Steward Wage</strong>Worse than a supermarket · FSOA survey</span>
+      </div>
+      <div class="ticker-item">
+        <span class="ticker-num">–25%</span>
+        <span class="ticker-label"><strong>Netherlands Stadium Bans</strong>After digital identity integration</span>
+      </div>
+      <div class="ticker-item">
+        <span class="ticker-num">606%</span>
+        <span class="ticker-label"><strong>WSL Attendance Growth</strong>Since 2018/19 · safety demand rising</span>
+      </div>
+      <!-- Duplicate for loop -->
+      <div class="ticker-item">
+        <span class="ticker-num">2,439</span>
+        <span class="ticker-label"><strong>Active Banning Orders</strong>Highest since 2012/13 · up 12% YoY</span>
+      </div>
+      <div class="ticker-item">
+        <span class="ticker-num">685</span>
+        <span class="ticker-label"><strong>New Orders Issued</strong>In 2024/25 · enforcement can't scale</span>
+      </div>
+      <div class="ticker-item">
+        <span class="ticker-num">1,583</span>
+        <span class="ticker-label"><strong>Matches with Incidents</strong>Up 18% · hate crime, pyro, missiles</span>
+      </div>
+      <div class="ticker-item">
+        <span class="ticker-num">£70M</span>
+        <span class="ticker-label"><strong>Annual Policing Cost</strong>Taxpayers cover £56M — clubs pay £15M</span>
+      </div>
+      <div class="ticker-item">
+        <span class="ticker-num">£12/hr</span>
+        <span class="ticker-label"><strong>Average Steward Wage</strong>Worse than a supermarket · FSOA survey</span>
+      </div>
+      <div class="ticker-item">
+        <span class="ticker-num">–25%</span>
+        <span class="ticker-label"><strong>Netherlands Stadium Bans</strong>After digital identity integration</span>
+      </div>
+      <div class="ticker-item">
+        <span class="ticker-num">606%</span>
+        <span class="ticker-label"><strong>WSL Attendance Growth</strong>Since 2018/19 · safety demand rising</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       THE PROBLEM
+  ═══════════════════════════════════════════ -->
+  <section class="section-alt" id="problem">
+    <div class="container">
+      <p class="section-eyebrow">The Problem</p>
+      <h2 class="section-title">The Game Is <em>Broken</em><br>In Three Ways.</h2>
+      <p class="section-lead">Not broken in the stands — broken in the infrastructure underneath. Three structural failures that no amount of stewarding spend or government programmes can paper over.</p>
+      <div class="problem-grid">
+        <div class="problem-card red fade-in">
+          <div class="problem-num">01</div>
+          <h3>Banning Orders Don't Cross Clubs</h3>
+          <p>A fan banned at Rochdale can walk straight into Salford City. There is no digital infrastructure to propagate sanctions across the pyramid. Clubs operate in silos. The banned fan knows it.</p>
+          <p class="problem-source">Football Banning Orders Annual Report 2024/25</p>
+        </div>
+        <div class="problem-card amber fade-in" style="transition-delay: 0.1s">
+          <div class="problem-num">02</div>
+          <h3>No Digital Infrastructure Below the Top Flight</h3>
+          <p>The Premier League has SafeTicketing, CCTV, biometrics. League Two clubs have a spreadsheet and a memory. Non-league clubs have a photocopied list. The tools don't exist for the clubs that need them most.</p>
+          <p class="problem-source">SGSA Ground Grading Assessment 2024</p>
+        </div>
+        <div class="problem-card yellow fade-in" style="transition-delay: 0.2s">
+          <div class="problem-num">03</div>
+          <h3>Stewards Are Underpaid and Under-Armed</h3>
+          <p>£12.27/hr nationally. £7-9/hr outside London. 57% pay satisfaction. Worst recruitment crisis in five years. And when they do show up, they're holding paper lists. We gave them a Chromebook problem and paid them in change.</p>
+          <p class="problem-source">FSOA Workforce Survey 2024 · SGSA</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       HOW IT WORKS
+  ═══════════════════════════════════════════ -->
+  <section id="how-it-works">
+    <div class="container">
+      <div class="how-header">
+        <div>
+          <p class="section-eyebrow">How It Works</p>
+          <h2 class="section-title">Identity at<br>the <em>Turnstile.</em></h2>
+        </div>
+        <div>
+          <p class="section-lead" style="margin-bottom: 0">MatchPass is a three-layer system: a fan identity credential, a steward-facing PWA, and a cross-club reputation network. All three work together. None of them require the FA's permission.</p>
+        </div>
+      </div>
+      <div class="how-steps fade-in">
+        <div class="how-step">
+          <div class="how-step-num">1</div>
+          <div class="how-step-icon">🪪</div>
+          <h3>Fan Gets Their Signet Identity</h3>
+          <p>The fan installs mysignet.app — a self-sovereign identity wallet. They upload a photo, verify basic details, and receive a cryptographic credential. No central database. The fan owns their identity.</p>
+        </div>
+        <div class="how-step">
+          <div class="how-step-num">2</div>
+          <div class="how-step-icon">📱</div>
+          <h3>Steward Scans at the Gate</h3>
+          <p>The fan shows their Signet QR code on their phone (or taps an NFC card or wristband). The steward's app verifies the credential in under 2 seconds: valid ticket, no active ban, photo match. Green light = through. The same credential scanned twice at the same match triggers an automatic card — sharing your pass is a risk to your own record.</p>
+        </div>
+        <div class="how-step">
+          <div class="how-step-num">3</div>
+          <div class="how-step-icon">🌐</div>
+          <h3>Incidents Propagate Across the Network</h3>
+          <p>If a card is issued — yellow warning, red, or full ban — it propagates across every MatchPass club via the Nostr protocol. Cryptographically signed. Tamper-proof. The fan can see their own record. Every card is challengeable.</p>
+        </div>
+      </div>
+
+      <div class="divider" style="margin: 4rem 0;"></div>
+
+      <p class="section-eyebrow">Three Roles, One System</p>
+      <div class="roles-grid fade-in">
+        <div class="role-card">
+          <span class="role-badge club">⚙ Club Admin</span>
+          <h3>Club Safety Officer</h3>
+          <ul class="role-list">
+            <li>View cross-club incident dashboard</li>
+            <li>Manage steward access and permissions</li>
+            <li>Issue and review formal sanctions</li>
+            <li>Export GDPR-compliant records</li>
+            <li>Set season-specific gate rules</li>
+            <li>Handle safeguarding cases privately</li>
+          </ul>
+        </div>
+        <div class="role-card active-role">
+          <span class="role-badge steward">⚡ Steward</span>
+          <h3>Matchday Steward</h3>
+          <ul class="role-list">
+            <li>Scan fan QR codes at the turnstile</li>
+            <li>Instant pass / warn / deny decision</li>
+            <li>Issue yellow or red cards on the spot</li>
+            <li>Works fully offline (syncs on reconnect)</li>
+            <li>No training required beyond 5 minutes</li>
+            <li>Any Android or iPhone, no hardware needed</li>
+          </ul>
+        </div>
+        <div class="role-card">
+          <span class="role-badge fan">👤 Fan</span>
+          <h3>Supporter</h3>
+          <ul class="role-list">
+            <li>One identity, all clubs on the network</li>
+            <li>QR refreshes every 30 seconds — makes gaming it more effort than it's worth</li>
+            <li>See your own full reputation record</li>
+            <li>Challenge any card within 48 hours</li>
+            <li>NFC card or wristband option — no phone needed</li>
+            <li>Photo-locked for the season (fan controls their data)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       CARD SYSTEM
+  ═══════════════════════════════════════════ -->
+  <section class="section-alt" id="card-system">
+    <div class="container">
+      <div class="cards-header">
+        <p class="section-eyebrow">The Card System</p>
+        <h2 class="section-title">Language Every<br>Fan <em>Already Knows.</em></h2>
+        <p class="section-lead">Yellow card. Red card. Suspension. Ban. The disciplinary framework maps directly onto football's existing culture. No new concepts to explain. Everyone already understands what a red card means.</p>
+      </div>
+      <div class="cards-grid fade-in">
+        <div class="football-card fc-yellow">
+          <div class="fc-icon">🟨</div>
+          <div class="fc-name">YELLOW<br>CARD</div>
+          <div class="fc-sub">Formal Warning</div>
+        </div>
+        <div class="football-card fc-red">
+          <div class="fc-icon">🟥</div>
+          <div class="fc-name">RED<br>CARD</div>
+          <div class="fc-sub">Immediate Sanction</div>
+        </div>
+        <div class="football-card fc-autoref">
+          <div class="fc-icon">⚡</div>
+          <div class="fc-name">AUTO<br>RED</div>
+          <div class="fc-sub">2nd Yellow Triggers</div>
+        </div>
+        <div class="football-card fc-suspension">
+          <div class="fc-icon">🚫</div>
+          <div class="fc-name">SUSPEN<br>SION</div>
+          <div class="fc-sub">N Matches</div>
+        </div>
+        <div class="football-card fc-ban">
+          <div class="fc-icon">⛔</div>
+          <div class="fc-name">FULL<br>BAN</div>
+          <div class="fc-sub">Season or Permanent</div>
+        </div>
+      </div>
+      <div class="card-rules-grid fade-in">
+        <div class="card-rule">
+          <h4>Accumulation</h4>
+          <p>Three yellow cards trigger an automatic review. A second yellow in the same match is an automatic red. These thresholds are club-configurable. The system enforces them — no admin overhead.</p>
+        </div>
+        <div class="card-rule">
+          <h4>Clean Sheet</h4>
+          <p>Yellow cards expire after 5 clean match appearances. Red cards expire after 10. Fans who stay clean rebuild their reputation automatically. Good behaviour is rewarded. Bad behaviour accumulates.</p>
+        </div>
+        <div class="card-rule">
+          <h4>Challenge Window</h4>
+          <p>Every card is challengeable within 48 hours. The fan receives a notification, can submit their account, and the safety officer must review. All challenges are logged. Appeals are transparent.</p>
+        </div>
+        <div class="card-rule">
+          <h4>Cross-Club Propagation</h4>
+          <p>Bans and suspensions are signed with the issuing club's key and published to the Nostr relay network. Every club on the MatchPass network sees them within seconds. A ban at one club is a ban everywhere on the network.</p>
+        </div>
+        <div class="card-rule">
+          <h4>Scope Options</h4>
+          <p>Suspensions can be home-only, away-only, or all grounds. Clubs set the scope when issuing. The network respects and propagates the scope. A home ban doesn't block away games unless the club specifies it.</p>
+        </div>
+        <div class="card-rule">
+          <h4>Safeguarding</h4>
+          <p>A dedicated safeguarding officer role exists with private case management. Sensitive incidents are not propagated publicly. Only the network-level flag ("safeguarding concern — contact this club") is shared.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       CROSS-CLUB NETWORK
+  ═══════════════════════════════════════════ -->
+  <section id="network">
+    <div class="container">
+      <p class="section-eyebrow">The Network</p>
+      <h2 class="section-title">One <em>Ban.</em><br>Every Club.</h2>
+      <p class="section-lead">The network is the product. One club implementing MatchPass is useful. Ten clubs is transformative. The value compounds with every club that joins.</p>
+
+      <div class="network-visual fade-in">
+        <div class="network-map">
+          <svg width="500" height="340" viewBox="0 0 500 340" style="position:absolute;top:0;left:0;pointer-events:none;" aria-hidden="true">
+            <!-- Lines from hub to nodes -->
+            <line x1="250" y1="170" x2="74" y2="44" stroke="rgba(34,197,94,0.2)" stroke-width="1.5" stroke-dasharray="4,4"/>
+            <line x1="250" y1="170" x2="234" y2="44" stroke="rgba(34,197,94,0.3)" stroke-width="1.5" stroke-dasharray="4,4"/>
+            <line x1="250" y1="170" x2="426" y2="44" stroke="rgba(34,197,94,0.2)" stroke-width="1.5" stroke-dasharray="4,4"/>
+            <line x1="250" y1="170" x2="74" y2="296" stroke="rgba(34,197,94,0.2)" stroke-width="1.5" stroke-dasharray="4,4"/>
+            <line x1="250" y1="170" x2="234" y2="296" stroke="rgba(34,197,94,0.3)" stroke-width="1.5" stroke-dasharray="4,4"/>
+            <line x1="250" y1="170" x2="426" y2="296" stroke="rgba(34,197,94,0.2)" stroke-width="1.5" stroke-dasharray="4,4"/>
+            <!-- Cross-connections -->
+            <line x1="74" y1="44" x2="234" y2="44" stroke="rgba(34,197,94,0.08)" stroke-width="1"/>
+            <line x1="234" y1="44" x2="426" y2="44" stroke="rgba(34,197,94,0.08)" stroke-width="1"/>
+            <line x1="74" y1="296" x2="234" y2="296" stroke="rgba(34,197,94,0.08)" stroke-width="1"/>
+          </svg>
+          <div class="network-node">
+            <div class="nn-abbr">FFC</div>
+            <div>Farfield FC</div>
+          </div>
+          <div class="network-node">
+            <div class="nn-abbr">BWU</div>
+            <div>Bridgewater</div>
+          </div>
+          <div class="network-node">
+            <div class="nn-abbr">NTC</div>
+            <div>Norton Town</div>
+          </div>
+          <div class="network-node hub">
+            <div class="nn-abbr">MATCH<br>PASS</div>
+            <div>Network</div>
+          </div>
+          <div class="network-node">
+            <div class="nn-abbr">RVF</div>
+            <div>Riverdale</div>
+          </div>
+          <div class="network-node">
+            <div class="nn-abbr">HSL</div>
+            <div>Hillside</div>
+          </div>
+          <div class="network-node">
+            <div class="nn-abbr">WAC</div>
+            <div>Westgate AFC</div>
+          </div>
+        </div>
+      </div>
+
+      <p class="network-caption">Every ban issued on the network propagates to every club within seconds. No API integrations. No club-to-club data agreements. The Nostr protocol handles it cryptographically.</p>
+
+      <div class="network-points fade-in">
+        <div class="network-point">
+          <div class="network-point-icon">🔑</div>
+          <h4>Cryptographically Signed</h4>
+          <p>Every card is signed with the issuing club's private key. Forgery is mathematically impossible. The receiving club can verify independently.</p>
+        </div>
+        <div class="network-point">
+          <div class="network-point-icon">📡</div>
+          <h4>Nostr Protocol</h4>
+          <p>Built on open, decentralised infrastructure. No central server to take down, no vendor to lock you in, no infrastructure bill to pay. The relay network is the network.</p>
+        </div>
+        <div class="network-point">
+          <div class="network-point-icon">🏛️</div>
+          <h4>No FA Permission Required</h4>
+          <p>MatchPass is community infrastructure. Clubs don't need the FA's approval to join. The network grows from the bottom up, the way football always has.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       FOR CLUBS
+  ═══════════════════════════════════════════ -->
+  <section class="section-alt" id="for-clubs">
+    <div class="container">
+      <p class="section-eyebrow">For Clubs</p>
+      <h2 class="section-title">Everything You<br><em>Actually Need.</em></h2>
+      <p class="section-lead">No enterprise sales cycle. No IT department required. No annual contract. MatchPass is designed for clubs where the secretary is also the kit man and the groundskeeper.</p>
+
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;" class="fade-in">
+        <div>
+          <h3 style="font-family: var(--f-display); font-size: 1.6rem; letter-spacing: 0.04em; margin-bottom: 1.5rem;">What You Get</h3>
+          <div class="req-item">
+            <div class="req-check">✓</div>
+            <div class="req-text">
+              <strong>Gate Scanner PWA</strong>
+              <span>Works on any Android or iPhone. No app store. No MDM. Install via browser. Steward can be onboarded in 5 minutes.</span>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check">✓</div>
+            <div class="req-text">
+              <strong>Card Issuer App</strong>
+              <span>Yellow and red cards issued on the spot with reason code and optional incident note. Auto-syncs when back online.</span>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check">✓</div>
+            <div class="req-text">
+              <strong>Club Dashboard</strong>
+              <span>Full incident history, outstanding card reviews, ban log, cross-club incident feed, trend analysis.</span>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check">✓</div>
+            <div class="req-text">
+              <strong>Cross-Club Ban Network</strong>
+              <span>Automatically receives and propagates bans across all MatchPass clubs via Nostr. Zero configuration required.</span>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check">✓</div>
+            <div class="req-text">
+              <strong>GDPR Template Pack</strong>
+              <span>Privacy notice, data retention policy, DPA template, subject access request procedure. Everything a club needs to be legally compliant.</span>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check">✓</div>
+            <div class="req-text">
+              <strong>Safeguarding Officer Tools</strong>
+              <span>Private case management, parent-child account linkage (with safeguarding officer approval required), sensitive incident handling.</span>
+            </div>
+          </div>
+          <div class="req-item">
+            <div class="req-check">✓</div>
+            <div class="req-text">
+              <strong>NFC Cards &amp; Wristbands</strong>
+              <span>£0.50–2.00 per unit. Works without a phone — tap to enter. Perfect for kids, older fans, and anyone whose battery died. Programming is done by the club using any NFC-capable Android phone and a free app (NFC Tools). Season tickets in bulk at the start of the season; gate wristbands on the spot from a stack of blanks.</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3 style="font-family: var(--f-display); font-size: 1.6rem; letter-spacing: 0.04em; margin-bottom: 1.5rem;">What It Costs</h3>
+          <div style="background: var(--green-pale); border: 1px solid var(--border-g); border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem;">
+            <div style="font-family: var(--f-display); font-size: 4rem; color: var(--green); letter-spacing: 0.02em; line-height: 1;">£0</div>
+            <div style="font-family: var(--f-mono); font-size: 0.75rem; color: var(--green); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem;">Per year, forever</div>
+            <p style="font-size: 0.9rem; color: var(--white-80); line-height: 1.7;">MatchPass is free for clubs to implement and run. The infrastructure is sustained through the value-for-value model — fans and community members who believe in safe, community-owned football contribute what they can, when they can.</p>
+          </div>
+          <div style="background: var(--white-04); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem;">
+            <h4 style="font-size: 0.9rem; font-weight: 600; margin-bottom: 1rem; color: var(--gold);">Optional Hardware</h4>
+            <div class="req-item" style="border-bottom: 1px solid var(--white-04); padding: 0.5rem 0;">
+              <div style="font-family: var(--f-mono); font-size: 0.85rem; color: var(--gold); min-width: 80px;">£0.50–2</div>
+              <div style="font-size: 0.85rem; color: var(--white-80);">NFC wristbands (per unit, bulk order)</div>
+            </div>
+            <div class="req-item" style="border-bottom: 1px solid var(--white-04); padding: 0.5rem 0;">
+              <div style="font-family: var(--f-mono); font-size: 0.85rem; color: var(--gold); min-width: 80px;">~£80</div>
+              <div style="font-size: 0.85rem; color: var(--white-80);">Dedicated Android handset for gate (optional — your steward's phone works fine)</div>
+            </div>
+            <div class="req-item" style="padding: 0.5rem 0;">
+              <div style="font-family: var(--f-mono); font-size: 0.85rem; color: var(--gold); min-width: 80px;">£0</div>
+              <div style="font-size: 0.85rem; color: var(--white-80);">Software updates, network access, support — included forever</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       USER GUIDES
+  ═══════════════════════════════════════════ -->
+  <section id="user-guides">
+    <div class="container">
+      <p class="section-eyebrow">User Guides</p>
+      <h2 class="section-title">Walkthrough:<br><em>Matchday.</em></h2>
+      <p class="section-lead">Four roles, four guides. Steward at the gate. Safety officer on incidents. Fan at the turnstile. Club admin behind the scenes. Here's exactly what each person sees.</p>
+
+      <!-- Guide 1: Gate Scanner -->
+      <div class="guides-grid fade-in" style="margin-bottom: 5rem;">
+        <div class="guide-block">
+          <div class="guide-role">Steward · Gate Scanner</div>
+          <h3>Scanning at<br>the Turnstile</h3>
+          <p>The steward opens the MatchPass gate app on their phone. No login needed on the day — the app stays authenticated via the club's session key. Point, scan, done.</p>
+          <ol class="guide-steps">
+            <li>Open MatchPass Gate on your phone — the camera activates automatically</li>
+            <li>Fan presents their QR code (refreshes every 30 seconds — makes gaming it more effort than it's worth)</li>
+            <li>Green flash + name = clear to enter. Red = active ban, do not admit</li>
+            <li>Amber = warning on record — use your judgement, tap for detail</li>
+            <li>Fan without a phone? Tap NFC from their wristband instead</li>
+            <li>Offline? The app still works — sanctions sync when signal returns</li>
+          </ol>
+          <p style="font-size: 0.85rem; color: var(--muted);">The entire scan takes under 2 seconds. Your existing turnstile flow doesn't change.</p>
+        </div>
+        <div>
+          <div class="phone">
+            <div class="phone-screen">
+              <div class="pscreen-header">
+                <div class="pscreen-title">MATCH<span>PASS</span> GATE</div>
+                <div class="pscreen-status">● LIVE</div>
+              </div>
+              <div class="pscreen-body">
+                <div style="font-family:var(--f-mono);font-size:0.6rem;color:var(--muted);text-align:center;margin-bottom:0.5rem;">MATCH DAY 14 · NORTH GATE 2</div>
+                <div class="scan-area" style="margin-bottom:0.5rem;">
+                  <!-- QR frame corners -->
+                  <div style="position:absolute;top:8px;left:8px;width:16px;height:16px;border-top:2px solid var(--green);border-left:2px solid var(--green);border-radius:2px 0 0 0;"></div>
+                  <div style="position:absolute;top:8px;right:8px;width:16px;height:16px;border-top:2px solid var(--green);border-right:2px solid var(--green);border-radius:0 2px 0 0;"></div>
+                  <div style="position:absolute;bottom:8px;left:8px;width:16px;height:16px;border-bottom:2px solid var(--green);border-left:2px solid var(--green);border-radius:0 0 0 2px;"></div>
+                  <div style="position:absolute;bottom:8px;right:8px;width:16px;height:16px;border-bottom:2px solid var(--green);border-right:2px solid var(--green);border-radius:0 0 2px 0;"></div>
+                  <div class="scan-result">
+                    <div class="scan-icon pass">✓</div>
+                    <div class="scan-name">J. HARTLEY · #4821</div>
+                    <div class="scan-badge clear">Clear to Enter</div>
+                  </div>
+                </div>
+                <div class="pscreen-fan-row">
+                  <div class="pscreen-fan-avatar">JH</div>
+                  <div class="pscreen-fan-info">
+                    <div class="pscreen-fan-name">James Hartley</div>
+                    <div class="pscreen-fan-sub">Season · North Stand A12</div>
+                  </div>
+                  <div class="pscreen-fan-status ok">✓</div>
+                </div>
+                <div class="pscreen-fan-row">
+                  <div class="pscreen-fan-avatar" style="background: linear-gradient(135deg,#b45309,#f59e0b)">DW</div>
+                  <div class="pscreen-fan-info">
+                    <div class="pscreen-fan-name">D. Williams</div>
+                    <div class="pscreen-fan-sub">⚠ 1 yellow — caution</div>
+                  </div>
+                  <div class="pscreen-fan-status" style="background:var(--yellow-dim);color:var(--yellow-card);">!</div>
+                </div>
+                <div style="font-family:var(--f-mono);font-size:0.6rem;color:var(--muted);text-align:center;margin-top:0.5rem;">TAP FAN FOR DETAIL · HOLD FOR INCIDENT</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Guide 2: Card Issuer -->
+      <div class="guides-grid fade-in" style="margin-bottom: 5rem;">
+        <div>
+          <div class="phone">
+            <div class="phone-screen">
+              <div class="pscreen-header">
+                <div class="pscreen-title">CARD <span>ISSUER</span></div>
+                <div class="pscreen-status">● STEWARD</div>
+              </div>
+              <div class="pscreen-body">
+                <div class="card-issue-area">
+                  <div style="display:flex;gap:0.5rem;margin-bottom:0.75rem;">
+                    <div class="mini-card yellow" style="flex:1;">
+                      <div class="mini-card-label">YELLOW</div>
+                      <div class="mini-card-sub">Warning</div>
+                    </div>
+                    <div class="mini-card red" style="flex:1; opacity: 0.5;">
+                      <div class="mini-card-label">RED</div>
+                      <div class="mini-card-sub">Sanction</div>
+                    </div>
+                  </div>
+                  <div class="card-form-row">
+                    <div class="card-form-label">Fan ID</div>
+                    <div class="card-form-input">D. Williams · #2934</div>
+                  </div>
+                  <div class="card-form-row">
+                    <div class="card-form-label">Reason</div>
+                    <div class="card-form-input">Threatening language</div>
+                  </div>
+                  <div class="card-form-row">
+                    <div class="card-form-label">Match</div>
+                    <div class="card-form-input">MD14 · Home · 06.04.26</div>
+                  </div>
+                  <div class="card-form-row">
+                    <div class="card-form-label">Note (optional)</div>
+                    <div class="card-form-input" style="color: var(--muted);">Section D stand, 37th min...</div>
+                  </div>
+                  <div style="background:var(--green);color:var(--dark);font-family:var(--f-display);font-size:0.9rem;letter-spacing:0.05em;text-align:center;padding:0.5rem;border-radius:6px;margin-top:0.75rem;cursor:pointer;">ISSUE YELLOW CARD</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="guide-block">
+          <div class="guide-role">Steward · Card Issuer</div>
+          <h3>Issuing a Card<br>in the Stands</h3>
+          <p>An incident happens. The steward doesn't need to radio in or fill out a paper form. They open the card issuer, tap the fan's QR, choose the card, note the reason. Done in 30 seconds.</p>
+          <ol class="guide-steps">
+            <li>Tap "Issue Card" in the MatchPass app</li>
+            <li>Scan the fan's QR or search by name (if they refuse to scan)</li>
+            <li>Select Yellow or Red — tap for descriptions if uncertain</li>
+            <li>Choose reason code (threatening language, missiles, hate speech, etc.)</li>
+            <li>Add a free-text note for context if needed</li>
+            <li>Confirm — card is issued and the fan is notified immediately</li>
+          </ol>
+          <div style="background:var(--yellow-dim);border:1px solid rgba(250,204,21,0.2);border-radius:var(--radius);padding:1rem;font-size:0.85rem;color:var(--white-80);line-height:1.7;">
+            <strong style="color:var(--yellow-card);">Fan Challenge:</strong> The fan receives a notification. They have 48 hours to challenge. All challenges are reviewed by the safety officer and logged.
+          </div>
+        </div>
+      </div>
+
+      <!-- Guide 3: Club Dashboard -->
+      <div class="guides-grid fade-in" style="margin-bottom: 5rem;">
+        <div class="guide-block">
+          <div class="guide-role">Club Admin · Dashboard</div>
+          <h3>The Club<br>Safety Overview</h3>
+          <p>The safety officer opens the dashboard before, during, and after a match. Real-time incident feed. Cross-club ban alerts. Pending reviews. Trend data for the season.</p>
+          <ol class="guide-steps">
+            <li>Login with your club's Nostr key (or via your steward app — same account)</li>
+            <li>Dashboard shows today's entry count, active incidents, pending reviews</li>
+            <li>Cross-club feed shows any MatchPass bans issued by other clubs for your fans</li>
+            <li>Outstanding review tab shows cards awaiting officer decision</li>
+            <li>Season analytics: incidents by section, by match, by category</li>
+            <li>Export any report as CSV or PDF for your safety audit</li>
+          </ol>
+        </div>
+        <div>
+          <div class="tablet">
+            <div class="tablet-screen">
+              <div class="dash-header">
+                <div class="dash-title">MATCH<span>PASS</span> DASHBOARD</div>
+                <div class="dash-club">NORTHGATE FC</div>
+              </div>
+              <div class="dash-body">
+                <div class="dash-stats-row">
+                  <div class="dash-stat-box">
+                    <div class="dash-stat-num">847</div>
+                    <div class="dash-stat-label">Scanned In</div>
+                  </div>
+                  <div class="dash-stat-box">
+                    <div class="dash-stat-num" style="color:var(--yellow-card);">3</div>
+                    <div class="dash-stat-label">Yellows</div>
+                  </div>
+                  <div class="dash-stat-box">
+                    <div class="dash-stat-num" style="color:var(--red);">1</div>
+                    <div class="dash-stat-label">Red Cards</div>
+                  </div>
+                  <div class="dash-stat-box">
+                    <div class="dash-stat-num" style="color:var(--gold);">2</div>
+                    <div class="dash-stat-label">Pending Review</div>
+                  </div>
+                </div>
+                <div class="dash-table">
+                  <div class="dash-table-header">
+                    <div class="dash-th">Fan</div>
+                    <div class="dash-th">Reason</div>
+                    <div class="dash-th">Steward</div>
+                    <div class="dash-th">Card</div>
+                  </div>
+                  <div class="dash-row">
+                    <div class="dash-cell">D. Williams</div>
+                    <div class="dash-cell">Lang.</div>
+                    <div class="dash-cell">T. Okafor</div>
+                    <div class="dash-cell"><span class="dash-cell-badge badge-y">Y</span></div>
+                  </div>
+                  <div class="dash-row">
+                    <div class="dash-cell">R. Patterson</div>
+                    <div class="dash-cell">Missile</div>
+                    <div class="dash-cell">S. Khan</div>
+                    <div class="dash-cell"><span class="dash-cell-badge badge-r">R</span></div>
+                  </div>
+                  <div class="dash-row">
+                    <div class="dash-cell">J. Taylor</div>
+                    <div class="dash-cell">Pyro</div>
+                    <div class="dash-cell">T. Okafor</div>
+                    <div class="dash-cell"><span class="dash-cell-badge badge-y">Y</span></div>
+                  </div>
+                  <div class="dash-row">
+                    <div class="dash-cell">A. Mensah</div>
+                    <div class="dash-cell">⚠ Cross-club ban</div>
+                    <div class="dash-cell">Gate 2</div>
+                    <div class="dash-cell"><span class="dash-cell-badge badge-r">✕</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Guide 4: Fan Pass -->
+      <div class="guides-grid fade-in">
+        <div>
+          <div class="phone">
+            <div class="phone-screen">
+              <div class="pscreen-header">
+                <div class="pscreen-title">MY <span>PASS</span></div>
+                <div class="pscreen-status" style="font-size:0.5rem;">↻ 28s</div>
+              </div>
+              <div class="pscreen-body">
+                <div class="fan-pass-screen">
+                  <div style="font-family:var(--f-mono);font-size:0.65rem;color:var(--white-80);margin-bottom:0.5rem;font-weight:600;">JAMES HARTLEY</div>
+                  <!-- CSS QR code approximation -->
+                  <div class="qr-placeholder">
+                    <!-- QR pattern dots -->
+                    <div class="qr-cell" style="grid-column:1/4;grid-row:1/4;background:var(--dark);"></div>
+                    <div class="qr-cell" style="grid-column:2/3;grid-row:2/3;background:white;"></div>
+                    <div class="qr-cell" style="grid-column:5/6;grid-row:1/2;background:var(--dark);"></div>
+                    <div class="qr-cell" style="grid-column:6/7;grid-row:1/2;background:var(--dark);"></div>
+                    <div class="qr-cell" style="grid-column:5/6;grid-row:3/4;background:var(--dark);"></div>
+                    <div class="qr-cell" style="grid-column:1/4;grid-row:5/8;background:var(--dark);"></div>
+                    <div class="qr-cell" style="grid-column:2/3;grid-row:6/7;background:white;"></div>
+                    <div class="qr-cell" style="grid-column:5/8;grid-row:5/8;background:var(--dark);"></div>
+                    <div class="qr-cell" style="grid-column:6/7;grid-row:6/7;background:white;"></div>
+                    <div class="qr-cell" style="grid-column:4/5;grid-row:3/4;background:var(--dark);"></div>
+                    <div class="qr-cell" style="grid-column:4/5;grid-row:5/6;background:var(--dark);"></div>
+                    <div class="qr-cell" style="grid-column:3/4;grid-row:4/5;background:var(--dark);"></div>
+                    <div class="qr-cell" style="grid-column:5/6;grid-row:4/5;background:var(--dark);"></div>
+                    <div class="qr-cell" style="grid-column:7/8;grid-row:3/4;background:var(--dark);"></div>
+                    <div class="qr-cell" style="grid-column:2/3;grid-row:4/5;background:var(--dark);"></div>
+                    <div class="qr-cell" style="grid-column:6/7;grid-row:3/4;background:var(--dark);"></div>
+                    <div class="qr-cell" style="grid-column:3/4;grid-row:2/3;background:var(--dark);"></div>
+                    <div class="qr-cell" style="grid-column:7/8;grid-row:1/4;background:var(--dark);"></div>
+                    <div class="qr-cell" style="grid-column:7/8;grid-row:5/8;background:var(--dark);"></div>
+                    <div class="qr-cell" style="grid-column:1/2;grid-row:1/8;background:var(--dark);"></div>
+                    <div class="qr-cell" style="grid-column:1/8;grid-row:1/2;background:var(--dark);"></div>
+                    <div class="qr-cell" style="grid-column:1/8;grid-row:7/8;background:var(--dark);"></div>
+                    <div class="qr-cell" style="grid-column:1/8;grid-row:4/5;background:var(--dark);"></div>
+                  </div>
+                  <div class="qr-refresh">Refreshes in <span>28s</span></div>
+                  <!-- Reputation dots -->
+                  <div style="font-family:var(--f-mono);font-size:0.6rem;color:var(--muted);margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:0.08em;">Clean Sheet</div>
+                  <div class="fan-rep">
+                    <div class="rep-dot ok"></div>
+                    <div class="rep-dot ok"></div>
+                    <div class="rep-dot ok"></div>
+                    <div class="rep-dot ok"></div>
+                    <div class="rep-dot ok"></div>
+                    <div class="rep-dot empty"></div>
+                    <div class="rep-dot empty"></div>
+                    <div class="rep-dot empty"></div>
+                    <div class="rep-dot empty"></div>
+                    <div class="rep-dot empty"></div>
+                  </div>
+                  <div class="fan-cred-row">
+                    <div class="fan-cred-icon">🎟️</div>
+                    <div class="fan-cred-text">Season Ticket · North Stand</div>
+                    <div class="fan-cred-status cred-active">Valid</div>
+                  </div>
+                  <div class="fan-cred-row">
+                    <div class="fan-cred-icon">📷</div>
+                    <div class="fan-cred-text">Photo · Season 25/26</div>
+                    <div class="fan-cred-status cred-active">Locked</div>
+                  </div>
+                  <div class="fan-cred-row">
+                    <div class="fan-cred-icon">⭐</div>
+                    <div class="fan-cred-text">Reputation · 5 clean</div>
+                    <div class="fan-cred-status cred-active">Good</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="guide-block">
+          <div class="guide-role">Supporter · Fan Pass</div>
+          <h3>Your Pass,<br>Your Record.</h3>
+          <p>Fans install mysignet.app, verify their identity once, and get a pass they carry to every ground on the MatchPass network. No separate app per club. One identity, everywhere.</p>
+          <ol class="guide-steps">
+            <li>Install mysignet.app — generate your Signet identity</li>
+            <li>Upload your photo — cryptographically hashed, fan-controlled</li>
+            <li>Receive your season ticket or match pass as a signed credential</li>
+            <li>At the gate, show your QR — it refreshes every 30 seconds</li>
+            <li>No phone? Use your NFC wristband — costs less than a programme</li>
+            <li>See your full record in the app — every club, every match, every card</li>
+          </ol>
+          <div style="background: var(--green-pale); border: 1px solid var(--border-g); border-radius: var(--radius); padding: 1rem; font-size: 0.85rem; color: var(--white-80); line-height: 1.7;">
+            <strong style="color: var(--green);">Fan Sovereignty:</strong> Your photo is stored on Blossom — a decentralised storage network. MatchPass never holds your photo centrally. You control your data. Season boundary = fresh start.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       COMPARISON
+  ═══════════════════════════════════════════ -->
+  <section class="section-alt" id="comparison">
+    <div class="container">
+      <div class="compare-header">
+        <p class="section-eyebrow">Comparison</p>
+        <h2 class="section-title">How Does It<br><em>Stack Up?</em></h2>
+        <p class="section-lead">Compare MatchPass against the status quo — paper banning orders, expensive enterprise systems, and doing nothing.</p>
+      </div>
+      <div class="compare-table-wrap fade-in">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th style="width:28%">Feature</th>
+              <th class="matchpass-col">✦ MatchPass</th>
+              <th>Paper / Manual</th>
+              <th>Enterprise Systems</th>
+              <th>Nothing</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="feature-name">Annual cost (non-league)</td>
+              <td class="matchpass-col"><span class="ct-free">£0</span></td>
+              <td><span class="ct-cost">£0 + admin time</span></td>
+              <td><span class="ct-cost">£8,000–40,000/yr</span></td>
+              <td><span class="ct-cost">£0 today</span></td>
+            </tr>
+            <tr>
+              <td class="feature-name">Setup time</td>
+              <td class="matchpass-col"><span class="ct-free">Under 1 hour</span></td>
+              <td><span class="ct-partial">Days of admin</span></td>
+              <td><span class="ct-partial">Weeks / months</span></td>
+              <td class="ct-yes">—</td>
+            </tr>
+            <tr>
+              <td class="feature-name">Cross-club ban propagation</td>
+              <td class="matchpass-col"><span class="ct-yes">✓</span> Automatic, real-time</td>
+              <td><span class="ct-no">✗</span> Manual, rarely done</td>
+              <td><span class="ct-partial">Only within same vendor</span></td>
+              <td><span class="ct-no">✗</span></td>
+            </tr>
+            <tr>
+              <td class="feature-name">Real-time incident tracking</td>
+              <td class="matchpass-col"><span class="ct-yes">✓</span></td>
+              <td><span class="ct-no">✗</span></td>
+              <td><span class="ct-yes">✓</span> At high cost</td>
+              <td><span class="ct-no">✗</span></td>
+            </tr>
+            <tr>
+              <td class="feature-name">Fan-controlled identity</td>
+              <td class="matchpass-col"><span class="ct-yes">✓</span> Self-sovereign</td>
+              <td><span class="ct-no">✗</span></td>
+              <td><span class="ct-no">✗</span> Vendor holds data</td>
+              <td><span class="ct-no">✗</span></td>
+            </tr>
+            <tr>
+              <td class="feature-name">Works offline</td>
+              <td class="matchpass-col"><span class="ct-yes">✓</span> 4-hour cache</td>
+              <td><span class="ct-yes">✓</span> It's paper</td>
+              <td><span class="ct-no">✗</span> Typically not</td>
+              <td><span class="ct-no">✗</span></td>
+            </tr>
+            <tr>
+              <td class="feature-name">GDPR template pack</td>
+              <td class="matchpass-col"><span class="ct-yes">✓</span> Included</td>
+              <td><span class="ct-no">✗</span></td>
+              <td><span class="ct-partial">Extra cost / legal review</span></td>
+              <td><span class="ct-no">✗</span></td>
+            </tr>
+            <tr>
+              <td class="feature-name">Card challenge system</td>
+              <td class="matchpass-col"><span class="ct-yes">✓</span> 48hr window, logged</td>
+              <td><span class="ct-no">✗</span></td>
+              <td><span class="ct-partial">Varies</span></td>
+              <td><span class="ct-no">✗</span></td>
+            </tr>
+            <tr>
+              <td class="feature-name">Safeguarding tools</td>
+              <td class="matchpass-col"><span class="ct-yes">✓</span> Private case management</td>
+              <td><span class="ct-no">✗</span></td>
+              <td><span class="ct-partial">Sometimes, costly</span></td>
+              <td><span class="ct-no">✗</span></td>
+            </tr>
+            <tr>
+              <td class="feature-name">NFC wristband support</td>
+              <td class="matchpass-col"><span class="ct-yes">✓</span> £0.50–2.00/unit</td>
+              <td><span class="ct-no">✗</span></td>
+              <td><span class="ct-partial">£5–15/unit typically</span></td>
+              <td><span class="ct-no">✗</span></td>
+            </tr>
+            <tr>
+              <td class="feature-name">Open source / auditable</td>
+              <td class="matchpass-col"><span class="ct-yes">✓</span> Full source available</td>
+              <td class="ct-yes">—</td>
+              <td><span class="ct-no">✗</span> Proprietary</td>
+              <td class="ct-yes">—</td>
+            </tr>
+            <tr>
+              <td class="feature-name">Community owned</td>
+              <td class="matchpass-col"><span class="ct-yes">✓</span></td>
+              <td class="ct-yes">—</td>
+              <td><span class="ct-no">✗</span> Investor owned</td>
+              <td class="ct-yes">—</td>
+            </tr>
+            <tr>
+              <td class="feature-name">Hardware required</td>
+              <td class="matchpass-col"><span class="ct-free">None</span> (phone works)</td>
+              <td><span class="ct-cost">Printing</span></td>
+              <td><span class="ct-cost">Dedicated scanners</span></td>
+              <td><span class="ct-no">—</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       V4V MODEL
+  ═══════════════════════════════════════════ -->
+  <section id="v4v">
+    <div class="container">
+      <p class="section-eyebrow">Value for Value</p>
+      <h2 class="section-title">The <em>Club Pays<br>Nothing.</em></h2>
+      <div class="v4v-grid fade-in">
+        <div>
+          <blockquote class="v4v-principle">
+            "Free to implement doesn't mean unpaid. It means the value flows from those who benefit most — the fans and community who believe safe football belongs to everyone."
+          </blockquote>
+          <p style="font-size:0.9rem;color:var(--white-50);line-height:1.75;margin-bottom:2rem;">
+            MatchPass is built on the value-for-value model. Clubs implement and run MatchPass for free, forever. The infrastructure — development, relays, hosting, support — is sustained by voluntary contributions from fans, supporters trusts, and leagues who understand what community-owned safety is worth.
+          </p>
+          <p style="font-size:0.9rem;color:var(--white-50);line-height:1.75;margin-bottom:2rem;">
+            This is not charity. This is how the community owns its own infrastructure. The relay priority system means clubs and leagues that contribute to the network get priority propagation — faster bans, faster entries, better service. The value flows back.
+          </p>
+          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+            <span class="tag tag-green">No paywall</span>
+            <span class="tag tag-green">No subscription</span>
+            <span class="tag tag-green">No data selling</span>
+            <span class="tag tag-gold">Community owned</span>
+          </div>
+        </div>
+        <div>
+          <h3 style="font-family:var(--f-display);font-size:1.4rem;letter-spacing:0.04em;margin-bottom:1.5rem;color:var(--muted);">SUPPORT THE NETWORK</h3>
+          <div class="v4v-tiers">
+            <div class="v4v-tier">
+              <div class="v4v-tier-amount">£1</div>
+              <div class="v4v-tier-info">
+                <h5>Fan Supporter</h5>
+                <p>Monthly. Your contribution keeps the relay running and the lights on. Every pound counts.</p>
+              </div>
+            </div>
+            <div class="v4v-tier">
+              <div class="v4v-tier-amount">£5</div>
+              <div class="v4v-tier-info">
+                <h5>Superfan</h5>
+                <p>Monthly. Helps us support onboarding new clubs and building new features.</p>
+              </div>
+            </div>
+            <div class="v4v-tier">
+              <div class="v4v-tier-amount">£25</div>
+              <div class="v4v-tier-info">
+                <h5>Club Advocate</h5>
+                <p>Monthly. Your club isn't on the network yet? Sponsoring this tier funds the outreach to bring them in.</p>
+              </div>
+            </div>
+            <div class="v4v-tier">
+              <div class="v4v-tier-amount">BTC</div>
+              <div class="v4v-tier-info">
+                <h5>Bitcoin Supporter</h5>
+                <p>Any amount. Sovereign contribution for a sovereign network. No intermediaries, no platform fees.</p>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:1.5rem;">
+            <div class="v4v-flow">
+              <div class="v4v-node">
+                <div class="v4v-icon">🏟️</div>
+                <div class="v4v-text">
+                  <h4>Relay Priority</h4>
+                  <p>Clubs and leagues that contribute to the network get faster propagation. More support = better performance for everyone at your club.</p>
+                </div>
+              </div>
+              <div class="v4v-node">
+                <div class="v4v-icon">⚡</div>
+                <div class="v4v-text">
+                  <h4>Zero Middlemen</h4>
+                  <p>Contributions go directly to running the infrastructure. No VC cut, no platform tax. The money that comes in builds what the money is for.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       DONATE
+  ═══════════════════════════════════════════ -->
+  <section class="section-alt" id="donate">
+    <div class="container">
+      <p class="section-eyebrow">Donate</p>
+      <h2 class="section-title">Support<br><em>MatchPass.</em></h2>
+      <p class="section-lead">Every contribution — a pound or a satoshi — goes directly to keeping the network running. No tiers. No gates. Pay what feels right for what the network is worth to you.</p>
+      <div class="donate-grid fade-in">
+        <!-- GBP -->
+        <div class="donate-card">
+          <h3>
+            <div class="dc-icon">£</div>
+            British Pounds
+          </h3>
+          <p>Bank transfer to the MatchPass Foundation CIC. Reference your club name or "FAN SUPPORTER" so we know who to thank.</p>
+          <div class="donate-detail">
+            <div class="donate-row">
+              <div class="donate-label">Account Name</div>
+              <div class="donate-value highlight">MatchPass Foundation CIC</div>
+            </div>
+            <div class="donate-row">
+              <div class="donate-label">Sort Code</div>
+              <div class="donate-value">60-83-71</div>
+            </div>
+            <div class="donate-row">
+              <div class="donate-label">Account</div>
+              <div class="donate-value">45289317</div>
+            </div>
+            <div class="donate-row">
+              <div class="donate-label">Reference</div>
+              <div class="donate-value">[Your club] or FAN SUPPORTER</div>
+            </div>
+            <div class="donate-row">
+              <div class="donate-label">Bank</div>
+              <div class="donate-value" style="color:var(--muted);">Monzo Business</div>
+            </div>
+          </div>
+          <div class="donate-note">
+            ⚠ Illustration only — verify all payment details at matchpass.app/donate before transferring.
+          </div>
+        </div>
+        <!-- BTC -->
+        <div class="donate-card">
+          <h3>
+            <div class="dc-icon">₿</div>
+            Bitcoin
+          </h3>
+          <p>On-chain Bitcoin. Any amount. Sovereign contribution for a sovereign network. Scan the address or copy it. No account needed, no fees.</p>
+          <div class="donate-detail">
+            <div class="btc-address-block">
+              <div style="font-family:var(--f-mono);font-size:0.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.5rem;">Bitcoin Address (P2WPKH)</div>
+              <div class="btc-address">bc1q9f7k2m3p4v5r6s7t8u9v0x1y2z3a4b5c6d7e8f9g0h1j2</div>
+              <div class="btc-qr" style="width:100px;height:100px;margin:1rem auto 0;">
+                <!-- Simplified QR-like pattern -->
+                <div class="btc-qr-cell" style="grid-column:1/4;grid-row:1/4;background:var(--dark);"></div>
+                <div class="btc-qr-cell" style="grid-column:2/3;grid-row:2/3;background:var(--white);"></div>
+                <div class="btc-qr-cell" style="grid-column:7/10;grid-row:1/4;background:var(--dark);"></div>
+                <div class="btc-qr-cell" style="grid-column:8/9;grid-row:2/3;background:var(--white);"></div>
+                <div class="btc-qr-cell" style="grid-column:1/4;grid-row:7/10;background:var(--dark);"></div>
+                <div class="btc-qr-cell" style="grid-column:2/3;grid-row:8/9;background:var(--white);"></div>
+                <div class="btc-qr-cell" style="grid-column:5/6;grid-row:1/2;background:var(--dark);"></div>
+                <div class="btc-qr-cell" style="grid-column:4/5;grid-row:4/5;background:var(--dark);"></div>
+                <div class="btc-qr-cell" style="grid-column:6/7;grid-row:4/5;background:var(--dark);"></div>
+                <div class="btc-qr-cell" style="grid-column:5/6;grid-row:5/6;background:var(--dark);"></div>
+                <div class="btc-qr-cell" style="grid-column:7/8;grid-row:5/6;background:var(--dark);"></div>
+                <div class="btc-qr-cell" style="grid-column:8/9;grid-row:6/7;background:var(--dark);"></div>
+                <div class="btc-qr-cell" style="grid-column:4/5;grid-row:7/8;background:var(--dark);"></div>
+                <div class="btc-qr-cell" style="grid-column:6/7;grid-row:8/9;background:var(--dark);"></div>
+                <div class="btc-qr-cell" style="grid-column:9/10;grid-row:7/10;background:var(--dark);"></div>
+              </div>
+            </div>
+          </div>
+          <div class="donate-note">
+            ⚠ Illustration only — verify the Bitcoin address at matchpass.app/donate before sending. Always double-check BTC addresses before transacting.
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:2rem;">
+        <p style="font-size:0.85rem;color:var(--muted);max-width:600px;margin:0 auto;line-height:1.7;">MatchPass Foundation CIC is a community interest company. Contributions are not tax-deductible as charitable donations. All funds go directly to infrastructure, development, and club onboarding. Annual accounts published at matchpass.app/transparency.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       IMPLEMENTATION
+  ═══════════════════════════════════════════ -->
+  <section id="implement">
+    <div class="container">
+      <p class="section-eyebrow">Getting Started</p>
+      <h2 class="section-title">Live by<br><em>Next Matchday.</em></h2>
+      <p class="section-lead">Five steps. Under an hour. No IT department. Your stewards will be scanning at the gate by Saturday.</p>
+      <div class="impl-grid fade-in">
+        <div class="impl-steps">
+          <div class="impl-step">
+            <div class="impl-step-num">1</div>
+            <div class="impl-step-content">
+              <h4>Create Your Club Account</h4>
+              <p>Go to matchpass.app and register your club. You'll need the club name, your FA registration number, and a contact email. Takes 5 minutes. No payment required.</p>
+              <div class="impl-note">→ You receive a cryptographic key pair for your club. Keep it safe — it signs all your club's cards.</div>
+            </div>
+          </div>
+          <div class="impl-step">
+            <div class="impl-step-num">2</div>
+            <div class="impl-step-content">
+              <h4>Install the PWA on Steward Devices</h4>
+              <p>Send your stewards the matchpass.app URL. They open it in their browser and tap "Add to Home Screen." It installs like a native app — no app store, no IT approval needed. Works on any phone made in the last five years.</p>
+              <div class="impl-note">→ Minimum requirement: Android 8+ or iOS 14+, a camera, and a data connection (offline mode kicks in automatically).</div>
+            </div>
+          </div>
+          <div class="impl-step">
+            <div class="impl-step-num">3</div>
+            <div class="impl-step-content">
+              <h4>Add Your Steward Team</h4>
+              <p>In the admin panel, create steward accounts. Assign each steward a role: gate scanner, card issuer, or safeguarding officer. Each role sees only what they need to see. Stewards log in with a 6-digit PIN — no password management required.</p>
+              <div class="impl-note">→ Bulk import available via CSV if you have an existing steward list.</div>
+            </div>
+          </div>
+          <div class="impl-step">
+            <div class="impl-step-num">4</div>
+            <div class="impl-step-content">
+              <h4>Import Existing Banning Orders</h4>
+              <p>Upload your existing banning order register via the import tool. The system accepts a simple CSV. Once imported, those fans will be flagged automatically at the gate. You can also connect to the Nostr relay to receive cross-club bans from other MatchPass clubs immediately.</p>
+              <div class="impl-note">→ Import template available in the admin panel. Typical import: under 10 minutes.</div>
+            </div>
+          </div>
+          <div class="impl-step">
+            <div class="impl-step-num">5</div>
+            <div class="impl-step-content">
+              <h4>Go Live on Matchday</h4>
+              <p>Brief your stewards on the app — it takes 5 minutes. Hand them their phones. Open the gate app. The first scan takes about 10 seconds while the steward gets comfortable. By the third fan, it's 2 seconds. By the second match, it's automatic.</p>
+              <div class="impl-note">→ First-match support available via the matchpass.app community channel.</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="impl-requirements">
+            <h3>Requirements Checklist</h3>
+            <div class="req-item">
+              <div class="req-check">✓</div>
+              <div class="req-text">
+                Club with FA registration number
+                <span>Any level — Sunday League to National League</span>
+              </div>
+            </div>
+            <div class="req-item">
+              <div class="req-check">✓</div>
+              <div class="req-text">
+                Steward with a smartphone
+                <span>Android 8+ or iOS 14+. Their personal phone is fine.</span>
+              </div>
+            </div>
+            <div class="req-item">
+              <div class="req-check">✓</div>
+              <div class="req-text">
+                Internet connection at the ground
+                <span>Mobile data works fine. Offline mode handles drop-outs.</span>
+              </div>
+            </div>
+            <div class="req-item">
+              <div class="req-check">✓</div>
+              <div class="req-text">
+                Safety officer (or club secretary) with an email address
+                <span>They manage the admin panel and review challenge submissions.</span>
+              </div>
+            </div>
+            <div class="req-item" style="border-bottom:none;">
+              <div class="req-check">✓</div>
+              <div class="req-text">
+                5 minutes to brief your stewards
+                <span>That's genuinely all it takes. The app is designed for non-technical users.</span>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:1.5rem;background:var(--dark3);border:1px solid var(--border);border-radius:12px;padding:1.5rem;">
+            <h3 style="font-family:var(--f-mono);font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:1rem;">TECHNICAL STACK</h3>
+            <p style="font-size:0.85rem;color:var(--white-50);line-height:1.75;margin-bottom:1rem;">
+              MatchPass is open source. The club platform is Node.js + Express + PostgreSQL. The fan identity layer runs on the Signet protocol (Nostr-based). All cryptography is NIP-98 compliant.
+            </p>
+            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+              <span class="tag tag-green">Open Source</span>
+              <span class="tag tag-green">Nostr Protocol</span>
+              <span class="tag tag-green">NIP-98 Auth</span>
+              <span class="tag tag-green">PostgreSQL</span>
+              <span class="tag tag-gold">Self-hostable</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       FAQ
+  ═══════════════════════════════════════════ -->
+  <section class="section-alt" id="faq">
+    <div class="container">
+      <p class="section-eyebrow">FAQ</p>
+      <h2 class="section-title">Questions<br>We <em>Hear Often.</em></h2>
+      <div class="faq-grid fade-in">
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <div class="faq-q-icon">Q</div>
+            Do we need the FA's permission to implement MatchPass?
+            <span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              No. MatchPass is community infrastructure. It complements the FA's banning order system — it doesn't replace or require it. Any club can implement MatchPass independently. The network grows from the bottom up. The FA is context, not a gatekeeper.
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <div class="faq-q-icon">Q</div>
+            Is MatchPass GDPR compliant?
+            <span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Yes. MatchPass is designed GDPR-first. Fan photos are stored on Blossom — a decentralised network the fan controls. MatchPass never holds photos centrally. The GDPR template pack (included free) covers privacy notices, DPAs, and subject access procedures for your club. The data retention system auto-purges records per the configured schedule.
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <div class="faq-q-icon">Q</div>
+            What if a fan refuses to use the app or doesn't have a phone?
+            <span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              NFC wristbands solve the no-phone problem — they're £0.50–2.00 each and work exactly like the QR code. For fans who actively refuse the system, the club's existing entry procedures apply. MatchPass is an addition to your gate process, not a replacement for your steward's judgement.
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <div class="faq-q-icon">Q</div>
+            What if the internet goes down at the ground?
+            <span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              The gate scanner maintains a local cache with a 4-hour TTL. All active bans and sanctions are cached on the device before the match. If connectivity drops, the app continues working from the cache. Cards issued offline queue in IndexedDB and sync automatically when the connection returns.
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <div class="faq-q-icon">Q</div>
+            Can a fan challenge a card they think is wrong?
+            <span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Yes — every card is challengeable within 48 hours. The fan receives an immediate notification, can submit their account of events, and the club safety officer must review and make a logged decision. All challenges and outcomes are permanently recorded. Due process is built into the system, not bolted on.
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <div class="faq-q-icon">Q</div>
+            How do cross-club bans actually propagate?
+            <span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Via the Nostr protocol. When a club issues a ban, it publishes a cryptographically-signed event to the Nostr relay network. Every MatchPass club subscribes to these events. The receiving club's server verifies the signature (confirming it came from the issuing club), stores the sanction, and flags the fan at their gate. No bilateral data agreements needed — the cryptography handles trust.
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <div class="faq-q-icon">Q</div>
+            We're a small club with one part-time secretary. Is this for us?
+            <span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              This is built specifically for you. The system requires no dedicated IT resource, no ongoing maintenance, and no training beyond 5 minutes per steward. The admin panel is designed for club secretaries who are also doing ten other jobs. If you can use a smartphone, you can run MatchPass.
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <div class="faq-q-icon">Q</div>
+            What happens to a fan's data at the end of the season?
+            <span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              At season boundary, photo hashes are unlocked — fans can update their photo for the new season. Expired cards (yellow after 5 clean matches, red after 10) are removed from active records. Active bans carry over. The fan sees their clean record in the new season if they've served their time. Data retention schedules are configurable per your club's GDPR policy.
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <div class="faq-q-icon">Q</div>
+            What about fans who don't have a smartphone?
+            <span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Fully supported. The club creates and holds the fan's identity on their behalf — a "club-vouched" tier alongside the standard self-sovereign identity. The club programs an NFC card (wallet-sized, season-long) or wristband using any Android phone and a free app. The fan taps to enter like everyone else. If the fan wants to challenge a card, the club's safety officer handles it on their behalf. A family member or supporter trust can act as custodian instead of the club if preferred. If the fan ever gets a phone, their identity can be transferred to their own device.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       CTA BAND
+  ═══════════════════════════════════════════ -->
+  <div class="cta-band">
+    <div class="container">
+      <h2>Football Belongs<br>to the Community.</h2>
+      <p>The safety infrastructure does too. MatchPass is free to implement, open to audit, and sustained by the people who believe the game is worth protecting.</p>
+      <div class="actions">
+        <a href="#implement" class="btn-primary" style="font-size:1rem;padding:1rem 2.25rem;">Implement at Your Club →</a>
+        <a href="#donate" class="btn-secondary" style="font-size:1rem;padding:1rem 2.25rem;">Support the Network</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════ -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="nav-logo" style="font-size:1.4rem;">MATCH<span style="color:var(--green)">PASS</span> <span class="badge">.club</span></div>
+          <p>Football's identity and safety infrastructure. Built by the community, for every club in the pyramid. Free to implement. Sustained by those who believe safe football belongs to everyone.</p>
+          <div style="margin-top:1rem;display:flex;gap:0.5rem;flex-wrap:wrap;">
+            <span class="tag tag-green">Open Source</span>
+            <span class="tag tag-gold">V4V Model</span>
+            <span class="tag tag-green">Community Owned</span>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <ul>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#card-system">Card System</a></li>
+            <li><a href="#network">The Network</a></li>
+            <li><a href="#for-clubs">For Clubs</a></li>
+            <li><a href="#user-guides">User Guides</a></li>
+            <li><a href="#comparison">Compare</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#implement">Getting Started</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#donate">Donate</a></li>
+            <li><a href="#v4v">V4V Model</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Protocols</h4>
+          <ul>
+            <li><a href="#" title="Coming soon">Signet Identity</a></li>
+            <li><a href="#" title="Coming soon">Nostr / NIP-98</a></li>
+            <li><a href="#" title="Coming soon">Blossom Storage</a></li>
+            <li><a href="#" title="Coming soon">Dominion Access</a></li>
+            <li><a href="#" title="Coming soon">Source Code</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-legal">
+          © 2026 MatchPass Foundation CIC. All cards, credentials, and bans illustrated are fictional examples.<br>
+          GDPR compliant. Built on open protocols. No VC funding. No shareholders. Community owned.
+        </div>
+        <div class="footer-meta">
+          Built with the <a href="https://renegaid.co" title="RenegAid">RenegAid</a> stack<br>
+          Nostr · Signet · Blossom · Dominion
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════════
+       JAVASCRIPT
+  ═══════════════════════════════════════════ -->
+  <script>
+    /* ─── Mobile Nav ─── */
+    function toggleMobileNav() {
+      document.getElementById('mobileNav').classList.toggle('open');
+    }
+
+    /* ─── FAQ Accordion ─── */
+    function toggleFaq(btn) {
+      const answer = btn.nextElementSibling;
+      const isOpen = btn.classList.contains('open');
+
+      // Close all
+      document.querySelectorAll('.faq-question').forEach(q => q.classList.remove('open'));
+      document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+
+      if (!isOpen) {
+        btn.classList.add('open');
+        answer.classList.add('open');
+      }
+    }
+
+    /* ─── Counter Animation ─── */
+    function animateCounter(el) {
+      const target = parseInt(el.dataset.target);
+      const duration = 1800;
+      const start = performance.now();
+
+      function step(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.floor(eased * target);
+        el.textContent = current.toLocaleString();
+        if (progress < 1) requestAnimationFrame(step);
+      }
+
+      requestAnimationFrame(step);
+    }
+
+    /* ─── Intersection Observer ─── */
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+
+          // Trigger counters
+          entry.target.querySelectorAll('.counter').forEach(c => {
+            if (!c.dataset.animated) {
+              c.dataset.animated = '1';
+              animateCounter(c);
+            }
+          });
+
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Also observe hero directly
+    const heroContent = document.querySelector('.hero-content');
+    if (heroContent) {
+      heroContent.classList.add('visible');
+      heroContent.querySelectorAll('.counter').forEach(c => {
+        if (!c.dataset.animated) {
+          c.dataset.animated = '1';
+          setTimeout(() => animateCounter(c), 400);
+        }
+      });
+    }
+
+    /* ─── Nav transparency on scroll ─── */
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) {
+        nav.style.background = 'rgba(6,11,20,0.97)';
+      } else {
+        nav.style.background = 'rgba(6,11,20,0.90)';
+      }
+    }, { passive: true });
+
+    /* ─── Close mobile nav on outside click ─── */
+    document.addEventListener('click', (e) => {
+      const mobileNav = document.getElementById('mobileNav');
+      const hamburger = document.getElementById('hamburger');
+      if (mobileNav.classList.contains('open') &&
+          !mobileNav.contains(e.target) &&
+          !hamburger.contains(e.target)) {
+        mobileNav.classList.remove('open');
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>MatchPass — Demo</title>
+<link rel="manifest" crossorigin="use-credentials" href="data:application/json;base64,eyJuYW1lIjoiTWF0Y2hQYXNzIiwic2hvcnRfbmFtZSI6Ik1hdGNoUGFzcyIsInN0YXJ0X3VybCI6Ii4iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjMGYxNzJhIiwidGhlbWVfY29sb3IiOiIjMmQ2YTRmIn0=">
+<meta name="theme-color" content="#2d6a4f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0f172a;--bg2:#1e293b;--bg3:#334155;
+  --primary:#2d6a4f;--primary-light:#40916c;
+  --green:#059669;--green-light:#d8f3dc;--green-bright:#22c55e;
+  --amber:#d97706;--amber-light:#fbbf24;
+  --red:#dc2626;--red-light:#fca5a5;
+  --text:#95d5b2;--text-bright:#d8f3dc;--text-muted:#64748b;
+  --font-display:Georgia,'Times New Roman',serif;
+  --font-body:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --font-mono:'SF Mono','Fira Code',monospace;
+}
+html,body{height:100%;font-family:var(--font-body);background:var(--bg);color:var(--text);overflow-x:hidden}
+a{color:var(--green-bright);text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+
+/* ─── DEMO BANNER ─── */
+.demo-banner{
+  background:linear-gradient(90deg,var(--amber),#f59e0b);color:#000;
+  text-align:center;padding:6px;font-size:0.75rem;font-weight:700;
+  letter-spacing:0.05em;text-transform:uppercase;
+}
+
+/* ─── TOP NAV ─── */
+.top-nav{
+  background:var(--bg2);display:flex;align-items:center;justify-content:space-between;
+  padding:0.75rem 1rem;border-bottom:1px solid var(--bg3);position:sticky;top:0;z-index:100;
+}
+.top-nav .club-name{font-family:var(--font-display);color:var(--text-bright);font-size:1.1rem}
+.top-nav .role-badge{
+  background:var(--primary);color:white;padding:3px 10px;border-radius:12px;
+  font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;
+}
+.top-nav .back-btn{
+  background:transparent;color:var(--text-muted);border:1px solid var(--text-muted);
+  padding:6px 14px;border-radius:8px;font-size:0.8rem;
+}
+.top-nav .back-btn:hover{border-color:var(--text);color:var(--text)}
+
+/* ─── VIEWS ─── */
+.view{display:none;min-height:calc(100vh - 80px)}
+.view.active{display:block}
+
+/* ─── ROLE SELECTION ─── */
+#view-roles{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:2rem}
+#view-roles .logo{font-family:var(--font-display);font-size:2.2rem;color:var(--text-bright);margin-bottom:0.25rem;letter-spacing:-0.02em}
+#view-roles .tagline{color:var(--text-muted);font-size:0.9rem;margin-bottom:2.5rem}
+.role-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;width:100%;max-width:400px}
+.role-card{
+  background:var(--bg2);border:2px solid var(--bg3);border-radius:16px;
+  padding:1.5rem 1rem;text-align:center;transition:all 0.2s;
+}
+.role-card:hover{border-color:var(--primary);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.3)}
+.role-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.role-card .label{color:var(--text-bright);font-weight:700;font-size:0.95rem}
+.role-card .desc{color:var(--text-muted);font-size:0.75rem;margin-top:0.25rem}
+
+/* ─── GATE SCANNER ─── */
+.mode-toggle{display:flex;gap:0.5rem;padding:0.75rem 1rem;justify-content:center}
+.mode-btn{
+  padding:8px 24px;border-radius:8px;border:none;font-weight:700;font-size:0.9rem;
+  min-height:44px;transition:all 0.15s;
+}
+.mode-btn.active{background:var(--primary);color:white}
+.mode-btn:not(.active){background:var(--bg2);color:var(--text-muted)}
+
+.camera-area{
+  position:relative;margin:0 1rem;border-radius:16px;overflow:hidden;
+  background:#000;aspect-ratio:4/3;max-height:50vh;
+}
+.camera-area .viewfinder{
+  position:absolute;inset:15%;border:2px solid var(--green-bright);border-radius:12px;
+  animation:pulse-border 2s ease-in-out infinite;
+}
+@keyframes pulse-border{0%,100%{opacity:0.4;border-color:var(--green-bright)}50%{opacity:1;border-color:var(--green-bright)}}
+.camera-area .scan-line{
+  position:absolute;left:15%;right:15%;height:2px;background:var(--green-bright);
+  opacity:0.6;animation:scan-sweep 2s ease-in-out infinite;
+}
+@keyframes scan-sweep{0%{top:15%}50%{top:82%}100%{top:15%}}
+.camera-area .label{
+  position:absolute;bottom:8px;left:50%;transform:translateX(-50%);
+  background:rgba(0,0,0,0.7);color:var(--text-muted);padding:4px 12px;
+  border-radius:6px;font-size:0.7rem;letter-spacing:0.05em;
+}
+
+.nfc-area{
+  display:none;align-items:center;justify-content:center;flex-direction:column;
+  min-height:300px;background:var(--bg2);border-radius:16px;margin:0 1rem;gap:1rem;
+}
+.nfc-icon{font-size:4rem;animation:nfc-pulse 1.5s ease-in-out infinite}
+@keyframes nfc-pulse{0%,100%{transform:scale(1);opacity:0.6}50%{transform:scale(1.1);opacity:1}}
+.nfc-text{color:var(--text);font-size:1.1rem;font-weight:600}
+
+.demo-scan-btn{
+  display:block;margin:1rem auto;background:var(--primary);color:white;
+  border:none;padding:14px 32px;border-radius:12px;font-size:1rem;font-weight:700;
+  min-height:50px;min-width:200px;transition:all 0.15s;
+}
+.demo-scan-btn:hover{background:var(--primary-light);transform:translateY(-1px)}
+.demo-scan-btn:active{transform:translateY(0)}
+
+.scan-counter{text-align:center;color:var(--text-muted);font-size:0.8rem;margin-bottom:1rem}
+.scan-counter span{color:var(--text-bright);font-weight:700;font-family:var(--font-mono)}
+
+/* Gate result overlay */
+.gate-result{
+  display:none;position:fixed;inset:0;z-index:200;flex-direction:column;
+  align-items:center;justify-content:center;gap:1.5rem;
+  animation:result-in 0.3s ease-out;
+}
+@keyframes result-in{from{opacity:0;transform:scale(0.9)}to{opacity:1;transform:scale(1)}}
+.gate-result.green{background:rgba(5,150,105,0.95)}
+.gate-result.amber{background:rgba(217,119,6,0.95)}
+.gate-result.red{background:rgba(220,38,38,0.95)}
+
+.gate-result .fan-avatar{
+  width:120px;height:120px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-size:2.5rem;font-weight:900;color:white;
+  border:4px solid rgba(255,255,255,0.3);
+}
+.gate-result .status-text{font-size:2.5rem;font-weight:900;color:white;letter-spacing:0.1em}
+.gate-result .status-detail{font-size:1rem;color:rgba(255,255,255,0.85);max-width:300px;text-align:center}
+.gate-result .fan-name{font-size:1.1rem;color:rgba(255,255,255,0.9);font-weight:600}
+.gate-result .tap-hint{
+  position:absolute;bottom:2rem;color:rgba(255,255,255,0.5);font-size:0.8rem;
+}
+
+/* ─── CARD ISSUER ─── */
+.issuer-view{padding:1.5rem;max-width:600px;margin:0 auto}
+.issuer-view h2{font-family:var(--font-display);color:var(--text-bright);margin-bottom:1.5rem}
+
+.form-group{margin-bottom:1.25rem}
+.form-group label{display:block;color:var(--text-muted);font-size:0.8rem;margin-bottom:0.4rem;text-transform:uppercase;letter-spacing:0.04em}
+.form-group input,.form-group select,.form-group textarea{
+  width:100%;background:var(--bg2);border:1px solid var(--bg3);color:var(--text-bright);
+  padding:12px;border-radius:8px;font-size:0.95rem;font-family:inherit;min-height:44px;
+}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{
+  outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(45,106,79,0.2);
+}
+.form-group textarea{min-height:80px;resize:vertical}
+
+.card-type-row{display:flex;gap:0.75rem;margin-bottom:1.25rem}
+.card-type-btn{
+  flex:1;padding:14px;border-radius:10px;border:2px solid var(--bg3);
+  background:var(--bg2);color:var(--text-muted);font-weight:700;font-size:1rem;
+  text-align:center;transition:all 0.15s;min-height:50px;
+}
+.card-type-btn.selected-yellow{border-color:var(--amber-light);color:var(--amber-light);background:rgba(251,191,36,0.1)}
+.card-type-btn.selected-red{border-color:var(--red);color:var(--red-light);background:rgba(220,38,38,0.1)}
+
+.submit-btn{
+  width:100%;background:var(--primary);color:white;border:none;padding:14px;
+  border-radius:10px;font-size:1rem;font-weight:700;min-height:50px;
+  transition:all 0.15s;margin-top:0.5rem;
+}
+.submit-btn:hover{background:var(--primary-light)}
+.submit-btn:disabled{opacity:0.5;cursor:not-allowed}
+
+.recent-cards{margin-top:2rem}
+.recent-cards h3{font-family:var(--font-display);color:var(--text-bright);margin-bottom:1rem;font-size:1.1rem}
+.recent-card-item{
+  background:var(--bg2);padding:1rem;border-radius:8px;margin-bottom:0.5rem;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.recent-card-item .card-badge{
+  padding:4px 10px;border-radius:6px;font-size:0.75rem;font-weight:700;text-transform:uppercase;
+}
+.recent-card-item .card-badge.yellow{background:rgba(251,191,36,0.15);color:var(--amber-light)}
+.recent-card-item .card-badge.red{background:rgba(220,38,38,0.15);color:var(--red-light)}
+
+/* ─── DASHBOARD ─── */
+.dash-view{padding:1.5rem;max-width:1000px;margin:0 auto}
+.dash-view h1{font-family:var(--font-display);color:var(--text-bright);font-size:1.5rem;margin-bottom:1.5rem}
+
+.dash-tabs{display:flex;gap:0.5rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.dash-tab{
+  padding:8px 16px;border-radius:8px;border:none;font-weight:600;
+  font-size:0.85rem;min-height:40px;transition:all 0.15s;
+}
+.dash-tab.active{background:var(--primary);color:white}
+.dash-tab:not(.active){background:var(--bg2);color:var(--text-muted)}
+.dash-tab:hover:not(.active){color:var(--text)}
+.dash-tab .badge{
+  display:inline-block;background:var(--red);color:white;padding:1px 6px;
+  border-radius:10px;font-size:0.7rem;margin-left:4px;font-weight:700;
+}
+
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:1rem;margin-bottom:1.5rem}
+.stat-card{
+  background:var(--bg2);padding:1rem;border-radius:8px;text-align:center;
+}
+.stat-card .num{font-size:2rem;font-weight:900;font-family:var(--font-mono)}
+.stat-card .label{font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-top:2px}
+.stat-card.green .num{color:var(--green)}
+.stat-card.amber .num{color:var(--amber)}
+.stat-card.red .num{color:var(--red)}
+.stat-card.total .num{color:var(--text-bright)}
+
+.section-title{font-family:var(--font-display);color:var(--text-bright);margin:1.5rem 0 0.75rem;font-size:1.1rem}
+
+.incident-card{
+  background:var(--bg2);padding:1rem;border-radius:8px;margin-bottom:0.5rem;
+}
+.incident-card .top-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.25rem}
+.incident-card .card-type{font-weight:700;text-transform:uppercase}
+.incident-card .card-type.yellow{color:var(--amber-light)}
+.incident-card .card-type.red{color:var(--red-light)}
+.incident-card .time{font-size:0.8rem;color:var(--text-muted)}
+.incident-card .category{color:var(--text);font-size:0.9rem}
+.incident-card .meta{color:var(--text-muted);font-size:0.8rem;margin-top:0.25rem}
+.incident-card .notes{color:var(--text-muted);font-size:0.8rem;font-style:italic;margin-top:0.25rem}
+
+/* Review / flag cards */
+.review-card{
+  background:var(--bg2);padding:1.25rem;border-radius:8px;margin-bottom:0.75rem;
+}
+.review-card .header{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem}
+.review-card .title{font-weight:700}
+.review-card .title.red{color:var(--red-light)}
+.review-card .title.amber{color:var(--amber-light)}
+.review-card .urgency{font-size:0.8rem;font-weight:700}
+.review-card .urgency.urgent{color:var(--red)}
+.review-card .actions{display:flex;gap:0.5rem;margin-top:0.75rem}
+.review-card .actions button{
+  flex:1;padding:10px;border:none;border-radius:8px;color:white;font-weight:700;
+  font-size:0.85rem;min-height:44px;transition:all 0.1s;
+}
+.review-card .actions button:active{transform:scale(0.97)}
+.btn-confirm{background:var(--red)}
+.btn-downgrade{background:var(--amber)}
+.btn-dismiss{background:var(--green)}
+
+.pubkey{font-family:var(--font-mono);font-size:0.85rem;color:var(--text)}
+
+/* Flag-specific border */
+.flag-card{border-left:4px solid var(--amber-light)}
+.review-red{border-left:4px solid var(--red)}
+
+/* ─── SAFEGUARDING ─── */
+.safeguarding-view{padding:1.5rem;max-width:600px;margin:0 auto}
+.safeguarding-view h2{font-family:var(--font-display);color:var(--text-bright);margin-bottom:0.5rem}
+.safeguarding-view .subtitle{color:var(--text-muted);font-size:0.9rem;margin-bottom:1.5rem}
+
+.linkage-card{
+  background:var(--bg2);padding:1.25rem;border-radius:10px;margin-bottom:0.75rem;
+  border-left:4px solid var(--primary);
+}
+.linkage-card .parent{color:var(--text-bright);font-weight:700;font-size:1rem}
+.linkage-card .child{color:var(--text);font-size:0.9rem;margin-top:0.25rem}
+.linkage-card .linked-meta{color:var(--text-muted);font-size:0.8rem;margin-top:0.5rem}
+.linkage-card .status-badge{
+  display:inline-block;padding:2px 8px;border-radius:6px;font-size:0.7rem;font-weight:700;
+}
+.linkage-card .status-badge.active{background:rgba(5,150,105,0.15);color:var(--green-bright)}
+.linkage-card .status-badge.pending{background:rgba(217,119,6,0.15);color:var(--amber-light)}
+
+/* ─── ADMIN ─── */
+.admin-view{padding:1.5rem;max-width:800px;margin:0 auto}
+.admin-view h2{font-family:var(--font-display);color:var(--text-bright);margin-bottom:1.5rem}
+
+.admin-section{margin-bottom:2rem}
+.admin-section h3{font-family:var(--font-display);color:var(--text-bright);margin-bottom:1rem;font-size:1.1rem}
+
+.info-row{
+  display:flex;justify-content:space-between;padding:0.75rem 0;
+  border-bottom:1px solid var(--bg3);
+}
+.info-row .label{color:var(--text-muted);font-size:0.9rem}
+.info-row .value{color:var(--text-bright);font-weight:600;font-size:0.9rem}
+
+.staff-row{
+  background:var(--bg2);padding:1rem;border-radius:8px;margin-bottom:0.5rem;
+  display:flex;align-items:center;gap:1rem;
+}
+.staff-avatar{
+  width:40px;height:40px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-weight:900;font-size:0.85rem;color:white;flex-shrink:0;
+}
+.staff-info{flex:1}
+.staff-info .name{color:var(--text-bright);font-weight:600}
+.staff-info .role{color:var(--text-muted);font-size:0.8rem;text-transform:capitalize}
+.staff-status{
+  padding:3px 10px;border-radius:6px;font-size:0.7rem;font-weight:700;text-transform:uppercase;
+  background:rgba(5,150,105,0.15);color:var(--green-bright);
+}
+
+/* ─── TOAST ─── */
+.toast{
+  position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);
+  background:var(--bg2);color:var(--text-bright);padding:14px 24px;border-radius:12px;
+  font-weight:600;box-shadow:0 8px 32px rgba(0,0,0,0.4);z-index:500;
+  transition:transform 0.3s ease;border:1px solid var(--bg3);
+}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.toast.success{border-color:var(--green)}
+.toast.error{border-color:var(--red)}
+
+/* ─── OFFLINE BADGE ─── */
+.offline-badge{
+  position:fixed;top:60px;right:1rem;background:var(--amber);color:#000;
+  padding:4px 12px;border-radius:6px;font-size:0.75rem;font-weight:700;
+  display:none;z-index:300;
+}
+
+/* ─── EMPTY STATE ─── */
+.empty-state{color:var(--text-muted);font-style:italic;padding:2rem 0;text-align:center}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:480px){
+  .role-grid{grid-template-columns:1fr;max-width:280px}
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+  .dash-tabs{gap:0.35rem}
+  .dash-tab{padding:6px 10px;font-size:0.8rem}
+  .review-card .actions{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<!-- DEMO BANNER -->
+<div class="demo-banner">Demo Mode — All data is simulated</div>
+
+<!-- TOP NAV (hidden on role selection) -->
+<nav class="top-nav" id="top-nav" style="display:none;">
+  <div>
+    <div class="club-name">Hartlepool United</div>
+    <span class="role-badge" id="nav-role-badge"></span>
+  </div>
+  <button class="back-btn" onclick="showRoles()">Switch Role</button>
+</nav>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- ROLE SELECTION                          -->
+<!-- ═══════════════════════════════════════ -->
+<div id="view-roles" class="view active">
+  <div class="logo">MatchPass</div>
+  <div class="tagline">Select your role to continue</div>
+  <div class="role-grid">
+    <button class="role-card" onclick="selectRole('gate')">
+      <div class="icon">📷</div>
+      <div class="label">Gate Steward</div>
+      <div class="desc">Scan fans at turnstiles</div>
+    </button>
+    <button class="role-card" onclick="selectRole('roaming')">
+      <div class="icon">🟨</div>
+      <div class="label">Roaming Steward</div>
+      <div class="desc">Issue cards in-ground</div>
+    </button>
+    <button class="role-card" onclick="selectRole('safety')">
+      <div class="icon">📊</div>
+      <div class="label">Safety Officer</div>
+      <div class="desc">Dashboard &amp; review</div>
+    </button>
+    <button class="role-card" onclick="selectRole('safeguarding')">
+      <div class="icon">🛡️</div>
+      <div class="label">Safeguarding</div>
+      <div class="desc">Parent-child linkages</div>
+    </button>
+    <button class="role-card" onclick="selectRole('admin')" style="grid-column:1/-1;">
+      <div class="icon">⚙️</div>
+      <div class="label">Club Admin</div>
+      <div class="desc">Staff, seasons &amp; settings</div>
+    </button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- GATE SCANNER                           -->
+<!-- ═══════════════════════════════════════ -->
+<div id="view-gate" class="view">
+  <div class="mode-toggle">
+    <button class="mode-btn active" id="btn-qr" onclick="setGateMode('qr')">QR Scan</button>
+    <button class="mode-btn" id="btn-nfc" onclick="setGateMode('nfc')">NFC Tap</button>
+  </div>
+
+  <div class="camera-area" id="camera-area">
+    <div class="viewfinder"></div>
+    <div class="scan-line"></div>
+    <div class="label">REAR CAMERA — SCANNING</div>
+  </div>
+
+  <div class="nfc-area" id="nfc-area">
+    <div class="nfc-icon">📶</div>
+    <div class="nfc-text">Tap NFC card or wristband</div>
+  </div>
+
+  <button class="demo-scan-btn" onclick="demoScan()">Demo Scan</button>
+  <div class="scan-counter">Scans today: <span id="scan-count">0</span></div>
+
+  <!-- Result overlay -->
+  <div class="gate-result" id="gate-result">
+    <div class="fan-avatar" id="gr-avatar"></div>
+    <div class="fan-name" id="gr-name"></div>
+    <div class="status-text" id="gr-status"></div>
+    <div class="status-detail" id="gr-detail"></div>
+    <div class="tap-hint">Tap anywhere to dismiss</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- CARD ISSUER (Roaming Steward)          -->
+<!-- ═══════════════════════════════════════ -->
+<div id="view-roaming" class="view">
+  <div class="issuer-view">
+    <h2>Issue Card</h2>
+    <div class="form-group">
+      <label>Fan (scan or search)</label>
+      <input type="text" id="issue-fan" placeholder="Scan QR or enter name..." value="">
+    </div>
+    <div class="card-type-row">
+      <button class="card-type-btn selected-yellow" id="type-yellow" onclick="setCardType('yellow')">Yellow</button>
+      <button class="card-type-btn" id="type-red" onclick="setCardType('red')">Red</button>
+    </div>
+    <div class="form-group">
+      <label>Category</label>
+      <select id="issue-category">
+        <option value="">Select category...</option>
+        <option>Persistent standing</option>
+        <option>Thrown object</option>
+        <option>Pyrotechnics</option>
+        <option>Discriminatory language</option>
+        <option>Pitch incursion</option>
+        <option>Threatening behaviour</option>
+        <option>Alcohol offence</option>
+        <option>Ticket touting</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Location</label>
+      <input type="text" id="issue-location" placeholder="Block / Row / Seat">
+    </div>
+    <div class="form-group">
+      <label>Notes</label>
+      <textarea id="issue-notes" placeholder="What happened..."></textarea>
+    </div>
+    <button class="submit-btn" onclick="issueCard()">Issue Card</button>
+
+    <div class="recent-cards" id="recent-cards">
+      <h3>Issued Today</h3>
+      <div id="recent-cards-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- DASHBOARD (Safety Officer)             -->
+<!-- ═══════════════════════════════════════ -->
+<div id="view-safety" class="view">
+  <div class="dash-view">
+    <h1>MatchPass Dashboard</h1>
+
+    <div class="dash-tabs">
+      <button class="dash-tab active" data-tab="today" onclick="switchDashTab('today')">Today</button>
+      <button class="dash-tab" data-tab="cards" onclick="switchDashTab('cards')">Cards</button>
+      <button class="dash-tab" data-tab="review" onclick="switchDashTab('review')">Review <span class="badge">2</span></button>
+      <button class="dash-tab" data-tab="flags" onclick="switchDashTab('flags')">Scan Flags <span class="badge">1</span></button>
+      <button class="dash-tab" data-tab="season" onclick="switchDashTab('season')">Season</button>
+    </div>
+
+    <!-- TODAY -->
+    <div class="tab-content active" id="tab-today">
+      <div class="stat-grid" id="today-stats"></div>
+      <h3 class="section-title">Incidents Today</h3>
+      <div id="today-incidents"></div>
+    </div>
+
+    <!-- CARDS -->
+    <div class="tab-content" id="tab-cards">
+      <div id="cards-list"></div>
+    </div>
+
+    <!-- REVIEW QUEUE -->
+    <div class="tab-content" id="tab-review">
+      <div id="review-list"></div>
+    </div>
+
+    <!-- SCAN FLAGS -->
+    <div class="tab-content" id="tab-flags">
+      <div id="flags-list"></div>
+    </div>
+
+    <!-- SEASON STATS -->
+    <div class="tab-content" id="tab-season">
+      <div class="stat-grid" id="season-stats"></div>
+      <h3 class="section-title">By Category</h3>
+      <div id="season-categories"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SAFEGUARDING                           -->
+<!-- ═══════════════════════════════════════ -->
+<div id="view-safeguarding" class="view">
+  <div class="safeguarding-view">
+    <h2>Parent-Child Linkages</h2>
+    <p class="subtitle">Safeguarding officer approval required for all new linkages</p>
+    <div id="linkages-list"></div>
+    <button class="submit-btn" style="margin-top:1rem" onclick="toast('Link request form would open here','success')">New Linkage Request</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- ADMIN                                  -->
+<!-- ═══════════════════════════════════════ -->
+<div id="view-admin" class="view">
+  <div class="admin-view">
+    <h2>Club Administration</h2>
+
+    <div class="admin-section">
+      <h3>Club Info</h3>
+      <div id="admin-club-info"></div>
+    </div>
+
+    <div class="admin-section">
+      <h3>Current Season</h3>
+      <div id="admin-season-info"></div>
+    </div>
+
+    <div class="admin-section">
+      <h3>Staff</h3>
+      <div id="admin-staff-list"></div>
+      <button class="submit-btn" style="margin-top:1rem" onclick="toast('Invite staff form would open here','success')">Invite Staff Member</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+<!-- OFFLINE -->
+<div class="offline-badge" id="offline-badge">OFFLINE</div>
+
+<script>
+// ═══════════════════════════════════════════
+// MOCK DATA
+// ═══════════════════════════════════════════
+const FANS = [
+  { name:'James Hartley',   pubkey:'a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2', color:'#3b82f6', initials:'JH' },
+  { name:'Sarah Mitchell',  pubkey:'b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0b2c3', color:'#8b5cf6', initials:'SM' },
+  { name:'Danny Cooper',    pubkey:'c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0c3d4', color:'#ef4444', initials:'DC' },
+  { name:'Megan Taylor',    pubkey:'d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0d4e5f6a7', color:'#f59e0b', initials:'MT' },
+  { name:'Ryan Blackwell',  pubkey:'e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0e5f6a7b8c9', color:'#10b981', initials:'RB' },
+  { name:'Karen Hodgson',   pubkey:'f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0f6a7b8c9d0e1', color:'#6366f1', initials:'KH' },
+  { name:'Lee Atkinson',    pubkey:'a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a7b8c9d0e1f2a3', color:'#ec4899', initials:'LA' },
+  { name:'Tom Walker',      pubkey:'b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0b8c9d0e1f2a3b4c5', color:'#14b8a6', initials:'TW' },
+];
+
+const CATEGORIES = ['Persistent standing','Thrown object','Pyrotechnics','Discriminatory language','Pitch incursion','Threatening behaviour','Alcohol offence','Ticket touting'];
+const STAFF = [
+  { name:'Dave Armstrong', role:'safety_officer', color:'#2d6a4f', initials:'DA' },
+  { name:'Chloe Barnes',  role:'gate_steward',   color:'#3b82f6', initials:'CB' },
+  { name:'Mike Prentice', role:'gate_steward',   color:'#ef4444', initials:'MP' },
+  { name:'Julie Kemp',    role:'roaming_steward', color:'#8b5cf6', initials:'JK' },
+  { name:'Ben Carter',    role:'safeguarding_officer', color:'#f59e0b', initials:'BC' },
+  { name:'Amy Thompson',  role:'admin',          color:'#ec4899', initials:'AT' },
+];
+
+const today = new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+const timeNow = () => new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+
+// Pre-built incident data
+const MOCK_INCIDENTS = [
+  { card_type:'yellow', category:'Persistent standing', notes:'Block H Row 4, warned twice before card issued', time:'14:23', fan: FANS[2], staff: STAFF[3] },
+  { card_type:'yellow', category:'Thrown object',       notes:'Plastic bottle thrown toward pitch at 62 min',    time:'15:07', fan: FANS[6], staff: STAFF[3] },
+  { card_type:'red',    category:'Discriminatory language', notes:'Racial abuse reported by multiple witnesses', time:'15:31', fan: FANS[3], staff: STAFF[0] },
+];
+
+const MOCK_REVIEW_QUEUE = [
+  { card_id:'c-001', card_type:'red', category:'Discriminatory language', notes:'Racial abuse reported by multiple witnesses in Block G', time:'15:31', fan: FANS[3], staff: STAFF[0], hoursLeft: 44, challenge:'I was singing a song, the words were misheard. Ask the people next to me.' },
+  { card_id:'c-002', card_type:'red', category:'Threatening behaviour', notes:'Confrontation with away fan near Block D exit', time:'16:02', fan: FANS[6], staff: STAFF[3], hoursLeft: 46, challenge: null },
+];
+
+const MOCK_FLAGS = [
+  { flag_id:'f-001', fan: FANS[4], firstGate:'Gate A', secondGate:'Gate C', firstTime:'14:12', secondTime:'14:38', staff: STAFF[2] },
+];
+
+const MOCK_LINKAGES = [
+  { parent: FANS[0], child:'Oliver Hartley (age 11)', status:'active', approvedBy: STAFF[4], date:'12 Aug 2025' },
+  { parent: FANS[5], child:'Lily Hodgson (age 9)', status:'active', approvedBy: STAFF[4], date:'19 Aug 2025' },
+  { parent: FANS[1], child:'Max Mitchell (age 14)', status:'pending', approvedBy: null, date:'05 Apr 2026' },
+];
+
+// Mutable state
+let scanCount = 147;
+let issuedCards = [];
+let gateMode = 'qr';
+let selectedCardType = 'yellow';
+let demoScanIndex = 0;
+
+// Weighted scan result scenarios
+const SCAN_SCENARIOS = [
+  { colour:'green', detail:'Clean — admitted',            weight: 55 },
+  { colour:'green', detail:'First visit — gate-lock set', weight: 15 },
+  { colour:'green', detail:'Clean — admitted',            weight: 10 },
+  { colour:'amber', detail:'Photo mismatch',              weight: 5 },
+  { colour:'amber', detail:'1 active yellow',             weight: 5 },
+  { colour:'red',   detail:'Banned — entry denied',       weight: 5 },
+  { colour:'red',   detail:'Duplicate scan — flagged',    weight: 3 },
+  { colour:'green', detail:'Clean — admitted',            weight: 2 },
+];
+
+function weightedRandom(scenarios) {
+  const total = scenarios.reduce((s,sc) => s + sc.weight, 0);
+  let r = Math.random() * total;
+  for (const sc of scenarios) { r -= sc.weight; if (r <= 0) return sc; }
+  return scenarios[0];
+}
+
+// ═══════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════
+const ROLE_LABELS = {
+  gate:'Gate Steward', roaming:'Roaming Steward', safety:'Safety Officer',
+  safeguarding:'Safeguarding', admin:'Admin'
+};
+
+function selectRole(role) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-roles').classList.remove('active');
+  document.getElementById('top-nav').style.display = 'flex';
+  document.getElementById('nav-role-badge').textContent = ROLE_LABELS[role];
+
+  const viewId = role === 'gate' ? 'view-gate'
+               : role === 'roaming' ? 'view-roaming'
+               : role === 'safety' ? 'view-safety'
+               : role === 'safeguarding' ? 'view-safeguarding'
+               : 'view-admin';
+  document.getElementById(viewId).classList.add('active');
+
+  // Hydrate views on first open
+  if (role === 'safety') hydrDashboard();
+  if (role === 'safeguarding') hydrLinkages();
+  if (role === 'admin') hydrAdmin();
+  if (role === 'roaming') hydrRecentCards();
+  if (role === 'gate') document.getElementById('scan-count').textContent = scanCount;
+}
+
+function showRoles() {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-roles').classList.add('active');
+  document.getElementById('top-nav').style.display = 'none';
+}
+
+// ═══════════════════════════════════════════
+// GATE SCANNER
+// ═══════════════════════════════════════════
+function setGateMode(mode) {
+  gateMode = mode;
+  document.getElementById('camera-area').style.display = mode === 'qr' ? 'block' : 'none';
+  document.getElementById('nfc-area').style.display    = mode === 'nfc' ? 'flex' : 'none';
+  document.getElementById('btn-qr').className  = 'mode-btn' + (mode === 'qr' ? ' active' : '');
+  document.getElementById('btn-nfc').className = 'mode-btn' + (mode === 'nfc' ? ' active' : '');
+}
+
+function demoScan() {
+  const fan = FANS[demoScanIndex % FANS.length];
+  const scenario = weightedRandom(SCAN_SCENARIOS);
+  demoScanIndex++;
+  scanCount++;
+  document.getElementById('scan-count').textContent = scanCount;
+
+  const el = document.getElementById('gate-result');
+  const avatar = document.getElementById('gr-avatar');
+  const nameEl = document.getElementById('gr-name');
+  const statusEl = document.getElementById('gr-status');
+  const detailEl = document.getElementById('gr-detail');
+
+  el.className = 'gate-result ' + scenario.colour;
+  el.style.display = 'flex';
+  avatar.style.background = fan.color;
+  avatar.textContent = fan.initials;
+  nameEl.textContent = fan.name;
+  statusEl.textContent = scenario.colour.toUpperCase();
+  detailEl.textContent = scenario.detail;
+
+  if (scenario.colour === 'green') {
+    setTimeout(() => { el.style.display = 'none'; }, 3000);
+  }
+}
+document.addEventListener('click', e => {
+  const el = document.getElementById('gate-result');
+  if (el.style.display === 'flex' && e.target.closest('.gate-result')) {
+    el.style.display = 'none';
+  }
+});
+
+// ═══════════════════════════════════════════
+// CARD ISSUER
+// ═══════════════════════════════════════════
+function setCardType(type) {
+  selectedCardType = type;
+  document.getElementById('type-yellow').className = 'card-type-btn' + (type === 'yellow' ? ' selected-yellow' : '');
+  document.getElementById('type-red').className    = 'card-type-btn' + (type === 'red'    ? ' selected-red' : '');
+}
+
+function issueCard() {
+  const fan = document.getElementById('issue-fan').value.trim();
+  const cat = document.getElementById('issue-category').value;
+  const loc = document.getElementById('issue-location').value.trim();
+  const notes = document.getElementById('issue-notes').value.trim();
+  if (!fan) { toast('Enter a fan name or scan their QR','error'); return; }
+  if (!cat) { toast('Select a category','error'); return; }
+
+  issuedCards.unshift({
+    fan, category: cat, location: loc, notes, card_type: selectedCardType, time: timeNow()
+  });
+
+  // Clear form
+  document.getElementById('issue-fan').value = '';
+  document.getElementById('issue-category').value = '';
+  document.getElementById('issue-location').value = '';
+  document.getElementById('issue-notes').value = '';
+
+  toast(selectedCardType.toUpperCase() + ' card issued to ' + esc(fan), 'success');
+  hydrRecentCards();
+}
+
+function hydrRecentCards() {
+  const el = document.getElementById('recent-cards-list');
+  const all = [...MOCK_INCIDENTS.map(i => ({ ...i, fan: i.fan.name })), ...issuedCards];
+  if (all.length === 0) { el.innerHTML = '<p class="empty-state">No cards issued today</p>'; return; }
+  el.innerHTML = all.map(c => `
+    <div class="recent-card-item">
+      <div>
+        <div style="color:var(--text-bright);font-weight:600">${esc(c.fan)}</div>
+        <div style="color:var(--text-muted);font-size:0.8rem">${esc(c.category)} &middot; ${c.time}</div>
+      </div>
+      <span class="card-badge ${c.card_type}">${c.card_type}</span>
+    </div>
+  `).join('');
+}
+
+// ═══════════════════════════════════════════
+// DASHBOARD
+// ═══════════════════════════════════════════
+function switchDashTab(tab) {
+  document.querySelectorAll('#view-safety .tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('#view-safety .dash-tab').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.tab === tab);
+  });
+  document.getElementById('tab-' + tab).classList.add('active');
+}
+
+function hydrDashboard() {
+  // Today stats
+  const green = 128 + issuedCards.filter(c => false).length;
+  const amber = 11;
+  const red = 3;
+  const mismatch = 2;
+  const total = scanCount;
+  document.getElementById('today-stats').innerHTML = `
+    <div class="stat-card total"><div class="num">${total}</div><div class="label">Total Scans</div></div>
+    <div class="stat-card green"><div class="num">${green}</div><div class="label">Green</div></div>
+    <div class="stat-card amber"><div class="num">${amber}</div><div class="label">Amber</div></div>
+    <div class="stat-card red"><div class="num">${red}</div><div class="label">Red</div></div>
+  `;
+
+  // Today incidents
+  document.getElementById('today-incidents').innerHTML = MOCK_INCIDENTS.map(inc => `
+    <div class="incident-card">
+      <div class="top-row">
+        <span class="card-type ${inc.card_type}">${inc.card_type}</span>
+        <span class="time">${inc.time}</span>
+      </div>
+      <div class="category">${esc(inc.category)}</div>
+      <div class="meta">${esc(inc.fan.name)} &middot; issued by ${esc(inc.staff.name)}</div>
+      ${inc.notes ? `<div class="notes">${esc(inc.notes)}</div>` : ''}
+    </div>
+  `).join('');
+
+  // All cards (season)
+  const seasonCards = [
+    { type:'yellow', cat:'Persistent standing', fan: FANS[1], date:'15 Mar', status:'expired (5 clean)' },
+    { type:'yellow', cat:'Alcohol offence',     fan: FANS[7], date:'22 Mar', status:'active (2 clean)' },
+    { type:'yellow', cat:'Thrown object',        fan: FANS[4], date:'29 Mar', status:'active (1 clean)' },
+    ...MOCK_INCIDENTS.map(i => ({ type: i.card_type, cat: i.category, fan: i.fan, date:'Today', status:'active' })),
+  ];
+  document.getElementById('cards-list').innerHTML = seasonCards.map(c => `
+    <div class="incident-card" style="border-left:4px solid ${c.type === 'yellow' ? 'var(--amber-light)' : 'var(--red)'};">
+      <div class="top-row">
+        <span class="card-type ${c.type}">${c.type}</span>
+        <span class="time">${c.date}</span>
+      </div>
+      <div class="category">${esc(c.cat)}</div>
+      <div class="meta">${esc(c.fan.name)} &middot; ${esc(c.status)}</div>
+    </div>
+  `).join('');
+
+  // Review queue
+  hydrReviewQueue();
+
+  // Scan flags
+  hydrScanFlags();
+
+  // Season stats
+  document.getElementById('season-stats').innerHTML = `
+    <div class="stat-card" style=""><div class="num" style="color:var(--amber-light)">14</div><div class="label">Yellows</div></div>
+    <div class="stat-card"><div class="num" style="color:var(--red-light)">3</div><div class="label">Reds</div></div>
+    <div class="stat-card total"><div class="num">17</div><div class="label">Total</div></div>
+  `;
+  const catCounts = [
+    { cat:'Persistent standing', count: 5 },
+    { cat:'Thrown object', count: 3 },
+    { cat:'Alcohol offence', count: 3 },
+    { cat:'Discriminatory language', count: 2 },
+    { cat:'Threatening behaviour', count: 2 },
+    { cat:'Pitch incursion', count: 1 },
+    { cat:'Pyrotechnics', count: 1 },
+  ];
+  document.getElementById('season-categories').innerHTML = catCounts.map(c => `
+    <div style="display:flex;justify-content:space-between;padding:0.5rem 0;border-bottom:1px solid var(--bg3);">
+      <span style="color:var(--text)">${esc(c.cat)}</span>
+      <span style="color:var(--text-bright);font-weight:700;font-family:var(--font-mono)">${c.count}</span>
+    </div>
+  `).join('');
+}
+
+function hydrReviewQueue() {
+  const el = document.getElementById('review-list');
+  if (MOCK_REVIEW_QUEUE.length === 0) {
+    el.innerHTML = '<p class="empty-state">No cards awaiting review</p>';
+    return;
+  }
+  el.innerHTML = MOCK_REVIEW_QUEUE.map(r => `
+    <div class="review-card review-red">
+      <div class="header">
+        <span class="title red">RED CARD — Review Required</span>
+        <span class="urgency ${r.hoursLeft < 24 ? 'urgent' : ''}">${r.hoursLeft}h remaining</span>
+      </div>
+      <div class="category" style="margin-bottom:0.25rem">${esc(r.category)}</div>
+      <div class="meta" style="color:var(--text-muted);font-size:0.8rem">
+        ${esc(r.fan.name)} &middot; issued by ${esc(r.staff.name)} at ${r.time}
+      </div>
+      ${r.notes ? `<div class="notes" style="color:var(--text-muted);font-size:0.8rem;font-style:italic;margin-top:0.25rem">${esc(r.notes)}</div>` : ''}
+      ${r.challenge ? `<div style="color:var(--amber);font-size:0.85rem;margin-top:0.5rem"><strong>Fan's challenge:</strong> ${esc(r.challenge)}</div>` : ''}
+      <div class="actions">
+        <button class="btn-confirm" onclick="reviewAction('${r.card_id}','confirmed')">Confirm</button>
+        <button class="btn-downgrade" onclick="reviewAction('${r.card_id}','downgraded')">Downgrade</button>
+        <button class="btn-dismiss" onclick="reviewAction('${r.card_id}','dismissed')">Dismiss</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function reviewAction(cardId, outcome) {
+  const idx = MOCK_REVIEW_QUEUE.findIndex(r => r.card_id === cardId);
+  if (idx >= 0) MOCK_REVIEW_QUEUE.splice(idx, 1);
+  const labels = { confirmed:'Red card confirmed', downgraded:'Downgraded to yellow', dismissed:'Card dismissed' };
+  toast(labels[outcome], 'success');
+  hydrReviewQueue();
+  // Update badge
+  const badge = document.querySelector('[data-tab="review"] .badge');
+  if (badge) badge.textContent = MOCK_REVIEW_QUEUE.length || '';
+  if (MOCK_REVIEW_QUEUE.length === 0 && badge) badge.style.display = 'none';
+}
+
+function hydrScanFlags() {
+  const el = document.getElementById('flags-list');
+  if (MOCK_FLAGS.length === 0) {
+    el.innerHTML = '<p class="empty-state">No open scan flags</p>';
+    return;
+  }
+  el.innerHTML = MOCK_FLAGS.map(f => `
+    <div class="review-card flag-card">
+      <div class="header">
+        <span class="title amber">DUPLICATE SCAN</span>
+        <span class="time" style="font-size:0.8rem;color:var(--text-muted)">Today</span>
+      </div>
+      <div class="pubkey">${esc(f.fan.pubkey.slice(0,8))}...${esc(f.fan.pubkey.slice(-8))}</div>
+      <div style="color:var(--text);font-size:0.9rem;margin-top:0.25rem">${esc(f.fan.name)}</div>
+      <div class="meta" style="color:var(--text-muted);font-size:0.8rem;margin-top:0.25rem">
+        First: ${f.firstTime} @ ${esc(f.firstGate)} &middot; Second: ${f.secondTime} @ ${esc(f.secondGate)}
+      </div>
+      <div class="meta" style="color:var(--text-muted);font-size:0.8rem">Flagged by ${esc(f.staff.name)}</div>
+      <div class="actions">
+        <button class="btn-dismiss" onclick="dismissFlag('${f.flag_id}')">Dismiss</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function dismissFlag(flagId) {
+  const idx = MOCK_FLAGS.findIndex(f => f.flag_id === flagId);
+  if (idx >= 0) MOCK_FLAGS.splice(idx, 1);
+  toast('Scan flag dismissed', 'success');
+  hydrScanFlags();
+  const badge = document.querySelector('[data-tab="flags"] .badge');
+  if (badge) badge.textContent = MOCK_FLAGS.length || '';
+  if (MOCK_FLAGS.length === 0 && badge) badge.style.display = 'none';
+}
+
+// ═══════════════════════════════════════════
+// SAFEGUARDING
+// ═══════════════════════════════════════════
+function hydrLinkages() {
+  document.getElementById('linkages-list').innerHTML = MOCK_LINKAGES.map(l => `
+    <div class="linkage-card">
+      <div class="parent">${esc(l.parent.name)}</div>
+      <div class="child">↳ ${esc(l.child)}</div>
+      <div class="linked-meta">
+        <span class="status-badge ${l.status}">${l.status}</span>
+        ${l.approvedBy ? ` &middot; Approved by ${esc(l.approvedBy.name)}` : ' &middot; Awaiting approval'}
+        &middot; ${l.date}
+      </div>
+    </div>
+  `).join('');
+}
+
+// ═══════════════════════════════════════════
+// ADMIN
+// ═══════════════════════════════════════════
+function hydrAdmin() {
+  document.getElementById('admin-club-info').innerHTML = [
+    ['Club Name','Hartlepool United FC'],
+    ['Ground','Prestige Group Stadium'],
+    ['Capacity','7,856'],
+    ['League','National League'],
+    ['MatchPass ID','club_7f3a...b2c1'],
+  ].map(([l,v]) => `<div class="info-row"><span class="label">${l}</span><span class="value">${v}</span></div>`).join('');
+
+  document.getElementById('admin-season-info').innerHTML = [
+    ['Season','2025/26'],
+    ['Status','Active'],
+    ['Matches Played','38'],
+    ['Total Scans','5,247'],
+    ['Gate-Locks Set','1,832'],
+  ].map(([l,v]) => `<div class="info-row"><span class="label">${l}</span><span class="value">${v}</span></div>`).join('');
+
+  document.getElementById('admin-staff-list').innerHTML = STAFF.map(s => `
+    <div class="staff-row">
+      <div class="staff-avatar" style="background:${s.color}">${s.initials}</div>
+      <div class="staff-info">
+        <div class="name">${esc(s.name)}</div>
+        <div class="role">${s.role.replace(/_/g,' ')}</div>
+      </div>
+      <span class="staff-status">Active</span>
+    </div>
+  `).join('');
+}
+
+// ═══════════════════════════════════════════
+// UTILITIES
+// ═══════════════════════════════════════════
+function esc(str) {
+  if (!str) return '';
+  const d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+function toast(msg, type) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'toast ' + (type || '');
+  requestAnimationFrame(() => {
+    el.classList.add('show');
+    setTimeout(() => el.classList.remove('show'), 2500);
+  });
+}
+</script>
+</body>
+</html>
