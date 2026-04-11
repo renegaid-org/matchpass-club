@@ -28,12 +28,6 @@ function escapeHtml(str) {
   return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
-function formatDate(iso) {
-  if (!iso) return '';
-  const d = new Date(iso);
-  return d.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
-}
-
 function truncateNpub(npub) {
   if (!npub || npub.length < 20) return npub || '';
   return npub.slice(0, 12) + '...' + npub.slice(-8);
@@ -55,7 +49,6 @@ function roleToKey(role) {
     'Admin': 'admin',
     'Club Admin': 'admin',
     'Safeguarding Officer': 'safeguarding',
-    'Safety Officer': 'safety',
     'Steward': 'steward',
   };
   return map[role] || role.split(' ')[0].toLowerCase();
@@ -88,11 +81,15 @@ function groupOfficers(officers) {
 
 function renderOfficerCard(officer, club, index) {
   const nip05 = officerNip05Key(officer, club, index) + '@matchpass.club';
+  const isPlaceholder = !officer.npub || officer.npub.includes('placeholder');
+  const npubHtml = isPlaceholder
+    ? '<div class="officer-npub pending">Pending verification</div>'
+    : `<div class="officer-npub" title="${escapeHtml(officer.npub)}">${truncateNpub(officer.npub)}</div>`;
   return `
         <div class="officer-card">
           <div class="officer-role">${escapeHtml(officer.role)}</div>
           ${officer.name ? `<div class="officer-name">${escapeHtml(officer.name)}</div>` : ''}
-          <div class="officer-npub" title="${escapeHtml(officer.npub)}">${truncateNpub(officer.npub)}</div>
+          ${npubHtml}
           <div class="officer-nip05">${escapeHtml(nip05)}</div>
           <div class="officer-verified">${escapeHtml(officer.verifiedBy || '')}</div>
         </div>`;
@@ -194,7 +191,7 @@ const CSS_FOOTER = `
 // Page shell
 // ---------------------------------------------------------------------------
 
-function pageShell(title, bodyContent, { canonical = '' } = {}) {
+function pageShell(title, bodyContent, { canonical = '', extraHead = '', scripts = '' } = {}) {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -210,6 +207,7 @@ function pageShell(title, bodyContent, { canonical = '' } = {}) {
     ${CSS_FOOTER}
     ${CSS_PAGE}
   </style>
+  ${extraHead}
 </head>
 <body>
   <header class="site-header">
@@ -222,6 +220,7 @@ function pageShell(title, bodyContent, { canonical = '' } = {}) {
   <footer class="site-footer">
     matchpass.club &mdash; football safety, community owned
   </footer>
+  ${scripts}
 </body>
 </html>`;
 }
@@ -261,30 +260,6 @@ const CSS_PAGE = `
   color: var(--text-muted);
   margin-bottom: 1rem;
 }
-
-/* Status badges */
-.status-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  padding: 0.3rem 0.9rem;
-  border-radius: 4px;
-}
-.status-badge.active {
-  background: var(--green-wash);
-  color: var(--green-light);
-  border: 1px solid rgba(5, 150, 105, 0.25);
-}
-.status-badge.pre-network {
-  background: var(--amber-wash);
-  color: var(--amber);
-  border: 1px solid rgba(245, 158, 11, 0.2);
-}
-.status-badge .icon { font-size: 0.65rem; }
 
 /* Section blocks */
 .section {
@@ -363,6 +338,11 @@ const CSS_PAGE = `
   word-break: break-all;
   margin-bottom: 0.3rem;
 }
+.officer-npub.pending {
+  font-family: var(--font-body);
+  font-style: italic;
+  color: var(--amber);
+}
 .officer-verified {
   font-size: 0.75rem;
   color: var(--text-dim);
@@ -385,28 +365,6 @@ const CSS_PAGE = `
   border-bottom: 1px solid var(--border-light);
 }
 .officer-group-label:first-child { margin-top: 0; }
-
-/* Connected clubs */
-.connected-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 0.75rem;
-}
-.connected-chip {
-  display: inline-block;
-  font-size: 0.8rem;
-  padding: 0.3rem 0.8rem;
-  background: var(--bg-section);
-  border-radius: 4px;
-  color: var(--green-light);
-  border: 1px solid rgba(5, 150, 105, 0.2);
-  transition: background 0.15s;
-}
-.connected-chip:hover {
-  background: var(--bg-card-hover);
-  text-decoration: none;
-}
 
 /* Nudge box (pre-network) */
 .nudge-box {
@@ -443,15 +401,6 @@ const CSS_PAGE = `
   text-decoration: none;
 }
 
-/* Network context (pre-network) */
-.network-context {
-  text-align: center;
-  padding: 1.5rem;
-  color: var(--text-dim);
-  font-size: 0.85rem;
-}
-.network-context strong { color: var(--text-muted); }
-
 /* CTA section (active — for other clubs) */
 .cta-section {
   background: var(--green-wash);
@@ -484,11 +433,6 @@ const CSS_PAGE = `
 }
 
 /* Active page specific */
-.since-badge {
-  font-size: 0.85rem;
-  color: var(--green-light);
-  margin-bottom: 0.5rem;
-}
 .club-link {
   font-size: 0.85rem;
 }
@@ -506,17 +450,10 @@ const CSS_PAGE = `
 // Pre-network page template
 // ---------------------------------------------------------------------------
 
-function preNetworkPage(club, allClubs) {
-  const activeClubs = allClubs.filter(c => c.status === 'active');
-  const activeCount = activeClubs.length;
-
+function preNetworkPage(club) {
   const leagueDisplay = club.division
     ? `${escapeHtml(club.league)} &mdash; ${escapeHtml(club.division)}`
     : escapeHtml(club.league);
-
-  const networkLinks = activeClubs.map(c =>
-    `<a href="../${c.slug}/" class="connected-chip">${escapeHtml(c.name)}</a>`
-  ).join('\n              ');
 
   const body = `
   <div class="page">
@@ -526,11 +463,6 @@ function preNetworkPage(club, allClubs) {
         ${escapeHtml(club.ground)}<span class="dot">&middot;</span>${escapeHtml(club.address)}
       </div>
       <div class="club-league">${leagueDisplay}</div>
-      <div>
-        <span class="status-badge pre-network">
-          <span class="icon">&#9675;</span> Not yet on the network
-        </span>
-      </div>
     </div>
 
     <div class="section">
@@ -553,12 +485,6 @@ function preNetworkPage(club, allClubs) {
       </a>
     </div>
 
-    <div class="network-context">
-      <strong>${activeCount} club${activeCount !== 1 ? 's' : ''}</strong> already on the MatchPass network
-      <div class="connected-list" style="justify-content: center; margin-top: 0.75rem;">
-        ${networkLinks}
-      </div>
-    </div>
   </div>`;
 
   return pageShell(
@@ -572,7 +498,7 @@ function preNetworkPage(club, allClubs) {
 // Active page template
 // ---------------------------------------------------------------------------
 
-function activePage(club, allClubs) {
+function activePage(club, leagueMates) {
   const leagueDisplay = club.division
     ? `${escapeHtml(club.league)} &mdash; ${escapeHtml(club.division)}`
     : escapeHtml(club.league);
@@ -597,19 +523,6 @@ function activePage(club, allClubs) {
     renderGroup('Other Officers', groups.other),
   ].filter(Boolean).join('\n');
 
-  // Connected clubs
-  const connected = (club.connectedClubs || [])
-    .map(slug => allClubs.find(c => c.slug === slug))
-    .filter(Boolean);
-
-  const connectedHtml = connected.length > 0
-    ? `<p>Connected to <strong>${connected.length}</strong> club${connected.length !== 1 ? 's' : ''} on the network.</p>
-        <div class="connected-list">
-          ${connected.map(c => `<a href="../${c.slug}/" class="connected-chip">${escapeHtml(c.name)}</a>`).join('\n          ')}
-        </div>
-        <p style="margin-top: 1rem;">Bans and sanctions from this club propagate to all network clubs within seconds.</p>`
-    : '<p>This club is on the network. Connected clubs will appear here as the network grows.</p>';
-
   // Safeguarding link
   const safeguardingLink = club.safeguardingUrl
     ? `<li>The safeguarding officer listed on this page is the person who verifies family linkages at this club &mdash; <a href="${escapeHtml(club.safeguardingUrl)}" target="_blank" rel="noopener">view the club's own safeguarding page</a></li>`
@@ -623,13 +536,7 @@ function activePage(club, allClubs) {
         ${escapeHtml(club.ground)}<span class="dot">&middot;</span>${escapeHtml(club.address)}
       </div>
       <div class="club-league">${leagueDisplay}</div>
-      <div class="since-badge">On the MatchPass network since ${formatDate(club.since)}</div>
       <a href="${escapeHtml(club.website)}" target="_blank" rel="noopener" class="club-link">Visit club website &rarr;</a>
-      <div style="margin-top: 0.75rem;">
-        <span class="status-badge active">
-          <span class="icon">&#9679;</span> On the network
-        </span>
-      </div>
     </div>
 
     <!-- Verified Officers -->
@@ -640,12 +547,6 @@ function activePage(club, allClubs) {
         Each officer's identity is cryptographically signed and verifiable across the MatchPass network.
         The public key (npub) listed above can be independently verified by any club on the network.
       </p>
-    </div>
-
-    <!-- Network Status -->
-    <div class="section">
-      <div class="section-label">Network Status</div>
-      ${connectedHtml}
     </div>
 
     <!-- What This Means for Fans -->
@@ -690,6 +591,18 @@ function activePage(club, allClubs) {
       </p>
     </div>
 
+    <!-- League Map -->
+    ${(club.lat && club.lng) ? `
+    <div class="section">
+      <div class="section-label">${escapeHtml(club.league)}${club.division ? ' &mdash; ' + escapeHtml(club.division) : ''}</div>
+      <div class="map-legend" style="margin-bottom: 0.75rem;">
+        <span class="legend-dot active"></span> Active
+        <span class="legend-dot pending"></span> Setting up
+        <span class="legend-dot pre-network"></span> Listed
+      </div>
+      <div id="league-map" style="height: 300px; border-radius: var(--radius); border: 1px solid var(--border-light);"></div>
+    </div>` : ''}
+
     <!-- For Other Clubs -->
     <div class="cta-section">
       <h3>Want to join the network?</h3>
@@ -700,10 +613,66 @@ function activePage(club, allClubs) {
     </div>
   </div>`;
 
+  // League map data — current club + league mates with coordinates
+  const mapClubs = [club, ...leagueMates].filter(c => c.lat && c.lng);
+  const hasMap = club.lat && club.lng && mapClubs.length > 0;
+
+  const mapHead = hasMap ? `
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    .map-legend { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: var(--text-muted); }
+    .legend-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 0.15rem; }
+    .legend-dot.active { background: var(--green-bright); }
+    .legend-dot.pending { background: var(--amber); }
+    .legend-dot.pre-network { background: var(--text-dim); }
+    .leaflet-popup-content-wrapper { background: var(--bg-card) !important; color: var(--text) !important; border-radius: var(--radius) !important; border: 1px solid var(--border) !important; }
+    .leaflet-popup-tip { background: var(--bg-card) !important; }
+    .leaflet-popup-content a { color: var(--green-light) !important; font-weight: 600; }
+    .leaflet-popup-content .popup-league { font-size: 0.75rem; color: var(--text-dim); }
+  </style>` : '';
+
+  const mapScript = hasMap ? `
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+  (function() {
+    var clubs = ${JSON.stringify(mapClubs.map(c => ({
+      slug: c.slug, name: c.name, ground: c.ground, status: c.status,
+      lat: c.lat, lng: c.lng, isCurrent: c.slug === club.slug
+    })))};
+    var statusColor = { active: '#059669', pending: '#f59e0b', 'pre-network': '#64748b' };
+    var map = L.map('league-map', { scrollWheelZoom: false, zoomControl: true });
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; OSM &copy; CARTO', maxZoom: 18
+    }).addTo(map);
+    var bounds = [];
+    clubs.forEach(function(c) {
+      var color = statusColor[c.status] || statusColor['pre-network'];
+      var radius = c.isCurrent ? 9 : 5;
+      var weight = c.isCurrent ? 3 : 1;
+      var marker = L.circleMarker([c.lat, c.lng], {
+        radius: radius, fillColor: color, color: c.isCurrent ? '#fff' : color,
+        weight: weight, opacity: 0.9, fillOpacity: 0.8
+      });
+      if (!c.isCurrent) {
+        marker.bindPopup('<a href="../' + c.slug + '/">' + c.name + '</a><div class="popup-league">' + c.ground + '</div>');
+      } else {
+        marker.bindPopup('<strong>' + c.name + '</strong><div class="popup-league">You are here</div>');
+      }
+      marker.addTo(map);
+      bounds.push([c.lat, c.lng]);
+    });
+    if (bounds.length > 1) {
+      map.fitBounds(bounds, { padding: [30, 30] });
+    } else {
+      map.setView(bounds[0], 10);
+    }
+  })();
+  </script>` : '';
+
   return pageShell(
     `${club.name} — MatchPass`,
     body,
-    { canonical: club.slug }
+    { canonical: club.slug, extraHead: mapHead, scripts: mapScript }
   );
 }
 
@@ -989,6 +958,17 @@ const CSS_INDEX = `
   margin: 0 auto;
   padding: 0 1.5rem 3rem;
 }
+.country-group { margin-bottom: 3rem; }
+.country-title {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text);
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--green);
+  margin-bottom: 1.5rem;
+}
 .league-group { margin-bottom: 2.5rem; }
 .league-title {
   font-family: var(--font-heading);
@@ -1029,6 +1009,7 @@ const CSS_INDEX = `
   flex-shrink: 0;
 }
 .club-card .indicator.active { background: var(--green-bright); }
+.club-card .indicator.pending { background: var(--amber); }
 .club-card .indicator.pre-network { background: var(--text-dim); }
 .club-card .info { min-width: 0; }
 .club-card .club-card-name {
@@ -1060,59 +1041,128 @@ const CSS_INDEX = `
 }
 `;
 
+// Country and pyramid ordering — grassroots first
+const COUNTRY_ORDER = ['England', 'Scotland', 'Wales', 'Northern Ireland', 'Republic of Ireland'];
+
+const LEAGUE_COUNTRY = {
+  'Northern Premier League': 'England',
+  'Southern League': 'England',
+  'Isthmian League': 'England',
+  'National League North': 'England',
+  'National League South': 'England',
+  'National League': 'England',
+  'League Two': 'England',
+  'League One': 'England',
+  'Championship': 'England',
+  'Premier League': 'England',
+  'Scottish League Two': 'Scotland',
+  'Scottish League One': 'Scotland',
+  'Scottish Championship': 'Scotland',
+  'Scottish Premiership': 'Scotland',
+  'Cymru South': 'Wales',
+  'Cymru North': 'Wales',
+  'Cymru Premier': 'Wales',
+  'NIFL Championship': 'Northern Ireland',
+  'NIFL Premiership': 'Northern Ireland',
+  'League of Ireland First Division': 'Republic of Ireland',
+  'League of Ireland Premier Division': 'Republic of Ireland',
+};
+
+// Lower number = shown first (grassroots at the top)
+const LEAGUE_TIER = {
+  'Northern Premier League': 1,
+  'Southern League': 1,
+  'Isthmian League': 1,
+  'National League North': 2,
+  'National League South': 2,
+  'National League': 3,
+  'League Two': 4,
+  'League One': 5,
+  'Championship': 6,
+  'Premier League': 7,
+  'Scottish League Two': 1,
+  'Scottish League One': 2,
+  'Scottish Championship': 3,
+  'Scottish Premiership': 4,
+  'Cymru South': 1,
+  'Cymru North': 1,
+  'Cymru Premier': 2,
+  'NIFL Championship': 1,
+  'NIFL Premiership': 2,
+  'League of Ireland First Division': 1,
+  'League of Ireland Premier Division': 2,
+};
+
 function indexPage(clubs) {
   const activeClubs = clubs.filter(c => c.status === 'active');
-  const preNetworkClubs = clubs.filter(c => c.status === 'pre-network');
+  const pendingClubs = clubs.filter(c => c.status === 'pending');
+  const otherClubs = clubs.filter(c => c.status !== 'active' && c.status !== 'pending');
 
-  // Group pre-network by league
-  const leagueGroups = {};
-  for (const c of preNetworkClubs) {
-    const key = c.league;
-    if (!leagueGroups[key]) leagueGroups[key] = [];
-    leagueGroups[key].push(c);
+  // Group all non-active clubs by country then league
+  const allDirectoryClubs = [...pendingClubs, ...otherClubs];
+  const countryGroups = {};
+  for (const c of allDirectoryClubs) {
+    const country = LEAGUE_COUNTRY[c.league] || 'England';
+    if (!countryGroups[country]) countryGroups[country] = {};
+    if (!countryGroups[country][c.league]) countryGroups[country][c.league] = [];
+    countryGroups[country][c.league].push(c);
   }
 
-  // Sort leagues by size (largest first), clubs alphabetically within
-  const sortedLeagues = Object.entries(leagueGroups)
-    .sort((a, b) => b[1].length - a[1].length);
-
-  for (const [, list] of sortedLeagues) {
-    list.sort((a, b) => a.name.localeCompare(b.name));
+  // Sort clubs alphabetically within each league
+  for (const country of Object.values(countryGroups)) {
+    for (const list of Object.values(country)) {
+      list.sort((a, b) => a.name.localeCompare(b.name));
+    }
   }
+
+  // Render club card
+  const clubCard = (c) => `
+        <a href="${c.slug}/" class="club-card">
+          <div class="indicator ${c.status === 'active' ? 'active' : c.status === 'pending' ? 'pending' : 'pre-network'}"></div>
+          <div class="info">
+            <div class="club-card-name">${escapeHtml(c.name)}</div>
+            <div class="club-card-ground">${escapeHtml(c.ground)}</div>
+          </div>
+        </a>`;
 
   // Active clubs section
   const activeHtml = activeClubs.length > 0 ? `
     <div class="league-group">
       <div class="league-title">On the Network</div>
       <div class="club-grid">
-        ${activeClubs.map(c => `
-        <a href="${c.slug}/" class="club-card">
-          <div class="indicator active"></div>
-          <div class="info">
-            <div class="club-card-name">${escapeHtml(c.name)}</div>
-            <div class="club-card-ground">${escapeHtml(c.ground)}</div>
-          </div>
-        </a>`).join('')}
+        ${activeClubs.map(clubCard).join('')}
       </div>
     </div>` : '';
 
-  // Pre-network sections by league
-  const leagueHtml = sortedLeagues.map(([league, list]) => `
+  // Pending clubs section
+  const pendingHtml = pendingClubs.length > 0 ? `
     <div class="league-group">
-      <div class="league-title">${escapeHtml(league)}</div>
+      <div class="league-title">Setting Up</div>
       <div class="club-grid">
-        ${list.map(c => `
-        <a href="${c.slug}/" class="club-card">
-          <div class="indicator pre-network"></div>
-          <div class="info">
-            <div class="club-card-name">${escapeHtml(c.name)}</div>
-            <div class="club-card-ground">${escapeHtml(c.ground)}</div>
-          </div>
-        </a>`).join('')}
+        ${pendingClubs.map(clubCard).join('')}
       </div>
-    </div>`).join('\n');
+    </div>` : '';
 
-  const leagueCount = Object.keys(leagueGroups).length + (activeClubs.length > 0 ? 1 : 0);
+  // Directory by country and league (grassroots first)
+  const directoryHtml = COUNTRY_ORDER.map(country => {
+    const leagues = countryGroups[country];
+    if (!leagues) return '';
+    const sortedLeagues = Object.entries(leagues)
+      .sort((a, b) => (LEAGUE_TIER[a[0]] || 99) - (LEAGUE_TIER[b[0]] || 99));
+    return `
+    <div class="country-group">
+      <div class="country-title">${escapeHtml(country)}</div>
+      ${sortedLeagues.map(([league, list]) => `
+      <div class="league-group">
+        <div class="league-title">${escapeHtml(league)}</div>
+        <div class="club-grid">
+          ${list.map(clubCard).join('')}
+        </div>
+      </div>`).join('\n')}
+    </div>`;
+  }).filter(Boolean).join('\n');
+
+  const leagueCount = new Set(clubs.map(c => c.league)).size;
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -1122,12 +1172,81 @@ function indexPage(clubs) {
   <title>MatchPass &mdash; Football Safety, Community Owned</title>
   <link rel="canonical" href="https://matchpass.club/">
   <meta name="description" content="Digital matchday identity for football clubs. QR scan at the turnstile, 2-second entry, cross-club banning, the card system. Free to clubs. Community owned.">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
   <style>
     ${CSS_VARS}
     ${CSS_BASE}
     ${CSS_HEADER}
     ${CSS_FOOTER}
     ${CSS_INDEX}
+
+    /* Map */
+    .map-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .map-legend {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .legend-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-right: 0.15rem;
+    }
+    .legend-dot.active { background: var(--green-bright); }
+    .legend-dot.pending { background: var(--amber); }
+    .legend-dot.pre-network { background: var(--text-dim); }
+    .league-filter {
+      background: var(--bg-card);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.8rem;
+      font-family: var(--font-body);
+    }
+    .league-filter:focus { outline: 1px solid var(--green-bright); }
+    /* Override Leaflet cluster styles for dark theme */
+    .marker-cluster {
+      background: rgba(15, 23, 42, 0.7) !important;
+      border: 2px solid var(--green-bright) !important;
+    }
+    .marker-cluster div {
+      background: var(--bg-card) !important;
+      color: var(--text) !important;
+      font-family: var(--font-body) !important;
+      font-weight: 600;
+    }
+    .marker-cluster-small { border-color: var(--text-dim) !important; }
+    .marker-cluster-medium { border-color: var(--amber) !important; }
+    .marker-cluster-large { border-color: var(--green-bright) !important; }
+    .leaflet-popup-content-wrapper {
+      background: var(--bg-card) !important;
+      color: var(--text) !important;
+      border-radius: var(--radius) !important;
+      border: 1px solid var(--border) !important;
+    }
+    .leaflet-popup-tip { background: var(--bg-card) !important; }
+    .leaflet-popup-content a {
+      color: var(--green-light) !important;
+      font-weight: 600;
+    }
+    .leaflet-popup-content .popup-league {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+    }
   </style>
 </head>
 <body>
@@ -1156,6 +1275,10 @@ function indexPage(clubs) {
       <div class="hero-stat">
         <div class="num">${activeClubs.length}</div>
         <div class="label">On the network</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">${pendingClubs.length}</div>
+        <div class="label">Setting up</div>
       </div>
       <div class="hero-stat">
         <div class="num">${clubs.length}</div>
@@ -1269,6 +1392,25 @@ function indexPage(clubs) {
     </div>
   </div>
 
+  <!-- MAP -->
+  <div id="map-section" class="landing-section">
+    <div class="section-heading">The Network</div>
+    <div class="map-controls">
+      <div class="map-legend">
+        <span class="legend-dot active"></span> Active
+        <span class="legend-dot pending"></span> Setting up
+        <span class="legend-dot pre-network"></span> Listed
+      </div>
+      <select id="league-filter" class="league-filter">
+        <option value="">All leagues</option>
+        ${[...new Set(clubs.map(c => c.league))].sort().map(l =>
+          `<option value="${escapeHtml(l)}">${escapeHtml(l)}</option>`
+        ).join('\n        ')}
+      </select>
+    </div>
+    <div id="club-map" style="height: 500px; border-radius: var(--radius); border: 1px solid var(--border);"></div>
+  </div>
+
   <!-- DIRECTORY -->
   <div id="directory" class="directory-divider">
     <h2>Find Your <span>Club</span></h2>
@@ -1277,12 +1419,93 @@ function indexPage(clubs) {
 
   <div class="directory">
     ${activeHtml}
-    ${leagueHtml}
+    ${pendingHtml}
+    ${directoryHtml}
   </div>
 
   <footer class="site-footer">
     matchpass.club &mdash; football safety, community owned
   </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+  <script>
+  (function() {
+    var clubs = ${JSON.stringify(clubs.filter(c => c.lat && c.lng).map(c => ({
+      slug: c.slug,
+      name: c.name,
+      ground: c.ground,
+      league: c.league,
+      status: c.status,
+      lat: c.lat,
+      lng: c.lng
+    })))};
+
+    var statusColor = { active: '#059669', pending: '#f59e0b', 'pre-network': '#64748b' };
+    var map = L.map('club-map', {
+      center: [54.5, -3],
+      zoom: 6,
+      scrollWheelZoom: true,
+      zoomControl: true
+    });
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>',
+      maxZoom: 18
+    }).addTo(map);
+
+    var markers = L.markerClusterGroup({
+      maxClusterRadius: 40,
+      spiderfyOnMaxZoom: true,
+      showCoverageOnHover: false,
+      iconCreateFunction: function(cluster) {
+        var count = cluster.getChildCount();
+        var size = count < 10 ? 'small' : count < 50 ? 'medium' : 'large';
+        return L.divIcon({
+          html: '<div>' + count + '</div>',
+          className: 'marker-cluster marker-cluster-' + size,
+          iconSize: L.point(36, 36)
+        });
+      }
+    });
+
+    var allMarkers = [];
+
+    clubs.forEach(function(c) {
+      var color = statusColor[c.status] || statusColor['pre-network'];
+      var marker = L.circleMarker([c.lat, c.lng], {
+        radius: 6,
+        fillColor: color,
+        color: color,
+        weight: 1,
+        opacity: 0.9,
+        fillOpacity: 0.8
+      });
+      marker.bindPopup(
+        '<a href="' + c.slug + '/">' + c.name + '</a>' +
+        '<div class="popup-league">' + c.league + '</div>' +
+        '<div class="popup-league">' + c.ground + '</div>'
+      );
+      marker._clubData = c;
+      allMarkers.push(marker);
+      markers.addLayer(marker);
+    });
+
+    map.addLayer(markers);
+
+    // League filter
+    var filter = document.getElementById('league-filter');
+    filter.addEventListener('change', function() {
+      var val = this.value;
+      markers.clearLayers();
+      allMarkers.forEach(function(m) {
+        if (!val || m._clubData.league === val) {
+          markers.addLayer(m);
+        }
+      });
+    });
+  })();
+  </script>
 </body>
 </html>`;
 }
@@ -1320,7 +1543,9 @@ function build() {
   const data = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
   const clubs = data.clubs;
 
-  console.log(`Found ${clubs.length} clubs (${clubs.filter(c => c.status === 'active').length} active)`);
+  const active = clubs.filter(c => c.status === 'active').length;
+  const pending = clubs.filter(c => c.status === 'pending').length;
+  console.log(`Found ${clubs.length} clubs (${active} active, ${pending} pending)`);
 
   // Clean dist
   if (fs.existsSync(DIST_DIR)) {
@@ -1333,12 +1558,19 @@ function build() {
     const dir = path.join(DIST_DIR, club.slug);
     ensureDir(dir);
 
-    const html = club.status === 'active'
-      ? activePage(club, clubs)
-      : preNetworkPage(club, clubs);
+    let html;
+    if (club.status === 'active' || club.status === 'pending') {
+      const leagueMates = clubs.filter(c => c.league === club.league && c.slug !== club.slug);
+      html = activePage(club, leagueMates);
+    } else {
+      html = preNetworkPage(club);
+    }
 
     fs.writeFileSync(path.join(dir, 'index.html'), html);
-    console.log(`  ${club.status === 'active' ? '\x1b[32m●\x1b[0m' : '\x1b[90m○\x1b[0m'} ${club.slug}/`);
+    const icon = club.status === 'active' ? '\x1b[32m●\x1b[0m'
+      : club.status === 'pending' ? '\x1b[33m◐\x1b[0m'
+      : '\x1b[90m○\x1b[0m';
+    console.log(`  ${icon} ${club.slug}/`);
   }
 
   // Generate index page

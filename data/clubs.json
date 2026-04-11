@@ -11,8 +11,8 @@
       "address": "Bridge Street, Belper, Derbyshire DE56 1BA",
       "league": "Northern Premier League",
       "division": "East Midlands",
-      "status": "active",
-      "since": "2026-04-01",
+      "status": "pending",
+      "since": null,
       "website": "https://www.belpertownfc.co.uk/",
       "safeguardingUrl": "https://www.belpertownfc.co.uk/information/matchday-safeguarding-plan-71038.html",
       "contactUrl": "https://www.belpertownfc.co.uk/contact",
@@ -20,11 +20,6 @@
         {
           "role": "Safeguarding Officer",
           "npub": "npub1placeholder_belper_safeguarding",
-          "verifiedBy": "Verified in person by pilot network"
-        },
-        {
-          "role": "Safety Officer",
-          "npub": "npub1placeholder_belper_safety",
           "verifiedBy": "Verified in person by pilot network"
         },
         {
@@ -36,7 +31,9 @@
       "connectedClubs": [
         "carlton-town",
         "real-bedford"
-      ]
+      ],
+      "lat": 53.0252161,
+      "lng": -1.4850723
     },
     {
       "slug": "carlton-town",
@@ -45,8 +42,8 @@
       "address": "Stoke Lane, Carlton, Nottinghamshire NG4 2FQ",
       "league": "Northern Premier League",
       "division": "East Midlands",
-      "status": "active",
-      "since": "2026-04-01",
+      "status": "pending",
+      "since": null,
       "website": "https://www.carltontownfc.co.uk/",
       "safeguardingUrl": "https://www.carltontownfc.co.uk/safeguarding",
       "contactUrl": "https://www.carltontownfc.co.uk/contact-us",
@@ -65,7 +62,9 @@
       "connectedClubs": [
         "belper-town",
         "real-bedford"
-      ]
+      ],
+      "lat": 52.9722339,
+      "lng": -1.0676277
     },
     {
       "slug": "real-bedford",
@@ -74,8 +73,8 @@
       "address": "Meadow Lane, Bedford MK44 3LW",
       "league": "Southern League",
       "division": "Premier Central",
-      "status": "active",
-      "since": "2026-04-01",
+      "status": "pending",
+      "since": null,
       "website": "https://www.realbedford.com/",
       "safeguardingUrl": "https://www.realbedford.com/safeguarding-policy",
       "contactUrl": "https://www.realbedford.com/contact-us",
@@ -94,7 +93,9 @@
       "connectedClubs": [
         "belper-town",
         "carlton-town"
-      ]
+      ],
+      "lat": 52.1294828,
+      "lng": -0.4128041
     },
     {
       "slug": "afc-bournemouth",
@@ -109,7 +110,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.afcb.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 50.7351814,
+      "lng": -1.8383279
     },
     {
       "slug": "arsenal",
@@ -124,7 +127,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.arsenal.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.5572453,
+      "lng": -0.1183706
     },
     {
       "slug": "aston-villa",
@@ -139,7 +144,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.avfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.5090801,
+      "lng": -1.8848694
     },
     {
       "slug": "brentford",
@@ -154,7 +161,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.brentfordfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.4863958,
+      "lng": -0.3216623
     },
     {
       "slug": "brighton",
@@ -169,7 +178,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.brightonandhovealbion.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 50.8619409,
+      "lng": -0.0872899
     },
     {
       "slug": "chelsea",
@@ -184,7 +195,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.chelseafc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.4817359,
+      "lng": -0.190377
     },
     {
       "slug": "crystal-palace",
@@ -199,7 +212,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.cpfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.3982642,
+      "lng": -0.0853372
     },
     {
       "slug": "everton",
@@ -214,7 +229,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.evertonfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.4386898,
+      "lng": -2.9664192
     },
     {
       "slug": "fulham",
@@ -229,7 +246,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.fulhamfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.4747615,
+      "lng": -0.2213126
     },
     {
       "slug": "ipswich-town",
@@ -244,7 +263,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.itfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.0579324,
+      "lng": 1.1528095
     },
     {
       "slug": "leicester-city",
@@ -259,7 +280,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.lcfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.6203969,
+      "lng": -1.1423352
     },
     {
       "slug": "liverpool",
@@ -274,7 +297,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.liverpoolfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.4305187,
+      "lng": -2.9613408
     },
     {
       "slug": "man-city",
@@ -289,7 +314,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.mancity.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.4833848,
+      "lng": -2.2020802
     },
     {
       "slug": "man-united",
@@ -304,7 +331,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.manutd.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.4631095,
+      "lng": -2.2913864
     },
     {
       "slug": "newcastle-united",
@@ -319,7 +348,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.nufc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.9753634,
+      "lng": -1.6210992
     },
     {
       "slug": "nott-forest",
@@ -334,7 +365,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.nottinghamforest.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.9534193,
+      "lng": -1.1496461
     },
     {
       "slug": "southampton",
@@ -349,7 +382,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.southamptonfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 50.9055803,
+      "lng": -1.3903508
     },
     {
       "slug": "spurs",
@@ -364,7 +399,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.tottenhamhotspur.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.6055273,
+      "lng": -0.0667602
     },
     {
       "slug": "west-ham",
@@ -379,7 +416,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.whufc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.5386207,
+      "lng": -0.0166238
     },
     {
       "slug": "wolves",
@@ -394,7 +433,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.wolves.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.5904205,
+      "lng": -2.1307966
     },
     {
       "slug": "blackburn-rovers",
@@ -409,7 +450,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.rovers.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.749326,
+      "lng": -2.4840566
     },
     {
       "slug": "bristol-city",
@@ -424,7 +467,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.bcfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.4412123,
+      "lng": -2.6211608
     },
     {
       "slug": "burnley",
@@ -439,7 +484,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.burnleyfootballclub.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.7885104,
+      "lng": -2.2315185
     },
     {
       "slug": "cardiff-city",
@@ -454,7 +501,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.cardiffcityfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.4748471,
+      "lng": -3.205184
     },
     {
       "slug": "coventry-city",
@@ -469,7 +518,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.ccfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.4500358,
+      "lng": -1.499721
     },
     {
       "slug": "derby-county",
@@ -484,7 +535,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.dcfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.9144424,
+      "lng": -1.4471276
     },
     {
       "slug": "hull-city",
@@ -499,7 +552,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.hullcitytigers.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.7472019,
+      "lng": -0.3745724
     },
     {
       "slug": "leeds-united",
@@ -514,7 +569,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.leedsunited.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.7774021,
+      "lng": -1.5704146
     },
     {
       "slug": "luton-town",
@@ -529,7 +586,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.lutontown.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.8840063,
+      "lng": -0.4327396
     },
     {
       "slug": "middlesbrough",
@@ -544,7 +603,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.mfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.362753,
+      "lng": -1.2734825
     },
     {
       "slug": "millwall",
@@ -559,7 +620,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.millwallfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.4859059,
+      "lng": -0.0532152
     },
     {
       "slug": "norwich-city",
@@ -574,7 +637,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.canaries.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.6220315,
+      "lng": 1.3093222
     },
     {
       "slug": "oxford-united",
@@ -589,7 +654,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.oufc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.7153698,
+      "lng": -1.2082953
     },
     {
       "slug": "plymouth-argyle",
@@ -604,7 +671,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.pafc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 50.3881215,
+      "lng": -4.1508746
     },
     {
       "slug": "portsmouth",
@@ -619,7 +688,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.portsmouthfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 50.7963237,
+      "lng": -1.0638836
     },
     {
       "slug": "preston-north-end",
@@ -634,7 +705,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.pnefc.net/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.7729191,
+      "lng": -2.690212
     },
     {
       "slug": "qpr",
@@ -649,7 +722,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.qpr.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.512731,
+      "lng": -0.2257572
     },
     {
       "slug": "sheffield-united",
@@ -664,7 +739,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.sufc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.3703429,
+      "lng": -1.4707145
     },
     {
       "slug": "sheffield-wednesday",
@@ -679,7 +756,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.swfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.4113789,
+      "lng": -1.5006311
     },
     {
       "slug": "stoke-city",
@@ -694,7 +773,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.stokecityfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.9883401,
+      "lng": -2.1755918
     },
     {
       "slug": "sunderland",
@@ -709,7 +790,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.safc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.9394665,
+      "lng": -1.4090162
     },
     {
       "slug": "swansea-city",
@@ -724,7 +807,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.swanseacity.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.6494249,
+      "lng": -3.9345644
     },
     {
       "slug": "watford",
@@ -739,7 +824,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.watfordfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.6522906,
+      "lng": -0.3997001
     },
     {
       "slug": "west-brom",
@@ -754,7 +841,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.wba.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.5085026,
+      "lng": -1.9649625
     },
     {
       "slug": "barnsley",
@@ -769,7 +858,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.barnsleyfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.5527719,
+      "lng": -1.4827755
     },
     {
       "slug": "birmingham-city",
@@ -784,7 +875,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.bcfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.4755671,
+      "lng": -1.868041
     },
     {
       "slug": "blackpool",
@@ -799,7 +892,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.blackpoolfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.8047413,
+      "lng": -3.0495735
     },
     {
       "slug": "bolton-wanderers",
@@ -814,7 +909,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.bwfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.5789373,
+      "lng": -2.5364104
     },
     {
       "slug": "bristol-rovers",
@@ -829,7 +926,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.bristolrovers.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.4876456,
+      "lng": -2.5838029
     },
     {
       "slug": "burton-albion",
@@ -844,7 +943,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.burtonalbionfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.8208214,
+      "lng": -1.6270581
     },
     {
       "slug": "cambridge-united",
@@ -859,7 +960,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.cambridge-united.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.2134655,
+      "lng": 0.153724
     },
     {
       "slug": "charlton-athletic",
@@ -874,7 +977,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.cafc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.4866262,
+      "lng": 0.0330626
     },
     {
       "slug": "crawley-town",
@@ -889,7 +994,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.crawleytownfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.1000796,
+      "lng": -0.1938313
     },
     {
       "slug": "exeter-city",
@@ -904,7 +1011,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.exetercityfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 50.7309558,
+      "lng": -3.5197029
     },
     {
       "slug": "huddersfield-town",
@@ -919,7 +1028,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.htafc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.6519469,
+      "lng": -1.7728748
     },
     {
       "slug": "leyton-orient",
@@ -934,7 +1045,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.leytonorient.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.5600713,
+      "lng": -0.0125999
     },
     {
       "slug": "lincoln-city",
@@ -949,7 +1062,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.weareimps.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.2185682,
+      "lng": -0.5418186
     },
     {
       "slug": "mansfield-town",
@@ -964,7 +1079,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.mansfieldtown.net/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.1383108,
+      "lng": -1.1985577
     },
     {
       "slug": "northampton-town",
@@ -979,7 +1096,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.ntfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.2357667,
+      "lng": -0.937235
     },
     {
       "slug": "peterborough-united",
@@ -994,7 +1113,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.theposh.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.5206653,
+      "lng": -0.2694836
     },
     {
       "slug": "reading",
@@ -1009,7 +1130,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.readingfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.422382,
+      "lng": -0.9836615
     },
     {
       "slug": "rotherham-united",
@@ -1024,7 +1147,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.themillers.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.4288582,
+      "lng": -1.3624623
     },
     {
       "slug": "shrewsbury-town",
@@ -1039,7 +1164,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.shrewsburytown.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.6903162,
+      "lng": -2.7488062
     },
     {
       "slug": "stevenage",
@@ -1054,7 +1181,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.stevenagefc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.8896479,
+      "lng": -0.1937405
     },
     {
       "slug": "stockport-county",
@@ -1069,7 +1198,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.stockportcounty.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.4000714,
+      "lng": -2.1669343
     },
     {
       "slug": "wigan-athletic",
@@ -1084,7 +1215,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.wiganathletic.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.5455249,
+      "lng": -2.6519254
     },
     {
       "slug": "wrexham",
@@ -1099,7 +1232,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.wrexhamafc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.0511293,
+      "lng": -3.0039063
     },
     {
       "slug": "wycombe-wanderers",
@@ -1114,7 +1249,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.wycombewanderers.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.6314481,
+      "lng": -0.7983201
     },
     {
       "slug": "fylde",
@@ -1129,7 +1266,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.afcfylde.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.7977856,
+      "lng": -2.890689
     },
     {
       "slug": "aldershot-town",
@@ -1144,7 +1283,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.theshots.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.2485373,
+      "lng": -0.7566974
     },
     {
       "slug": "altrincham",
@@ -1159,7 +1300,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.altrinchamfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.3833838,
+      "lng": -2.3352283
     },
     {
       "slug": "barnet",
@@ -1174,7 +1317,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.barnetfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.60152,
+      "lng": -0.28887
     },
     {
       "slug": "boreham-wood",
@@ -1189,7 +1334,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.borehamwoodfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.6628426,
+      "lng": -0.2720159
     },
     {
       "slug": "dagenham-and-redbridge",
@@ -1204,7 +1351,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.daggers.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.5473799,
+      "lng": 0.16209
     },
     {
       "slug": "eastleigh",
@@ -1219,7 +1368,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.eastleighfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 50.9472676,
+      "lng": -1.376641
     },
     {
       "slug": "ebbsfleet-united",
@@ -1234,7 +1385,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.ebbsfleetunited.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.4486763,
+      "lng": 0.32234
     },
     {
       "slug": "fc-halifax-town",
@@ -1249,7 +1402,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.fchalifaxtown.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.7145905,
+      "lng": -1.8566404
     },
     {
       "slug": "forest-green-rovers",
@@ -1264,7 +1419,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.fgr.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.6984279,
+      "lng": -2.2371464
     },
     {
       "slug": "gateshead",
@@ -1279,7 +1436,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.gateshead-fc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.9608957,
+      "lng": -1.5816896
     },
     {
       "slug": "hartlepool-united",
@@ -1294,7 +1453,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.hartlepoolunited.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.6880961,
+      "lng": -1.2130866
     },
     {
       "slug": "maidenhead-united",
@@ -1309,7 +1470,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.maidenheadunitedfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.5209142,
+      "lng": -0.7181594
     },
     {
       "slug": "oldham-athletic",
@@ -1324,7 +1487,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.oldhamathletic.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.5545579,
+      "lng": -2.1290993
     },
     {
       "slug": "rochdale",
@@ -1339,7 +1504,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.rochdaleafc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.6188794,
+      "lng": -2.1801712
     },
     {
       "slug": "solihull-moors",
@@ -1354,7 +1521,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.solihullmoorsfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.4284057,
+      "lng": -1.755987
     },
     {
       "slug": "southend-united",
@@ -1369,7 +1538,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.southendunited.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.5499483,
+      "lng": 0.7038974
     },
     {
       "slug": "sutton-united",
@@ -1384,7 +1555,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.suttonunited.net/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.3665,
+      "lng": -0.2053599
     },
     {
       "slug": "tamworth",
@@ -1399,7 +1572,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.thelambs.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.6266897,
+      "lng": -1.6863675
     },
     {
       "slug": "wealdstone",
@@ -1414,7 +1589,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.wealdstonefc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.5691229,
+      "lng": -0.4181822
     },
     {
       "slug": "woking",
@@ -1429,7 +1606,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.wokingfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.3077564,
+      "lng": -0.5584778
     },
     {
       "slug": "york-city",
@@ -1444,7 +1623,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.yorkcityfootballclub.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.9847401,
+      "lng": -1.0499199
     },
     {
       "slug": "banbury-united",
@@ -1459,7 +1640,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.banburyunited.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.060691,
+      "lng": -1.3286057
     },
     {
       "slug": "boston-united",
@@ -1474,7 +1657,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.bufc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.9551836,
+      "lng": -0.0301769
     },
     {
       "slug": "brackley-town",
@@ -1489,7 +1674,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.brackleytownfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.0250725,
+      "lng": -1.1475636
     },
     {
       "slug": "buxton",
@@ -1504,7 +1691,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.buxtonfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.257181,
+      "lng": -1.9060737
     },
     {
       "slug": "chester",
@@ -1519,7 +1708,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.chesterfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.1919915,
+      "lng": -2.9166234
     },
     {
       "slug": "chorley",
@@ -1534,7 +1725,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.chorleyfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.6471905,
+      "lng": -2.6302138
     },
     {
       "slug": "curzon-ashton",
@@ -1549,7 +1742,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.curzon-ashton.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.4836826,
+      "lng": -2.1084093
     },
     {
       "slug": "darlington",
@@ -1564,7 +1759,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.darlington-fc.net/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.6303784,
+      "lng": -1.7179934
     },
     {
       "slug": "gloucester-city",
@@ -1579,7 +1776,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.gloucestercityafc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.8616188,
+      "lng": -2.2615467
     },
     {
       "slug": "hereford",
@@ -1594,7 +1793,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.herefordfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.060846,
+      "lng": -2.7176732
     },
     {
       "slug": "kettering-town",
@@ -1609,7 +1810,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.ketteringtownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.367299,
+      "lng": -0.6926893
     },
     {
       "slug": "kidderminster-harriers",
@@ -1624,7 +1827,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.harriers.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.3811448,
+      "lng": -2.2436317
     },
     {
       "slug": "kings-lynn-town",
@@ -1639,7 +1844,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.kltown.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.7500584,
+      "lng": 0.4087165
     },
     {
       "slug": "peterborough-sports",
@@ -1654,7 +1861,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.peterboroughsportsfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.5828125,
+      "lng": -0.2444768
     },
     {
       "slug": "scarborough-athletic",
@@ -1669,7 +1878,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.scarboroughathletic.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.2653943,
+      "lng": -0.4004905
     },
     {
       "slug": "scunthorpe-united",
@@ -1684,7 +1895,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.scunthorpe-united.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.5901311,
+      "lng": -0.6849792
     },
     {
       "slug": "south-shields",
@@ -1699,7 +1912,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.southshieldsfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.9957,
+      "lng": -1.4316
     },
     {
       "slug": "southport",
@@ -1714,7 +1929,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.southportfc.net/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.63849,
+      "lng": -2.97915
     },
     {
       "slug": "spennymoor-town",
@@ -1729,7 +1946,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.spennymoortown.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.7056156,
+      "lng": -1.594785
     },
     {
       "slug": "warrington-town",
@@ -1744,7 +1963,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.warringtontownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.3772017,
+      "lng": -2.5692123
     },
     {
       "slug": "bath-city",
@@ -1759,7 +1980,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.bathcityfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.3793075,
+      "lng": -2.3994313
     },
     {
       "slug": "chelmsford-city",
@@ -1774,7 +1997,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.chelmsfordcityfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.7506327,
+      "lng": 0.4511843
     },
     {
       "slug": "chippenham-town",
@@ -1789,7 +2014,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.chippenhamtownfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.4637775,
+      "lng": -2.1276653
     },
     {
       "slug": "dartford",
@@ -1804,7 +2031,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.dartfordfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.43677,
+      "lng": 0.23079
     },
     {
       "slug": "dorking-wanderers",
@@ -1819,7 +2048,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.dorkingwanderersfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.2346043,
+      "lng": -0.3317456
     },
     {
       "slug": "dover-athletic",
@@ -1834,7 +2065,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.doverathletic.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.1399158,
+      "lng": 1.2867348
     },
     {
       "slug": "eastbourne-borough",
@@ -1849,7 +2082,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.eastbourneboroughfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 50.8042125,
+      "lng": 0.3203734
     },
     {
       "slug": "farnborough",
@@ -1864,7 +2099,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.farnboroughfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.3103368,
+      "lng": -0.7622684
     },
     {
       "slug": "hampton-and-richmond-borough",
@@ -1879,7 +2116,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.hamptonfc.net/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.4183,
+      "lng": -0.3672
     },
     {
       "slug": "havant-and-waterlooville",
@@ -1894,7 +2133,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.havantandwaterlooville.net/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 50.866507,
+      "lng": -0.9731156
     },
     {
       "slug": "hemel-hempstead-town",
@@ -1909,7 +2150,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.hemelhempsteadtownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.75314,
+      "lng": -0.4431678
     },
     {
       "slug": "maidstone-united",
@@ -1924,7 +2167,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.maidstoneunited.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.2799663,
+      "lng": 0.5169647
     },
     {
       "slug": "slough-town",
@@ -1939,7 +2184,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.sloughtownfc.net/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.5197332,
+      "lng": -0.5897915
     },
     {
       "slug": "st-albans-city",
@@ -1954,7 +2201,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.stalbanscityfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.7551138,
+      "lng": -0.3231252
     },
     {
       "slug": "taunton-town",
@@ -1969,7 +2218,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.tauntontownfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.0160229,
+      "lng": -3.0863764
     },
     {
       "slug": "tonbridge-angels",
@@ -1984,7 +2235,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.tonbridgeangels.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.2102554,
+      "lng": 0.2733681
     },
     {
       "slug": "torquay-united",
@@ -1999,7 +2252,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.torquayunited.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 50.4766749,
+      "lng": -3.5217503
     },
     {
       "slug": "truro-city",
@@ -2014,7 +2269,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.trurocityfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 50.2659499,
+      "lng": -5.0486
     },
     {
       "slug": "welling-united",
@@ -2029,7 +2286,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.wellingunited.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.46044,
+      "lng": 0.11599
     },
     {
       "slug": "weymouth",
@@ -2044,7 +2303,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.theterras.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 50.6185373,
+      "lng": -2.4828166
     },
     {
       "slug": "worthing",
@@ -2059,7 +2320,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.worthingfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 50.8199911,
+      "lng": -0.3834762
     },
     {
       "slug": "yeovil-town",
@@ -2074,7 +2337,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.ytfc.net/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 50.9446496,
+      "lng": -2.672277
     },
     {
       "slug": "afc-wimbledon",
@@ -2089,7 +2354,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.afcwimbledon.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.4281858,
+      "lng": -0.1907905
     },
     {
       "slug": "accrington-stanley",
@@ -2104,7 +2371,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.accringtonstanley.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.7644659,
+      "lng": -2.3698502
     },
     {
       "slug": "barrow",
@@ -2119,7 +2388,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.barrowafc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.123396,
+      "lng": -3.2353578
     },
     {
       "slug": "bradford-city",
@@ -2134,7 +2405,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.bradfordcityafc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.8043367,
+      "lng": -1.7593645
     },
     {
       "slug": "carlisle-united",
@@ -2149,7 +2422,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.carlisleunited.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.8959226,
+      "lng": -2.9132983
     },
     {
       "slug": "cheltenham-town",
@@ -2164,7 +2439,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.ctfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.9061781,
+      "lng": -2.0602145
     },
     {
       "slug": "colchester-united",
@@ -2179,7 +2456,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.cu-fc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.9227553,
+      "lng": 0.9028056
     },
     {
       "slug": "crewe-alexandra",
@@ -2194,7 +2473,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.crewealex.net/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.0882366,
+      "lng": -2.4366001
     },
     {
       "slug": "doncaster-rovers",
@@ -2209,7 +2490,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.doncasterroversfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.5086366,
+      "lng": -1.1143979
     },
     {
       "slug": "fleetwood-town",
@@ -2224,7 +2507,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.fleetwoodtownfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.9180296,
+      "lng": -3.0220118
     },
     {
       "slug": "gillingham",
@@ -2239,7 +2524,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.gillinghamfootballclub.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.38487,
+      "lng": 0.55976
     },
     {
       "slug": "grimsby-town",
@@ -2254,7 +2541,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.grimsby-townfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.5695096,
+      "lng": -0.0477889
     },
     {
       "slug": "harrogate-town",
@@ -2269,7 +2558,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.harrogatetownafc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.9911468,
+      "lng": -1.5145057
     },
     {
       "slug": "mk-dons",
@@ -2284,7 +2575,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.mkdons.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.0104299,
+      "lng": -0.7348811
     },
     {
       "slug": "morecambe",
@@ -2299,7 +2592,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.morecambefc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.0603066,
+      "lng": -2.8671378
     },
     {
       "slug": "newport-county",
@@ -2314,7 +2609,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.newport-county.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.5886298,
+      "lng": -2.9888482
     },
     {
       "slug": "notts-county",
@@ -2329,7 +2626,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.nottscountyfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.9428766,
+      "lng": -1.1374684
     },
     {
       "slug": "port-vale",
@@ -2344,7 +2643,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.port-vale.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.05039,
+      "lng": -2.1917
     },
     {
       "slug": "salford-city",
@@ -2359,7 +2660,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.salfordcityfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.5136044,
+      "lng": -2.2769071
     },
     {
       "slug": "swindon-town",
@@ -2374,7 +2677,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.swindontownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.5659577,
+      "lng": -1.7715982
     },
     {
       "slug": "tranmere-rovers",
@@ -2389,7 +2694,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.tranmererovers.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.3736611,
+      "lng": -3.0342304
     },
     {
       "slug": "walsall",
@@ -2404,7 +2711,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.saddlers.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.564672,
+      "lng": -1.9919601
     },
     {
       "slug": "ashton-united",
@@ -2419,7 +2728,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.ashtonunitedfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.5007308,
+      "lng": -2.0796358
     },
     {
       "slug": "bamber-bridge",
@@ -2434,7 +2745,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.bamberbridgefc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.7282044,
+      "lng": -2.6750052
     },
     {
       "slug": "basford-united",
@@ -2449,7 +2762,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.basfordunitedfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.98711,
+      "lng": -1.19177
     },
     {
       "slug": "fc-united-of-manchester",
@@ -2464,7 +2779,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.fc-utd.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.5178515,
+      "lng": -2.1808641
     },
     {
       "slug": "gainsborough-trinity",
@@ -2479,7 +2796,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.gainsboroughtrinity.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.4033298,
+      "lng": -0.7744665
     },
     {
       "slug": "hyde-united",
@@ -2494,7 +2813,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.hydeunited.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.448812,
+      "lng": -2.0683372
     },
     {
       "slug": "lancaster-city",
@@ -2509,7 +2830,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.lancastercityfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.0497636,
+      "lng": -2.8113155
     },
     {
       "slug": "leek-town",
@@ -2524,7 +2847,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.leektownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.1103818,
+      "lng": -2.0399414
     },
     {
       "slug": "marine",
@@ -2539,7 +2864,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.marinefc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.4861479,
+      "lng": -3.0329653
     },
     {
       "slug": "matlock-town",
@@ -2554,7 +2881,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.matlocktownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.1374514,
+      "lng": -1.5544694
     },
     {
       "slug": "mickleover",
@@ -2569,7 +2898,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.mickleoversportsfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.9219194,
+      "lng": -1.5410189
     },
     {
       "slug": "morpeth-town",
@@ -2584,7 +2915,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.morpethtownafc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 55.1556364,
+      "lng": -1.7097412
     },
     {
       "slug": "nantwich-town",
@@ -2599,7 +2932,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.nantwichtownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.0647515,
+      "lng": -2.5225895
     },
     {
       "slug": "radcliffe",
@@ -2614,7 +2949,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.radcliffefc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.5688092,
+      "lng": -2.341399
     },
     {
       "slug": "stafford-rangers",
@@ -2629,7 +2966,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.staffordrangersfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.8185832,
+      "lng": -2.118409
     },
     {
       "slug": "stalybridge-celtic",
@@ -2644,7 +2983,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.stalybridgeceltic.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.4715722,
+      "lng": -2.0396645
     },
     {
       "slug": "warrington-rylands",
@@ -2659,7 +3000,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.warringtonrylandsfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.4016948,
+      "lng": -2.5756021
     },
     {
       "slug": "whitby-town",
@@ -2674,7 +3017,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.whitbytownfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.4885874,
+      "lng": -0.6267096
     },
     {
       "slug": "workington",
@@ -2689,7 +3034,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.workingtonafc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.6487595,
+      "lng": -3.5510961
     },
     {
       "slug": "bridlington-town",
@@ -2704,7 +3051,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.bridlingtontownafc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.0903396,
+      "lng": -0.19781
     },
     {
       "slug": "brighouse-town",
@@ -2719,7 +3068,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.brighousetownafc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.7222784,
+      "lng": -1.8034215
     },
     {
       "slug": "cleethorpes-town",
@@ -2734,7 +3085,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.cleethorpestownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.5599901,
+      "lng": -0.0379276
     },
     {
       "slug": "dunston-uts",
@@ -2749,7 +3102,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.dunstonuts.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.9560639,
+      "lng": -1.6477923
     },
     {
       "slug": "frickley-athletic",
@@ -2764,7 +3119,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.frickleyathletic.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.5911589,
+      "lng": -1.2937234
     },
     {
       "slug": "grantham-town",
@@ -2779,7 +3136,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.granthamtownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.9055429,
+      "lng": -0.6683717
     },
     {
       "slug": "grimsby-borough",
@@ -2794,7 +3153,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.grimsbyboroughfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.5464678,
+      "lng": -0.1226482
     },
     {
       "slug": "handsworth",
@@ -2809,7 +3170,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.handsworthfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.3118504,
+      "lng": -1.1351449
     },
     {
       "slug": "hebburn-town",
@@ -2824,7 +3187,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.hebburntownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.9608637,
+      "lng": -1.5262407
     },
     {
       "slug": "lincoln-united",
@@ -2839,7 +3204,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.lincolnunitedfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.212674,
+      "lng": -0.5824388
     },
     {
       "slug": "liversedge",
@@ -2854,7 +3221,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.liversedgefc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.7134754,
+      "lng": -1.7140157
     },
     {
       "slug": "long-eaton-united",
@@ -2869,7 +3238,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.longeatonunitedfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.9001461,
+      "lng": -1.2569241
     },
     {
       "slug": "marske-united",
@@ -2884,7 +3255,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.marskeunitedfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.5902412,
+      "lng": -1.015028
     },
     {
       "slug": "newark",
@@ -2893,13 +3266,26 @@
       "address": "Station Road, Newark, Nottinghamshire NG24 1EU",
       "league": "Northern Premier League",
       "division": "East Division",
-      "status": "pre-network",
+      "status": "pending",
       "since": null,
       "website": "https://www.newarkfc.co.uk/",
       "safeguardingUrl": null,
       "contactUrl": "https://www.newarkfc.co.uk/contact",
-      "officers": null,
-      "connectedClubs": null
+      "officers": [
+        {
+          "role": "Safeguarding Officer",
+          "npub": "npub1placeholder_newark_safeguarding",
+          "verifiedBy": "Verified in person by pilot network"
+        },
+        {
+          "role": "Admin",
+          "npub": "npub1placeholder_newark_admin",
+          "verifiedBy": "Verified in person by pilot network"
+        }
+      ],
+      "connectedClubs": null,
+      "lat": 53.0788675,
+      "lng": -0.8050772
     },
     {
       "slug": "ossett-united",
@@ -2914,7 +3300,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.ossettunitedafc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.677888,
+      "lng": -1.5798244
     },
     {
       "slug": "pickering-town",
@@ -2929,7 +3317,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.pickeringtownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.2415206,
+      "lng": -0.779036
     },
     {
       "slug": "pontefract-collieries",
@@ -2944,7 +3334,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.pontefractcollieries.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.6945427,
+      "lng": -1.3202449
     },
     {
       "slug": "sheffield",
@@ -2959,7 +3351,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.sheffieldfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.3276358,
+      "lng": -1.4741683
     },
     {
       "slug": "stockton-town",
@@ -2974,7 +3368,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.stocktontownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.5708796,
+      "lng": -1.3412632
     },
     {
       "slug": "tadcaster-albion",
@@ -2989,7 +3385,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.tadcasteralbionfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.88242,
+      "lng": -1.25767
     },
     {
       "slug": "worksop-town",
@@ -3004,7 +3402,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.worksoptownfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.3118504,
+      "lng": -1.1351449
     },
     {
       "slug": "abbey-hey",
@@ -3019,7 +3419,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.abbeyheyfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.4564412,
+      "lng": -2.1659739
     },
     {
       "slug": "bootle",
@@ -3034,7 +3436,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.bootlefc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.4715561,
+      "lng": -2.9623516
     },
     {
       "slug": "city-of-liverpool",
@@ -3049,7 +3453,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.cityofliverpoolfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.2924975,
+      "lng": -2.9260403
     },
     {
       "slug": "clitheroe",
@@ -3064,7 +3470,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.clitheroefc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.8714478,
+      "lng": -2.3877856
     },
     {
       "slug": "colne",
@@ -3079,7 +3487,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.colnefc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.8587527,
+      "lng": -2.1764644
     },
     {
       "slug": "congleton-town",
@@ -3094,7 +3504,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.congletontownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.1632512,
+      "lng": -2.2195625
     },
     {
       "slug": "droylsden",
@@ -3109,7 +3521,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.droylsdenfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.4802103,
+      "lng": -2.1451737
     },
     {
       "slug": "glossop-north-end",
@@ -3124,7 +3538,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.glossopnorthendafc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.4459449,
+      "lng": -1.9581453
     },
     {
       "slug": "hanley-town",
@@ -3139,7 +3555,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.hanleytownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.0315006,
+      "lng": -2.1436676
     },
     {
       "slug": "kidsgrove-athletic",
@@ -3154,7 +3572,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.kidsgroveathleticfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.0815033,
+      "lng": -2.2526903
     },
     {
       "slug": "litherland-remyca",
@@ -3169,7 +3589,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.litherlandremycafc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.47744,
+      "lng": -2.98127
     },
     {
       "slug": "macclesfield",
@@ -3184,7 +3606,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.macclesfieldfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.2432118,
+      "lng": -2.1259103
     },
     {
       "slug": "mossley",
@@ -3199,7 +3623,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.mossleyafc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.5166207,
+      "lng": -2.0456878
     },
     {
       "slug": "newcastle-town",
@@ -3214,7 +3640,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.newcastletownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.9997203,
+      "lng": -2.218762
     },
     {
       "slug": "prescot-cables",
@@ -3229,7 +3657,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.prescotcablesfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.431482,
+      "lng": -2.8055969
     },
     {
       "slug": "runcorn-linnets",
@@ -3244,7 +3674,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.runcornlinnetsfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.327,
+      "lng": -2.719
     },
     {
       "slug": "skelmersdale-united",
@@ -3259,7 +3691,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.skelmersdaleunitedfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.5430131,
+      "lng": -2.8017216
     },
     {
       "slug": "trafford",
@@ -3274,7 +3708,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.traffordfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.4483811,
+      "lng": -2.373206
     },
     {
       "slug": "vauxhall-motors",
@@ -3289,7 +3725,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.vauxhallmotorsfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.2924975,
+      "lng": -2.9260403
     },
     {
       "slug": "widnes",
@@ -3304,7 +3742,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.widnesfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.3657686,
+      "lng": -2.7384575
     },
     {
       "slug": "afc-rushden-and-diamonds",
@@ -3319,7 +3759,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.afcdiamonds.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.2911176,
+      "lng": -0.586067
     },
     {
       "slug": "alvechurch",
@@ -3334,7 +3776,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.alvechurchfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.3441188,
+      "lng": -1.9567116
     },
     {
       "slug": "barwell",
@@ -3349,7 +3793,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.barwellfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.5750587,
+      "lng": -1.3453777
     },
     {
       "slug": "biggleswade-town",
@@ -3364,7 +3810,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.biggleswadefc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.0738646,
+      "lng": -0.2659745
     },
     {
       "slug": "bromsgrove-sporting",
@@ -3379,7 +3827,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.bromsgrovesporting.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.3379333,
+      "lng": -2.0573413
     },
     {
       "slug": "coalville-town",
@@ -3394,7 +3844,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.coalvilletownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.7237777,
+      "lng": -1.3770029
     },
     {
       "slug": "coleshill-town",
@@ -3409,7 +3861,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.coleshilltownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.4819344,
+      "lng": -1.6989371
     },
     {
       "slug": "hednesford-town",
@@ -3424,7 +3878,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.hednesfordtownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.6988776,
+      "lng": -1.9933699
     },
     {
       "slug": "hitchin-town",
@@ -3439,7 +3895,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.hitchintownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.9537322,
+      "lng": -0.2838369
     },
     {
       "slug": "leiston",
@@ -3454,7 +3912,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.leistonfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.2056584,
+      "lng": 1.573264
     },
     {
       "slug": "lowestoft-town",
@@ -3469,7 +3929,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.lowestofttownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.4799754,
+      "lng": 1.7475287
     },
     {
       "slug": "needham-market",
@@ -3484,7 +3946,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.needhammarketfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.1516008,
+      "lng": 1.0468453
     },
     {
       "slug": "nuneaton-borough",
@@ -3499,7 +3963,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.nuneatonboroughfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.5196095,
+      "lng": -1.4452573
     },
     {
       "slug": "royston-town",
@@ -3514,7 +3980,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.roystontownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.0511173,
+      "lng": -0.0177137
     },
     {
       "slug": "rushall-olympic",
@@ -3529,7 +3997,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.rushallolympicfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.6012908,
+      "lng": -1.9513403
     },
     {
       "slug": "st-ives-town",
@@ -3544,7 +4014,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.stivestownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.3285926,
+      "lng": -0.0811183
     },
     {
       "slug": "stourbridge",
@@ -3559,7 +4031,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.stourbridgefc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.4616396,
+      "lng": -2.1489733
     },
     {
       "slug": "stratford-town",
@@ -3574,7 +4048,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.stratfordtownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.1967027,
+      "lng": -1.6763724
     },
     {
       "slug": "beaconsfield-town",
@@ -3589,7 +4065,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.beaconsfieldtownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.5978888,
+      "lng": -0.6327352
     },
     {
       "slug": "chesham-united",
@@ -3604,7 +4082,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.cheshamunitedfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.6998719,
+      "lng": -0.6129301
     },
     {
       "slug": "dorchester-town",
@@ -3619,7 +4099,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.dorchestertownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 50.7024723,
+      "lng": -2.4454317
     },
     {
       "slug": "farnham-town",
@@ -3634,7 +4116,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.farnhamtownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.2124268,
+      "lng": -0.8066246
     },
     {
       "slug": "gosport-borough",
@@ -3649,7 +4133,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.gosportboroughfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 50.7932599,
+      "lng": -1.1538139
     },
     {
       "slug": "hanwell-town",
@@ -3664,7 +4150,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.hanwelltownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.532942,
+      "lng": -0.3287333
     },
     {
       "slug": "harrow-borough",
@@ -3679,7 +4167,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.harrowboro.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.5587,
+      "lng": -0.37225
     },
     {
       "slug": "hartley-wintney",
@@ -3694,7 +4184,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.hartleywintney.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.3023356,
+      "lng": -0.903023
     },
     {
       "slug": "hayes-and-yeading-united",
@@ -3709,7 +4201,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.hayesandyeading.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.512,
+      "lng": -0.419
     },
     {
       "slug": "hungerford-town",
@@ -3724,7 +4218,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.hungerfordtownfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.4077695,
+      "lng": -1.5140746
     },
     {
       "slug": "metropolitan-police",
@@ -3739,7 +4235,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.metpolicefc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.3902693,
+      "lng": -0.3525791
     },
     {
       "slug": "plymouth-parkway",
@@ -3754,7 +4252,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.plymouthparkwayfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 50.40397,
+      "lng": -4.1359199
     },
     {
       "slug": "poole-town",
@@ -3769,7 +4269,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.pooletownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 50.7278052,
+      "lng": -1.9719679
     },
     {
       "slug": "salisbury",
@@ -3784,7 +4286,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.salisburyfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.1039342,
+      "lng": -1.786211
     },
     {
       "slug": "swindon-supermarine",
@@ -3799,7 +4303,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.swindonsupermarinefc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.6058886,
+      "lng": -1.7312148
     },
     {
       "slug": "tiverton-town",
@@ -3814,7 +4320,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.tivertontownfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 50.9100941,
+      "lng": -3.489329
     },
     {
       "slug": "weston-super-mare",
@@ -3829,7 +4337,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.westonsmareafc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.3317712,
+      "lng": -2.9550386
     },
     {
       "slug": "wimborne-town",
@@ -3844,7 +4354,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.wimbornetownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 50.8012851,
+      "lng": -2.0005389
     },
     {
       "slug": "yate-town",
@@ -3859,7 +4371,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.yatetownfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.4663276,
+      "lng": -2.4373217
     },
     {
       "slug": "aylesbury-united",
@@ -3874,7 +4388,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.aylesburyunitedfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.82497,
+      "lng": -0.80016
     },
     {
       "slug": "barton-rovers",
@@ -3889,7 +4405,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.bartonroversfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.9655557,
+      "lng": -0.4303179
     },
     {
       "slug": "bedford-town",
@@ -3904,7 +4422,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.bedfordeagles.net/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.1294828,
+      "lng": -0.4128041
     },
     {
       "slug": "berkhamsted",
@@ -3919,7 +4439,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.berkhamstedfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.7616959,
+      "lng": -0.5647666
     },
     {
       "slug": "bugbrooke-st-michaels",
@@ -3934,7 +4456,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.bugbrookestmichaels.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.2060022,
+      "lng": -1.0035025
     },
     {
       "slug": "daventry-town",
@@ -3949,7 +4473,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.daventrytownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.2561144,
+      "lng": -1.1873386
     },
     {
       "slug": "deeping-rangers",
@@ -3964,7 +4490,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.deepingrangersfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.6888612,
+      "lng": -0.2949435
     },
     {
       "slug": "dunstable-town",
@@ -3979,7 +4507,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.dunstabletownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.8900437,
+      "lng": -0.5386404
     },
     {
       "slug": "eynesbury-rovers",
@@ -3994,7 +4524,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.eynesburyroversfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.2111224,
+      "lng": -0.2694639
     },
     {
       "slug": "flackwell-heath",
@@ -4009,7 +4541,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.flackwellheathfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.6023771,
+      "lng": -0.7115116
     },
     {
       "slug": "hadley",
@@ -4024,7 +4558,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.hadleyfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.6468881,
+      "lng": -0.2342089
     },
     {
       "slug": "harpenden-town",
@@ -4039,7 +4575,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.harpendentownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.8140355,
+      "lng": -0.3602042
     },
     {
       "slug": "kempston-rovers",
@@ -4054,7 +4592,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.kempstonroversfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.1276463,
+      "lng": -0.4985037
     },
     {
       "slug": "newport-pagnell-town",
@@ -4069,7 +4609,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.nptfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.0795519,
+      "lng": -0.7224105
     },
     {
       "slug": "north-leigh",
@@ -4084,7 +4626,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.northleighfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.81944,
+      "lng": -1.42502
     },
     {
       "slug": "potton-united",
@@ -4099,7 +4643,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.pottonunitedfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.1257968,
+      "lng": -0.2180685
     },
     {
       "slug": "thame-united",
@@ -4114,7 +4660,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.thameunitedfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.74398,
+      "lng": -0.96555
     },
     {
       "slug": "ware",
@@ -4129,7 +4677,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.warefc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.823908,
+      "lng": -0.0352063
     },
     {
       "slug": "welwyn-garden-city",
@@ -4144,7 +4694,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.welwyngardencityfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.8062108,
+      "lng": -0.1664435
     },
     {
       "slug": "winslow-united",
@@ -4159,7 +4711,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.winslowunitedfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.9434369,
+      "lng": -0.8756992
     },
     {
       "slug": "afc-totton",
@@ -4174,7 +4728,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.afctotton.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 50.9358832,
+      "lng": -1.5125416
     },
     {
       "slug": "bashley",
@@ -4189,7 +4745,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.bashleyfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 50.7720858,
+      "lng": -1.6578719
     },
     {
       "slug": "bemerton-heath-harlequins",
@@ -4204,7 +4762,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.bemertonheathharlequinsfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.0798158,
+      "lng": -1.8316382
     },
     {
       "slug": "bideford",
@@ -4219,7 +4779,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.bidefordafc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.0243064,
+      "lng": -4.2099149
     },
     {
       "slug": "blackfield-and-langley",
@@ -4234,7 +4796,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.blackfieldandlangley.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 50.8237419,
+      "lng": -1.3742603
     },
     {
       "slug": "bournemouth",
@@ -4249,7 +4813,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.bournemouthfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 50.7459608,
+      "lng": -1.8875585
     },
     {
       "slug": "bracknell-town",
@@ -4264,7 +4830,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.bracknelltownfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.4130837,
+      "lng": -0.7430551
     },
     {
       "slug": "bristol-manor-farm",
@@ -4279,7 +4847,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.bristolmanorfarmfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.4831537,
+      "lng": -2.6511289
     },
     {
       "slug": "cinderford-town",
@@ -4294,7 +4864,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.cinderfordtownafc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.8267964,
+      "lng": -2.4935311
     },
     {
       "slug": "didcot-town",
@@ -4309,7 +4881,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.didcottownfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.61465,
+      "lng": -1.2422687
     },
     {
       "slug": "evesham-united",
@@ -4324,7 +4898,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.eveshamunitedfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.0734826,
+      "lng": -1.953813
     },
     {
       "slug": "exmouth-town",
@@ -4339,7 +4915,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.exmouthtownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 50.6264452,
+      "lng": -3.4124643
     },
     {
       "slug": "highworth-town",
@@ -4354,7 +4932,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.highworthtownfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.6257708,
+      "lng": -1.7108976
     },
     {
       "slug": "larkhall-athletic",
@@ -4369,7 +4949,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.larkhallathleticfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.4014764,
+      "lng": -2.3505049
     },
     {
       "slug": "malvern-town",
@@ -4384,7 +4966,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.malverntownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.1165844,
+      "lng": -2.3054776
     },
     {
       "slug": "melksham-town",
@@ -4399,7 +4983,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.melkshamtownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.3714099,
+      "lng": -2.1384426
     },
     {
       "slug": "mousehole",
@@ -4414,7 +5000,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.mouseholeafc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 50.0896383,
+      "lng": -5.5464449
     },
     {
       "slug": "odd-down",
@@ -4429,7 +5017,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.odddownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.3536627,
+      "lng": -2.3824301
     },
     {
       "slug": "paulton-rovers",
@@ -4444,7 +5034,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.paultonroversfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.3024987,
+      "lng": -2.4977571
     },
     {
       "slug": "street",
@@ -4459,7 +5051,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.streetfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.11645,
+      "lng": -2.74317
     },
     {
       "slug": "billericay-town",
@@ -4474,7 +5068,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.billericaytownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.6211323,
+      "lng": 0.4024005
     },
     {
       "slug": "bishops-stortford",
@@ -4489,7 +5085,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.bishopsstortfordfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.8719898,
+      "lng": 0.1900043
     },
     {
       "slug": "bognor-regis-town",
@@ -4504,7 +5102,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.bfrfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 50.7841467,
+      "lng": -0.6867877
     },
     {
       "slug": "canvey-island",
@@ -4519,7 +5119,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.canveyislandfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.5178138,
+      "lng": 0.6154589
     },
     {
       "slug": "carshalton-athletic",
@@ -4534,7 +5136,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.carshaltonathletic.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.3685916,
+      "lng": -0.1688959
     },
     {
       "slug": "cheshunt",
@@ -4549,7 +5153,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.cheshuntfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.6940268,
+      "lng": -0.0419298
     },
     {
       "slug": "dulwich-hamlet",
@@ -4564,7 +5170,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.dulwichhamletfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.4626415,
+      "lng": -0.0826761
     },
     {
       "slug": "enfield-town",
@@ -4579,7 +5187,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.enfieldtownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.6588793,
+      "lng": -0.0641678
     },
     {
       "slug": "folkestone-invicta",
@@ -4594,7 +5204,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.folkestoneinvicta.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.0839718,
+      "lng": 1.1640439
     },
     {
       "slug": "haringey-borough",
@@ -4609,7 +5221,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.haringeyboroughfc.net/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.604157,
+      "lng": -0.0662604
     },
     {
       "slug": "hendon",
@@ -4624,7 +5238,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.hendonfc.net/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.5823984,
+      "lng": -0.2561929
     },
     {
       "slug": "hornchurch",
@@ -4639,7 +5255,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.hornchurchfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.5559829,
+      "lng": 0.239673
     },
     {
       "slug": "horsham",
@@ -4654,7 +5272,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.horsham-fc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.0550372,
+      "lng": -0.3390058
     },
     {
       "slug": "kingstonian",
@@ -4669,7 +5289,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.kingstonian.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.3568338,
+      "lng": -0.27474
     },
     {
       "slug": "lewes",
@@ -4684,7 +5306,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.lewesfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 50.869667,
+      "lng": 0.010411
     },
     {
       "slug": "margate",
@@ -4699,7 +5323,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.margatefc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.3795775,
+      "lng": 1.3740459
     },
     {
       "slug": "potters-bar-town",
@@ -4714,7 +5340,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.pottersbartownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.6957726,
+      "lng": -0.1793682
     },
     {
       "slug": "wingate-and-finchley",
@@ -4729,7 +5357,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.wingateandfinchley.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.6115893,
+      "lng": -0.1628236
     },
     {
       "slug": "afc-sudbury",
@@ -4744,7 +5374,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.afcsudbury.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.0358738,
+      "lng": 0.7140913
     },
     {
       "slug": "aveley",
@@ -4759,7 +5391,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.aveleyfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.5022997,
+      "lng": 0.2505259
     },
     {
       "slug": "barking",
@@ -4774,7 +5408,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.barkingfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.5321999,
+      "lng": 0.1138389
     },
     {
       "slug": "basildon-united",
@@ -4789,7 +5425,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.basildonunitedfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.585781,
+      "lng": 0.4798462
     },
     {
       "slug": "brentwood-town",
@@ -4804,7 +5442,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.brentwoodtownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.6201654,
+      "lng": 0.3018662
     },
     {
       "slug": "bury-town",
@@ -4819,7 +5459,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.burytownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.2477601,
+      "lng": 0.7185359
     },
     {
       "slug": "coggeshall-town",
@@ -4834,7 +5476,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.coggeshall-town.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.8703755,
+      "lng": 0.6805101
     },
     {
       "slug": "dereham-town",
@@ -4849,7 +5493,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.derehamtownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.6816807,
+      "lng": 0.9736408
     },
     {
       "slug": "east-thurrock-united",
@@ -4864,7 +5510,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.eastthurrockunitedfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.5151229,
+      "lng": 0.4333107
     },
     {
       "slug": "felixstowe-and-walton-united",
@@ -4879,7 +5527,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.felixstoweandwaltonunitedfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.9697518,
+      "lng": 1.3559589
     },
     {
       "slug": "grays-athletic",
@@ -4894,7 +5544,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.graysathleticfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.5001066,
+      "lng": 0.2561792
     },
     {
       "slug": "great-wakering-rovers",
@@ -4909,7 +5561,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.greatwakeringfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.5517253,
+      "lng": 0.7874264
     },
     {
       "slug": "hashtag-united",
@@ -4924,7 +5578,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.hashtagunitedfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.5740649,
+      "lng": 0.5181152
     },
     {
       "slug": "heybridge-swifts",
@@ -4939,7 +5595,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.heybridgeswiftsfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.7485111,
+      "lng": 0.7080938
     },
     {
       "slug": "hullbridge-sports",
@@ -4954,7 +5612,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.hullbridgesportsfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.6172528,
+      "lng": 0.6203262
     },
     {
       "slug": "maldon-and-tiptree",
@@ -4969,7 +5629,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.maldonandtiptreefc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.7226539,
+      "lng": 0.6899556
     },
     {
       "slug": "romford",
@@ -4984,7 +5646,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.romfordfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.6201654,
+      "lng": 0.3018662
     },
     {
       "slug": "stowmarket-town",
@@ -4999,7 +5663,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.stowmarkettownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.196692,
+      "lng": 0.9908059
     },
     {
       "slug": "tilbury",
@@ -5014,7 +5680,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.tilburyfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.4669074,
+      "lng": 0.364007
     },
     {
       "slug": "witham-town",
@@ -5029,7 +5697,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.withamtownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.8018216,
+      "lng": 0.6278978
     },
     {
       "slug": "ascot-united",
@@ -5044,7 +5714,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.ascotunitedfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.4062463,
+      "lng": -0.6767778
     },
     {
       "slug": "binfield",
@@ -5059,7 +5731,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.binfieldfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.44451,
+      "lng": -0.77528
     },
     {
       "slug": "broadfields-united",
@@ -5074,7 +5748,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.broadfieldsunitedfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.60364,
+      "lng": -0.26361
     },
     {
       "slug": "chalfont-st-peter",
@@ -5089,7 +5765,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.chalfontstpeterafc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.6152936,
+      "lng": -0.5502646
     },
     {
       "slug": "chertsey-town",
@@ -5104,7 +5782,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.chertseytownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.3930303,
+      "lng": -0.5063336
     },
     {
       "slug": "chipstead",
@@ -5119,7 +5799,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.chipsteadfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.2960428,
+      "lng": -0.1692882
     },
     {
       "slug": "corinthian-casuals",
@@ -5134,7 +5816,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.corinthian-casuals.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.3737894,
+      "lng": -0.2875983
     },
     {
       "slug": "fareham-town",
@@ -5149,7 +5833,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.farehamtownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 50.8433977,
+      "lng": -1.1842248
     },
     {
       "slug": "fleet-town",
@@ -5164,7 +5850,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.fleettownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.273561,
+      "lng": -0.8499943
     },
     {
       "slug": "hanworth-villa",
@@ -5179,7 +5867,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.hanworthvillafc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.4341486,
+      "lng": -0.3965286
     },
     {
       "slug": "haywards-heath-town",
@@ -5194,7 +5884,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.haywardsheathtownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 50.9995415,
+      "lng": -0.0899333
     },
     {
       "slug": "leatherhead",
@@ -5209,7 +5901,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.leatherheadfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.2930958,
+      "lng": -0.3354724
     },
     {
       "slug": "marlow",
@@ -5224,7 +5918,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.marlowfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.5803301,
+      "lng": -0.7745301
     },
     {
       "slug": "merstham",
@@ -5239,7 +5935,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.mersthamfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.2591,
+      "lng": -0.1454441
     },
     {
       "slug": "south-park",
@@ -5254,7 +5952,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.southparkfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.2227184,
+      "lng": -0.2149355
     },
     {
       "slug": "staines-town",
@@ -5269,7 +5969,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.stainestownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.4217533,
+      "lng": -0.5009943
     },
     {
       "slug": "sutton-common-rovers",
@@ -5284,7 +5986,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.suttoncommonroversfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.3665,
+      "lng": -0.2053599
     },
     {
       "slug": "tooting-and-mitcham-united",
@@ -5299,7 +6003,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.tootingandmitchamunitedfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.3936691,
+      "lng": -0.171906
     },
     {
       "slug": "uxbridge",
@@ -5314,7 +6020,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.uxbridgefc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.51205,
+      "lng": -0.45768
     },
     {
       "slug": "ashford-united",
@@ -5329,7 +6037,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.ashfordunitedfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.1034562,
+      "lng": 0.8506082
     },
     {
       "slug": "burgess-hill-town",
@@ -5344,7 +6054,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.burgesshill-townfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 50.9667135,
+      "lng": -0.125828
     },
     {
       "slug": "chatham-town",
@@ -5359,7 +6071,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.chathamtownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.3431511,
+      "lng": 0.5072603
     },
     {
       "slug": "chichester-city",
@@ -5374,7 +6088,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.chichestercityfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 50.8407728,
+      "lng": -0.7767437
     },
     {
       "slug": "cray-valley-paper-mills",
@@ -5389,7 +6105,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.crayvalleypapermill.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.4477998,
+      "lng": 0.037422
     },
     {
       "slug": "east-grinstead-town",
@@ -5404,7 +6122,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.eastgrinsteadtownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.1279167,
+      "lng": -0.0037631
     },
     {
       "slug": "faversham-town",
@@ -5419,7 +6139,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.favershamtownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.3068848,
+      "lng": 0.8940787
     },
     {
       "slug": "hastings-united",
@@ -5434,7 +6156,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.hastingsunitedfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 50.8718212,
+      "lng": 0.5841639
     },
     {
       "slug": "herne-bay",
@@ -5449,7 +6173,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.hernebayfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.3651648,
+      "lng": 1.1285966
     },
     {
       "slug": "hythe-town",
@@ -5464,7 +6190,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.hythetownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.0693723,
+      "lng": 1.0727579
     },
     {
       "slug": "lancing",
@@ -5479,7 +6207,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.lancingfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 50.8290774,
+      "lng": -0.3227319
     },
     {
       "slug": "littlehampton-town",
@@ -5494,7 +6224,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.littlehamptontownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 50.8099078,
+      "lng": -0.531552
     },
     {
       "slug": "phoenix-sports",
@@ -5509,7 +6241,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.phoenixsportsfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.4590477,
+      "lng": 0.1568028
     },
     {
       "slug": "ramsgate",
@@ -5524,7 +6258,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.ramsgatefc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.3328734,
+      "lng": 1.4017614
     },
     {
       "slug": "sevenoaks-town",
@@ -5539,7 +6275,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.sevenoakstownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.2886095,
+      "lng": 0.1994547
     },
     {
       "slug": "sittingbourne",
@@ -5554,7 +6292,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.sittingbournefc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.3397366,
+      "lng": 0.7342319
     },
     {
       "slug": "three-bridges",
@@ -5569,7 +6309,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.threebridgesfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.1166107,
+      "lng": -0.1661525
     },
     {
       "slug": "vcd-athletic",
@@ -5584,7 +6326,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.vcdathleticfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.45453,
+      "lng": 0.17038
     },
     {
       "slug": "whitehawk",
@@ -5599,7 +6343,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.whitehawkfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 50.821898,
+      "lng": -0.096055
     },
     {
       "slug": "whitstable-town",
@@ -5614,7 +6360,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.whitstabletownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.3546786,
+      "lng": 1.0281382
     },
     {
       "slug": "aberdeen",
@@ -5629,7 +6377,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.afc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 57.1592335,
+      "lng": -2.0882917
     },
     {
       "slug": "celtic",
@@ -5644,7 +6394,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.celticfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 55.8495189,
+      "lng": -4.2073991
     },
     {
       "slug": "dundee",
@@ -5659,7 +6411,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.dundeefc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 56.4746055,
+      "lng": -2.9736295
     },
     {
       "slug": "dundee-united",
@@ -5674,7 +6428,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.dundeeunitedfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 56.4741525,
+      "lng": -2.9686602
     },
     {
       "slug": "heart-of-midlothian",
@@ -5689,7 +6445,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.heartsfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 55.9392987,
+      "lng": -3.2312903
     },
     {
       "slug": "hibernian",
@@ -5704,7 +6462,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.hibernianfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 55.9616856,
+      "lng": -3.1651677
     },
     {
       "slug": "kilmarnock",
@@ -5719,7 +6479,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.kilmarnockfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 55.6100589,
+      "lng": -4.4964652
     },
     {
       "slug": "motherwell",
@@ -5734,7 +6496,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.motherwellfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 55.7893512,
+      "lng": -3.9904173
     },
     {
       "slug": "rangers",
@@ -5749,7 +6513,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.rangers.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 55.8526234,
+      "lng": -4.3082827
     },
     {
       "slug": "ross-county",
@@ -5764,7 +6530,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.rosscountyfootballclub.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 57.5954797,
+      "lng": -4.4284337
     },
     {
       "slug": "st-johnstone",
@@ -5779,7 +6547,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.perthstjohnstonefc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 56.4083076,
+      "lng": -3.4793088
     },
     {
       "slug": "st-mirren",
@@ -5794,7 +6564,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.stmirren.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 55.8455828,
+      "lng": -4.4239646
     },
     {
       "slug": "airdrieonians",
@@ -5809,7 +6581,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.airdrieoniansfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 55.8661181,
+      "lng": -3.9804785
     },
     {
       "slug": "ayr-united",
@@ -5824,7 +6598,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.ayrunitedfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 55.46927,
+      "lng": -4.62029
     },
     {
       "slug": "dunfermline-athletic",
@@ -5839,7 +6615,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.dafc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 56.0756459,
+      "lng": -3.4419919
     },
     {
       "slug": "falkirk",
@@ -5854,7 +6632,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.falkirkfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 56.004305,
+      "lng": -3.7514355
     },
     {
       "slug": "hamilton-academical",
@@ -5869,7 +6649,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.acciesfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 55.7759095,
+      "lng": -4.033442
     },
     {
       "slug": "inverness-caledonian-thistle",
@@ -5884,7 +6666,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.ictfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 57.4940061,
+      "lng": -4.2264362
     },
     {
       "slug": "morton",
@@ -5899,7 +6683,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.gmfc.net/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 55.9473423,
+      "lng": -4.7564721
     },
     {
       "slug": "partick-thistle",
@@ -5914,7 +6700,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.ptfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 55.88156,
+      "lng": -4.2694088
     },
     {
       "slug": "queens-park",
@@ -5929,7 +6717,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.queensparkfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 55.8254706,
+      "lng": -4.2518524
     },
     {
       "slug": "raith-rovers",
@@ -5944,7 +6734,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.raithrovers.net/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 56.10108,
+      "lng": -3.16858
     },
     {
       "slug": "alloa-athletic",
@@ -5959,7 +6751,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.alloaathletic.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 56.1156137,
+      "lng": -3.7922423
     },
     {
       "slug": "arbroath",
@@ -5974,7 +6768,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.arbroathfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 56.5586729,
+      "lng": -2.5815669
     },
     {
       "slug": "cove-rangers",
@@ -5989,7 +6785,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.coverangersfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 57.0845105,
+      "lng": -2.2522518
     },
     {
       "slug": "edinburgh-city",
@@ -6004,7 +6802,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.edinburghcityfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 55.9559518,
+      "lng": -3.1546002
     },
     {
       "slug": "kelty-hearts",
@@ -6019,7 +6819,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.keltyheartsfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 56.1331961,
+      "lng": -3.3797816
     },
     {
       "slug": "livingston",
@@ -6034,7 +6836,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.livingstonfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 55.8829582,
+      "lng": -3.5175773
     },
     {
       "slug": "montrose",
@@ -6049,7 +6853,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.montrosefc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 56.7114295,
+      "lng": -2.4681544
     },
     {
       "slug": "queen-of-the-south",
@@ -6064,7 +6870,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.qosfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 55.0700662,
+      "lng": -3.6258255
     },
     {
       "slug": "stenhousemuir",
@@ -6079,7 +6887,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.stenhousemuirfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 56.0279063,
+      "lng": -3.8143727
     },
     {
       "slug": "stirling-albion",
@@ -6094,7 +6904,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.stirlingalbionfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 56.1189351,
+      "lng": -3.9123202
     },
     {
       "slug": "annan-athletic",
@@ -6109,7 +6921,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.annanathleticfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.9873333,
+      "lng": -3.2620207
     },
     {
       "slug": "bonnyrigg-rose-athletic",
@@ -6124,7 +6938,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.bonnyriggrosefc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 55.8751189,
+      "lng": -3.1059076
     },
     {
       "slug": "clyde",
@@ -6139,7 +6955,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.clydefc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 55.9438535,
+      "lng": -4.0344065
     },
     {
       "slug": "dumbarton",
@@ -6154,7 +6972,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.dumbartonfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 55.9432443,
+      "lng": -4.5708479
     },
     {
       "slug": "east-fife",
@@ -6169,7 +6989,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.eastfifefc.info/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 56.1848771,
+      "lng": -3.0132612
     },
     {
       "slug": "elgin-city",
@@ -6184,7 +7006,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.elgincity.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 57.6487891,
+      "lng": -3.3148459
     },
     {
       "slug": "forfar-athletic",
@@ -6199,7 +7023,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.forfarathletic.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 56.6530821,
+      "lng": -2.8806268
     },
     {
       "slug": "peterhead",
@@ -6214,7 +7040,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.peterheadfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 57.5052909,
+      "lng": -1.7813194
     },
     {
       "slug": "spartans",
@@ -6229,7 +7057,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.spartansfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 55.97203,
+      "lng": -3.22836
     },
     {
       "slug": "stranraer",
@@ -6244,7 +7074,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.stranraerfc.org/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.9044332,
+      "lng": -5.026204
     },
     {
       "slug": "aberystwyth-town",
@@ -6259,7 +7091,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.atfc.org.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.4115422,
+      "lng": -4.0802674
     },
     {
       "slug": "bala-town",
@@ -6274,7 +7108,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.balatownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.9115586,
+      "lng": -3.595414
     },
     {
       "slug": "barry-town-united",
@@ -6289,7 +7125,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.barrytownunitedfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.4109137,
+      "lng": -3.2657803
     },
     {
       "slug": "caernarfon-town",
@@ -6304,7 +7142,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.caernarfontownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.1346589,
+      "lng": -4.2674794
     },
     {
       "slug": "connahs-quay-nomads",
@@ -6319,7 +7159,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.nomadsfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.225118,
+      "lng": -3.0767897
     },
     {
       "slug": "flint-town-united",
@@ -6334,7 +7176,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.flinttownunitedfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.24923,
+      "lng": -3.1257927
     },
     {
       "slug": "haverfordwest-county",
@@ -6349,7 +7193,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.haverfordwestcountyafc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.8092116,
+      "lng": -4.9675328
     },
     {
       "slug": "newtown",
@@ -6364,7 +7210,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.newtownafc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.5115196,
+      "lng": -3.3227879
     },
     {
       "slug": "penybont",
@@ -6379,7 +7227,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.penybontfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.50507,
+      "lng": -3.58102
     },
     {
       "slug": "pontypridd-town",
@@ -6394,7 +7244,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.pontypridd-town.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.6011507,
+      "lng": -3.3339656
     },
     {
       "slug": "the-new-saints",
@@ -6409,7 +7261,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.tnsfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.8753854,
+      "lng": -3.0264184
     },
     {
       "slug": "airbus-uk-broughton",
@@ -6424,7 +7278,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.airbusukfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.17202,
+      "lng": -2.97965
     },
     {
       "slug": "bangor-city",
@@ -6439,7 +7295,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.bangorcityfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.2254515,
+      "lng": -4.1500364
     },
     {
       "slug": "buckley-town",
@@ -6454,7 +7312,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.buckleytownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.1807306,
+      "lng": -3.0715573
     },
     {
       "slug": "colwyn-bay",
@@ -6469,7 +7329,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.colwynbayfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.2867752,
+      "lng": -3.7012475
     },
     {
       "slug": "denbigh-town",
@@ -6484,7 +7346,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.denbightownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.1837318,
+      "lng": -3.4200108
     },
     {
       "slug": "guilsfield",
@@ -6499,7 +7363,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.guilsfieldfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.6943544,
+      "lng": -3.1567958
     },
     {
       "slug": "holyhead-hotspur",
@@ -6514,7 +7380,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.holyheadhotspurfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.2970263,
+      "lng": -4.633468
     },
     {
       "slug": "holywell-town",
@@ -6529,7 +7397,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.holywelltownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.2657375,
+      "lng": -3.2154589
     },
     {
       "slug": "llandudno",
@@ -6544,7 +7414,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.llandudnofc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.3157606,
+      "lng": -3.8297452
     },
     {
       "slug": "llanrhaeadr",
@@ -6559,7 +7431,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.llanrhaeadrfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.8258665,
+      "lng": -3.3028864
     },
     {
       "slug": "mold-alexandra",
@@ -6574,7 +7448,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.moldalexandrafc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.1585144,
+      "lng": -3.1283574
     },
     {
       "slug": "penrhyncoch",
@@ -6589,7 +7465,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.penrhyncochfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.4389836,
+      "lng": -3.9955658
     },
     {
       "slug": "porthmadog",
@@ -6604,7 +7482,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.porthmadog-fc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.9319969,
+      "lng": -4.1204126
     },
     {
       "slug": "prestatyn-town",
@@ -6619,7 +7499,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.prestatyntownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.3397847,
+      "lng": -3.4080935
     },
     {
       "slug": "rhyl",
@@ -6634,7 +7516,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.rhylfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.3189108,
+      "lng": -3.4760519
     },
     {
       "slug": "ruthin-town",
@@ -6649,7 +7533,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.ruthintownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.11477,
+      "lng": -3.3145694
     },
     {
       "slug": "afan-lido",
@@ -6664,7 +7550,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.afanlidofc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.5873938,
+      "lng": -3.8082423
     },
     {
       "slug": "ammanford",
@@ -6679,7 +7567,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.ammanfordafc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.796,
+      "lng": -3.989
     },
     {
       "slug": "briton-ferry-llansawel",
@@ -6694,7 +7584,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.britonferryfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.6424913,
+      "lng": -3.8148731
     },
     {
       "slug": "cambrian-and-clydach",
@@ -6709,7 +7601,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.cambrianandclydach.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.62579,
+      "lng": -3.46014
     },
     {
       "slug": "cardiff-metropolitan-university",
@@ -6724,7 +7618,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.cardiffmetfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.5108011,
+      "lng": -3.1621987
     },
     {
       "slug": "carmarthen-town",
@@ -6739,7 +7635,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.carmarthentownafc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.860652,
+      "lng": -4.3008576
     },
     {
       "slug": "goytre-united",
@@ -6754,7 +7652,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.goytreunitedfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.6927,
+      "lng": -3.00152
     },
     {
       "slug": "haverfordwest-sports-club",
@@ -6769,7 +7669,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.haverfordwestsportsclub.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.8021275,
+      "lng": -4.9684249
     },
     {
       "slug": "llanelli-town",
@@ -6784,7 +7686,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.llanellitownafc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.6837851,
+      "lng": -4.1478403
     },
     {
       "slug": "llantwit-major",
@@ -6799,7 +7703,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.llantwitmajorfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.4113962,
+      "lng": -3.4811561
     },
     {
       "slug": "mumbles-rangers",
@@ -6814,7 +7720,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.mumblesrangersfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.5722675,
+      "lng": -3.9945034
     },
     {
       "slug": "neath",
@@ -6829,7 +7737,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.neathfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.6637449,
+      "lng": -3.7977225
     },
     {
       "slug": "port-talbot-town",
@@ -6844,7 +7754,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.porttalbottownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.5927173,
+      "lng": -3.7997255
     },
     {
       "slug": "swansea-university",
@@ -6859,7 +7771,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.swanseaunifc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.6094599,
+      "lng": -3.9872906
     },
     {
       "slug": "taffs-well",
@@ -6874,7 +7788,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.taffswellafc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.5424518,
+      "lng": -3.2678869
     },
     {
       "slug": "ton-pentre",
@@ -6889,7 +7805,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.tonpentrefc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.6463795,
+      "lng": -3.4852962
     },
     {
       "slug": "ballymena-united",
@@ -6904,7 +7822,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.ballymenaunitedfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.8700376,
+      "lng": -6.2682412
     },
     {
       "slug": "carrick-rangers",
@@ -6919,7 +7839,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.carrickrangersfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.714,
+      "lng": -5.806
     },
     {
       "slug": "cliftonville",
@@ -6934,7 +7856,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.cliftonvillefc.net/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.6184982,
+      "lng": -5.9475143
     },
     {
       "slug": "coleraine",
@@ -6949,7 +7873,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.colerainefc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 55.1341891,
+      "lng": -6.6453762
     },
     {
       "slug": "crusaders",
@@ -6964,7 +7890,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.crusadersfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.630241,
+      "lng": -5.9224169
     },
     {
       "slug": "dungannon-swifts",
@@ -6979,7 +7907,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.dungannonswiftsfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.4894119,
+      "lng": -6.7461096
     },
     {
       "slug": "glenavon",
@@ -6994,7 +7924,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.glenavonfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.4541455,
+      "lng": -6.3369228
     },
     {
       "slug": "glentoran",
@@ -7009,7 +7941,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.glentoran.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.6015738,
+      "lng": -5.8932307
     },
     {
       "slug": "larne",
@@ -7024,7 +7958,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.larnefc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.8491223,
+      "lng": -5.8246669
     },
     {
       "slug": "linfield",
@@ -7039,7 +7975,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.linfieldfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.5877983,
+      "lng": -5.9504753
     },
     {
       "slug": "newry-city",
@@ -7054,7 +7992,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.newrycityafc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.1608906,
+      "lng": -6.3321257
     },
     {
       "slug": "portadown",
@@ -7069,7 +8009,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.portadownfc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.4206263,
+      "lng": -6.4570693
     },
     {
       "slug": "annagh-united",
@@ -7084,7 +8026,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.annaghunitedfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.4130398,
+      "lng": -6.4413001
     },
     {
       "slug": "ards",
@@ -7099,7 +8043,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.ardsfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.6487553,
+      "lng": -5.6862092
     },
     {
       "slug": "ballyclare-comrades",
@@ -7114,7 +8060,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.ballyclarecomrades.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.7511243,
+      "lng": -6.0046122
     },
     {
       "slug": "bangor",
@@ -7129,7 +8077,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.bangorfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.6487553,
+      "lng": -5.6862092
     },
     {
       "slug": "dergview",
@@ -7144,7 +8094,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.dergviewfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.7031021,
+      "lng": -7.5981462
     },
     {
       "slug": "dollingstown",
@@ -7159,7 +8111,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.dollingstownfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.413,
+      "lng": -6.358
     },
     {
       "slug": "dundela",
@@ -7174,7 +8128,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.dundelafc.co.uk/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.5993686,
+      "lng": -5.8785004
     },
     {
       "slug": "hw-welders",
@@ -7189,7 +8145,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.hwweldersfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.6132941,
+      "lng": -5.8592149
     },
     {
       "slug": "institute",
@@ -7204,7 +8162,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.institutefc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.9932205,
+      "lng": -7.3346126
     },
     {
       "slug": "knockbreda",
@@ -7219,7 +8179,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.knockbredafc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.553,
+      "lng": -5.903
     },
     {
       "slug": "loughgall",
@@ -7234,7 +8196,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.loughgallfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.4102925,
+      "lng": -6.6012948
     },
     {
       "slug": "queens-university-belfast",
@@ -7249,7 +8213,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.qubfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.547379,
+      "lng": -5.9735879
     },
     {
       "slug": "bohemian",
@@ -7264,7 +8230,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.bohemianfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.3620762,
+      "lng": -6.2749173
     },
     {
       "slug": "derry-city",
@@ -7279,7 +8247,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.derrycityfc.net/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.992,
+      "lng": -7.329
     },
     {
       "slug": "drogheda-united",
@@ -7294,7 +8264,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.droghedaunited.ie/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.719,
+      "lng": -6.349
     },
     {
       "slug": "dundalk",
@@ -7309,7 +8281,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.dundalkfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.9982265,
+      "lng": -6.4164564
     },
     {
       "slug": "galway-united",
@@ -7324,7 +8298,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.galwayunitedfc.ie/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.2845559,
+      "lng": -9.0561707
     },
     {
       "slug": "shamrock-rovers",
@@ -7339,7 +8315,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.shamrockrovers.ie/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.2833599,
+      "lng": -6.3738004
     },
     {
       "slug": "shelbourne",
@@ -7354,7 +8332,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.shelbournefc.ie/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.367557,
+      "lng": -6.2519815
     },
     {
       "slug": "sligo-rovers",
@@ -7369,7 +8349,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.sligorovers.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.2700262,
+      "lng": -8.4867229
     },
     {
       "slug": "st-patricks-athletic",
@@ -7384,7 +8366,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.stpatsfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.338,
+      "lng": -6.318
     },
     {
       "slug": "waterford",
@@ -7399,7 +8383,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.waterfordfc.ie/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.2450008,
+      "lng": -7.1246459
     },
     {
       "slug": "athlone-town",
@@ -7414,7 +8400,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.athlonetown.ie/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.427,
+      "lng": -7.936
     },
     {
       "slug": "bray-wanderers",
@@ -7429,7 +8417,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.braywanderers.ie/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.202,
+      "lng": -6.105
     },
     {
       "slug": "cobh-ramblers",
@@ -7444,7 +8434,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.cobhramblers.ie/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.8522235,
+      "lng": -8.3016184
     },
     {
       "slug": "cork-city",
@@ -7459,7 +8451,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.corkcityfc.ie/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 51.8871087,
+      "lng": -8.4659935
     },
     {
       "slug": "finn-harps",
@@ -7474,7 +8468,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.finnharps.ie/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 54.7979268,
+      "lng": -7.7786494
     },
     {
       "slug": "kerry",
@@ -7489,7 +8485,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.kerryfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.2833753,
+      "lng": -9.7146725
     },
     {
       "slug": "longford-town",
@@ -7504,7 +8502,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.longfordtownfc.ie/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.726,
+      "lng": -7.798
     },
     {
       "slug": "treaty-united",
@@ -7519,7 +8519,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.treatyunitedfc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.657,
+      "lng": -8.614
     },
     {
       "slug": "ucd",
@@ -7534,7 +8536,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.ucdafc.com/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 53.308,
+      "lng": -6.226
     },
     {
       "slug": "wexford",
@@ -7549,7 +8553,9 @@
       "safeguardingUrl": null,
       "contactUrl": "https://www.wexfordfc.ie/contact",
       "officers": null,
-      "connectedClubs": null
+      "connectedClubs": null,
+      "lat": 52.365103,
+      "lng": -6.5163723
     }
   ]
 }
