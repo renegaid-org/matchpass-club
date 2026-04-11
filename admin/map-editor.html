@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MatchPass — Map Pin Editor</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0f172a; color: #f1f5f9;
+    }
+    #toolbar {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 0.75rem 1rem; background: #1e293b;
+      border-bottom: 1px solid #334155; flex-wrap: wrap;
+    }
+    #toolbar h1 { font-size: 0.9rem; font-weight: 700; white-space: nowrap; }
+    #toolbar .stats { font-size: 0.8rem; color: #94a3b8; }
+    #toolbar .stats .changed { color: #f59e0b; font-weight: 600; }
+    .btn {
+      padding: 0.4rem 1rem; border: none; border-radius: 4px;
+      font-size: 0.8rem; font-weight: 600; cursor: pointer;
+    }
+    .btn-primary { background: #059669; color: #fff; }
+    .btn-primary:hover { background: #047857; }
+    .btn-secondary { background: #334155; color: #f1f5f9; }
+    .btn-secondary:hover { background: #475569; }
+    .btn-danger { background: #dc2626; color: #fff; }
+    .btn-danger:hover { background: #b91c1c; }
+    input[type="file"] { display: none; }
+    label.btn { display: inline-flex; align-items: center; }
+    select {
+      background: #334155; color: #f1f5f9; border: 1px solid #475569;
+      border-radius: 4px; padding: 0.4rem 0.6rem; font-size: 0.8rem;
+    }
+    #search {
+      background: #334155; color: #f1f5f9; border: 1px solid #475569;
+      border-radius: 4px; padding: 0.4rem 0.8rem; font-size: 0.8rem;
+      width: 200px;
+    }
+    #search::placeholder { color: #64748b; }
+    #map { height: calc(100vh - 52px); width: 100%; }
+    .leaflet-popup-content-wrapper {
+      background: #1e293b !important; color: #f1f5f9 !important;
+      border-radius: 8px !important; border: 1px solid #334155 !important;
+    }
+    .leaflet-popup-tip { background: #1e293b !important; }
+    .popup-name { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.25rem; }
+    .popup-detail { font-size: 0.78rem; color: #94a3b8; }
+    .popup-coords { font-family: monospace; font-size: 0.72rem; color: #64748b; margin-top: 0.4rem; }
+    .popup-moved { color: #f59e0b; font-weight: 600; font-size: 0.72rem; margin-top: 0.25rem; }
+    .popup-actions { margin-top: 0.5rem; display: flex; gap: 0.5rem; }
+    .popup-actions button {
+      padding: 0.2rem 0.6rem; border: none; border-radius: 3px;
+      font-size: 0.72rem; cursor: pointer; font-weight: 600;
+    }
+    .popup-actions .reset { background: #475569; color: #f1f5f9; }
+    .popup-actions .reset:hover { background: #64748b; }
+  </style>
+</head>
+<body>
+  <div id="toolbar">
+    <h1>Map Pin Editor</h1>
+    <label class="btn btn-secondary" for="file-input">Load clubs.json</label>
+    <input type="file" id="file-input" accept=".json">
+    <input type="text" id="search" placeholder="Search clubs...">
+    <select id="league-filter"><option value="">All leagues</option></select>
+    <select id="status-filter">
+      <option value="">All statuses</option>
+      <option value="active">Active</option>
+      <option value="pending">Pending</option>
+      <option value="pre-network">Pre-network</option>
+    </select>
+    <div class="stats">
+      <span id="total-count">0 clubs</span> |
+      <span class="changed" id="changed-count">0 moved</span>
+    </div>
+    <button class="btn btn-primary" id="save-btn" disabled>Save clubs.json</button>
+    <button class="btn btn-danger" id="reset-all-btn" style="display:none">Reset all</button>
+  </div>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+  (function() {
+    const map = L.map('map', { center: [54.5, -3], zoom: 6 });
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; OSM &copy; CARTO', maxZoom: 19
+    }).addTo(map);
+
+    let clubsData = null;
+    let markers = [];
+    let originalCoords = {};
+    let movedSlugs = new Set();
+
+    const statusColor = { active: '#059669', pending: '#f59e0b', 'pre-network': '#64748b' };
+    const searchEl = document.getElementById('search');
+    const leagueFilter = document.getElementById('league-filter');
+    const statusFilter = document.getElementById('status-filter');
+    const totalCount = document.getElementById('total-count');
+    const changedCount = document.getElementById('changed-count');
+    const saveBtn = document.getElementById('save-btn');
+    const resetAllBtn = document.getElementById('reset-all-btn');
+
+    function updateCounts() {
+      const visible = markers.filter(m => map.hasLayer(m.marker)).length;
+      totalCount.textContent = visible + ' clubs';
+      changedCount.textContent = movedSlugs.size + ' moved';
+      saveBtn.disabled = movedSlugs.size === 0;
+      resetAllBtn.style.display = movedSlugs.size > 0 ? '' : 'none';
+    }
+
+    function makePopup(club) {
+      const moved = movedSlugs.has(club.slug);
+      const orig = originalCoords[club.slug];
+      let html = `<div class="popup-name">${club.name}</div>`;
+      html += `<div class="popup-detail">${club.ground} &mdash; ${club.league}</div>`;
+      html += `<div class="popup-coords">${club.lat.toFixed(5)}, ${club.lng.toFixed(5)}</div>`;
+      if (moved) {
+        html += `<div class="popup-moved">Moved from ${orig.lat.toFixed(5)}, ${orig.lng.toFixed(5)}</div>`;
+        html += `<div class="popup-actions"><button class="reset" data-slug="${club.slug}">Reset</button></div>`;
+      }
+      html += `<div class="popup-detail" style="margin-top:0.4rem;color:#64748b;">Drag pin to correct position</div>`;
+      return html;
+    }
+
+    function loadClubs(data) {
+      clubsData = data;
+      markers.forEach(m => map.removeLayer(m.marker));
+      markers = [];
+      originalCoords = {};
+      movedSlugs.clear();
+
+      // Populate league filter
+      const leagues = [...new Set(data.clubs.map(c => c.league))].sort();
+      leagueFilter.innerHTML = '<option value="">All leagues</option>' +
+        leagues.map(l => `<option value="${l}">${l}</option>`).join('');
+
+      for (const club of data.clubs) {
+        if (!club.lat || !club.lng) continue;
+        originalCoords[club.slug] = { lat: club.lat, lng: club.lng };
+
+        const color = statusColor[club.status] || statusColor['pre-network'];
+        const marker = L.circleMarker([club.lat, club.lng], {
+          radius: 7, fillColor: color, color: '#fff', weight: 2,
+          opacity: 0.9, fillOpacity: 0.85, draggable: false
+        });
+
+        // Make draggable via a transparent draggable marker on top
+        const dragMarker = L.marker([club.lat, club.lng], {
+          draggable: true,
+          icon: L.divIcon({
+            className: '',
+            iconSize: [20, 20],
+            iconAnchor: [10, 10],
+            html: '<div style="width:20px;height:20px;cursor:grab;"></div>'
+          })
+        });
+
+        dragMarker.on('drag', function(e) {
+          const pos = e.target.getLatLng();
+          marker.setLatLng(pos);
+        });
+
+        dragMarker.on('dragend', function(e) {
+          const pos = e.target.getLatLng();
+          club.lat = Math.round(pos.lat * 100000) / 100000;
+          club.lng = Math.round(pos.lng * 100000) / 100000;
+          marker.setLatLng([club.lat, club.lng]);
+
+          const orig = originalCoords[club.slug];
+          if (Math.abs(club.lat - orig.lat) > 0.00001 || Math.abs(club.lng - orig.lng) > 0.00001) {
+            movedSlugs.add(club.slug);
+            marker.setStyle({ color: '#f59e0b', weight: 3 });
+          } else {
+            movedSlugs.delete(club.slug);
+            marker.setStyle({ color: '#fff', weight: 2 });
+          }
+          marker.setPopupContent(makePopup(club));
+          updateCounts();
+        });
+
+        marker.bindPopup(makePopup(club));
+        marker.on('popupopen', function() {
+          const btn = document.querySelector(`button[data-slug="${club.slug}"]`);
+          if (btn) {
+            btn.addEventListener('click', function() {
+              const orig = originalCoords[club.slug];
+              club.lat = orig.lat;
+              club.lng = orig.lng;
+              marker.setLatLng([orig.lat, orig.lng]);
+              dragMarker.setLatLng([orig.lat, orig.lng]);
+              marker.setStyle({ color: '#fff', weight: 2 });
+              movedSlugs.delete(club.slug);
+              marker.setPopupContent(makePopup(club));
+              updateCounts();
+            });
+          }
+        });
+
+        markers.push({ marker, dragMarker, club });
+        marker.addTo(map);
+        dragMarker.addTo(map);
+      }
+      updateCounts();
+    }
+
+    function applyFilters() {
+      const query = searchEl.value.toLowerCase();
+      const league = leagueFilter.value;
+      const status = statusFilter.value;
+
+      markers.forEach(({ marker, dragMarker, club }) => {
+        const matchQuery = !query || club.name.toLowerCase().includes(query) || club.ground.toLowerCase().includes(query);
+        const matchLeague = !league || club.league === league;
+        const matchStatus = !status || club.status === status;
+        const show = matchQuery && matchLeague && matchStatus;
+
+        if (show) {
+          if (!map.hasLayer(marker)) { marker.addTo(map); dragMarker.addTo(map); }
+        } else {
+          if (map.hasLayer(marker)) { map.removeLayer(marker); map.removeLayer(dragMarker); }
+        }
+      });
+      updateCounts();
+    }
+
+    searchEl.addEventListener('input', applyFilters);
+    leagueFilter.addEventListener('change', applyFilters);
+    statusFilter.addEventListener('change', applyFilters);
+
+    document.getElementById('file-input').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        try {
+          const data = JSON.parse(ev.target.result);
+          if (!data.clubs) throw new Error('No clubs array');
+          loadClubs(data);
+        } catch (err) {
+          alert('Invalid clubs.json: ' + err.message);
+        }
+      };
+      reader.readAsText(file);
+    });
+
+    saveBtn.addEventListener('click', function() {
+      if (!clubsData) return;
+      const blob = new Blob([JSON.stringify(clubsData, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'clubs.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    resetAllBtn.addEventListener('click', function() {
+      if (!confirm('Reset all ' + movedSlugs.size + ' moved pins to original positions?')) return;
+      markers.forEach(({ marker, dragMarker, club }) => {
+        if (movedSlugs.has(club.slug)) {
+          const orig = originalCoords[club.slug];
+          club.lat = orig.lat;
+          club.lng = orig.lng;
+          marker.setLatLng([orig.lat, orig.lng]);
+          dragMarker.setLatLng([orig.lat, orig.lng]);
+          marker.setStyle({ color: '#fff', weight: 2 });
+          marker.setPopupContent(makePopup(club));
+        }
+      });
+      movedSlugs.clear();
+      updateCounts();
+    });
+
+    // Try to auto-load from relative path
+    fetch('../data/clubs.json')
+      .then(r => r.ok ? r.json() : Promise.reject())
+      .then(data => loadClubs(data))
+      .catch(() => {});
+  })();
+  </script>
+</body>
+</html>
