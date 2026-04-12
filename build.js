@@ -14,6 +14,7 @@ const { nip19 } = require('nostr-tools');
 
 const DATA_FILE = path.join(__dirname, 'data', 'clubs.json');
 const DIST_DIR = path.join(__dirname, 'dist');
+const { version } = require('./package.json');
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -218,7 +219,7 @@ function pageShell(title, bodyContent, { canonical = '', extraHead = '', scripts
   </header>
   ${bodyContent}
   <footer class="site-footer">
-    matchpass.club &mdash; football safety, community owned
+    matchpass.club &mdash; football safety, community owned &mdash; v${version}
   </footer>
   ${scripts}
 </body>
@@ -1424,7 +1425,7 @@ function indexPage(clubs) {
   </div>
 
   <footer class="site-footer">
-    matchpass.club &mdash; football safety, community owned
+    matchpass.club &mdash; football safety, community owned &mdash; v${version}
   </footer>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
