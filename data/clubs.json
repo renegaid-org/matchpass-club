@@ -98,6 +98,38 @@
       "lng": -0.41385
     },
     {
+      "slug": "test-fc",
+      "name": "Test FC",
+      "ground": "MatchPass Arena",
+      "address": "1 Test Lane, Derby DE1 1AA",
+      "league": "Northern Premier League",
+      "division": "East Midlands",
+      "status": "active",
+      "since": "2026-04",
+      "website": null,
+      "safeguardingUrl": null,
+      "contactUrl": null,
+      "officers": [
+        {
+          "role": "Admin",
+          "npub": "npub1placeholder_testfc_admin",
+          "verifiedBy": "Test club for internal QA"
+        },
+        {
+          "role": "Safeguarding Officer",
+          "npub": "npub1placeholder_testfc_safeguarding",
+          "verifiedBy": "Test club for internal QA"
+        }
+      ],
+      "connectedClubs": [
+        "belper-town",
+        "carlton-town",
+        "real-bedford"
+      ],
+      "lat": 52.92277,
+      "lng": -1.47663
+    },
+    {
       "slug": "afc-bournemouth",
       "name": "AFC Bournemouth",
       "ground": "Vitality Stadium",
