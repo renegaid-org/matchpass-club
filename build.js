@@ -557,7 +557,7 @@ function activePage(club, leagueMates) {
       <div class="section-label">What This Means for Fans</div>
       <p>Fans at ${escapeHtml(club.name)} use <a href="https://mysignet.app" target="_blank" rel="noopener">mysignet.app</a> for matchday identity.</p>
       <ul>
-        <li>2-second entry at the turnstile &mdash; scan your QR, you're in</li>
+        <li>2-second entry at the gate &mdash; scan your QR, you're in</li>
         <li>Your reputation is portable &mdash; a clean sheet travels to every club on the network</li>
         <li>No phone? NFC wristbands are available at the club office</li>
         <li>One identity across every club on the MatchPass network</li>
@@ -1174,7 +1174,7 @@ function indexPage(clubs) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MatchPass &mdash; Football Safety, Community Owned</title>
   <link rel="canonical" href="https://matchpass.club/">
-  <meta name="description" content="Digital matchday identity for football clubs. QR scan at the turnstile, 2-second entry, cross-club banning, the card system. Free to clubs. Community owned.">
+  <meta name="description" content="Digital matchday identity for football clubs. QR scan at the gate, 2-second entry, cross-club banning, the card system. Free to clubs. Community owned.">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
@@ -1267,7 +1267,7 @@ function indexPage(clubs) {
     <h1>Match<span>Pass</span></h1>
     <p class="hook">Your reputation travels with you.</p>
     <p class="lead">
-      Digital matchday identity for football clubs. QR scan at the turnstile,
+      Digital matchday identity for football clubs. QR scan at the gate,
       2-second entry, cross-club banning, and a card system every fan already
       understands. Free to clubs. Community owned.
     </p>
@@ -1317,7 +1317,7 @@ function indexPage(clubs) {
       <div class="feature-card">
         <div class="icon">&#x1F4F3;</div>
         <h3>NFC Wristbands <span style="font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--amber);margin-left:0.4rem;">Coming Soon</span></h3>
-        <p>Works without a phone. For kids, for when batteries die, for fans who prefer it. Tap at the turnstile, same result. Anti-clone hardware &mdash; can't be copied. Currently in testing.</p>
+        <p>Works without a phone. For kids, for when batteries die, for fans who prefer it. Tap at the gate, same result. Anti-clone hardware &mdash; can't be copied. Currently in testing.</p>
       </div>
     </div>
   </div>
@@ -1809,7 +1809,7 @@ function fanPage() {
     <!-- WHAT IS MATCHPASS -->
     <div class="fan-section">
       <h2>What is MatchPass?</h2>
-      <p>MatchPass is a safety system your club uses to manage entry and keep matchdays safe for everyone. Instead of queuing with a paper ticket, you scan a QR code at the turnstile &mdash; two seconds and you're in. Your clean record follows you to any club on the network. Think of it like a matchday passport.</p>
+      <p>MatchPass is a safety system your club uses to manage entry and keep matchdays safe for everyone. Instead of queuing with a paper ticket, you scan a QR code at the gate &mdash; two seconds and you're in. Your clean record follows you to any club on the network. Think of it like a matchday passport.</p>
     </div>
 
     <!-- SIGNET BRIDGE -->
@@ -1856,7 +1856,7 @@ function fanPage() {
         </li>
         <li>
           <div class="step-title">Show up on matchday</div>
-          <div class="step-desc">Open the app, show your QR code at the turnstile. Two seconds.</div>
+          <div class="step-desc">Open the app, show your QR code at the gate. Two seconds.</div>
           <details>
             <summary>What happens at the gate?</summary>
             <div class="details-body">
@@ -1870,7 +1870,7 @@ function fanPage() {
     <!-- NO SMARTPHONE -->
     <div class="fan-section">
       <h2>No smartphone? No problem.</h2>
-      <p>Your club can issue an NFC wristband. Tap it at the turnstile instead of scanning a QR code. Works the same way &mdash; two seconds and you're in. Ask at the club office or the turnstile on matchday.</p>
+      <p>Your club can issue an NFC wristband. Tap it at the gate instead of scanning a QR code. Works the same way &mdash; two seconds and you're in. Ask at the club office or the gate on matchday.</p>
       <details>
         <summary>How wristbands work</summary>
         <div class="details-body">
@@ -1884,7 +1884,7 @@ function fanPage() {
     <div class="fan-section">
       <h2>Bringing Children</h2>
       <p class="section-sub">Under-16s need a parent or guardian to set them up.</p>
-      <p>If your child is under 16, you need to link their identity to yours before matchday. This requires a one-time in-person visit to the club's safeguarding officer &mdash; you'll both need to be present. Once linked, your child's identity works at the turnstile just like yours.</p>
+      <p>If your child is under 16, you need to link their identity to yours before matchday. This requires a one-time in-person visit to the club's safeguarding officer &mdash; you'll both need to be present. Once linked, your child's identity works at the gate just like yours.</p>
 
       <details>
         <summary>Why does it have to be in person?</summary>
@@ -1901,7 +1901,7 @@ function fanPage() {
       <details>
         <summary>What about 16 and 17 year olds?</summary>
         <div class="details-body">
-          <p>16 and 17 year olds can self-certify for turnstile entry. Full online features require the same in-person verification as under-16s.</p>
+          <p>16 and 17 year olds can self-certify for gate entry. Full online features require the same in-person verification as under-16s.</p>
         </div>
       </details>
       <details>
@@ -2067,13 +2067,13 @@ function fanPage() {
       <details>
         <summary>What if my phone dies on matchday?</summary>
         <div class="details-body">
-          <p>Talk to the stewards at the turnstile. The club can look you up or issue a temporary wristband. You won't be turned away.</p>
+          <p>Talk to the stewards at the gate. The club can look you up or issue a temporary wristband. You won't be turned away.</p>
         </div>
       </details>
       <details>
         <summary>What if I haven't set up and I turn up on matchday?</summary>
         <div class="details-body">
-          <p>Talk to the stewards at the turnstile. Your club may be able to help you set up on the spot or let you in with a temporary arrangement for your first visit. But it's much easier to do it the night before &mdash; two minutes on your phone.</p>
+          <p>Talk to the stewards at the gate. Your club may be able to help you set up on the spot or let you in with a temporary arrangement for your first visit. But it's much easier to do it the night before &mdash; two minutes on your phone.</p>
         </div>
       </details>
       <details>

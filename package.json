@@ -1,6 +1,6 @@
 {
   "name": "matchpass-club",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "description": "Static site generator for matchpass.club club profile pages",
   "scripts": {
