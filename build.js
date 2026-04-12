@@ -214,7 +214,9 @@ function pageShell(title, bodyContent, { canonical = '', extraHead = '', scripts
   <header class="site-header">
     <a href="../" class="site-logo">Match<span>Pass</span></a>
     <nav class="site-nav">
-      <a href="../">All Clubs</a>
+      <a href="/fans/">For Fans</a>
+      <a href="/#for-clubs">For Clubs</a>
+      <a href="/#directory">All Clubs</a>
     </nav>
   </header>
   ${bodyContent}
@@ -1254,6 +1256,7 @@ function indexPage(clubs) {
   <header class="site-header">
     <a href="./" class="site-logo">Match<span>Pass</span></a>
     <nav class="site-nav">
+      <a href="/fans/">For Fans</a>
       <a href="#for-clubs">For Clubs</a>
       <a href="#directory">All Clubs</a>
     </nav>
@@ -1387,6 +1390,12 @@ function indexPage(clubs) {
   <div class="landing-section has-border">
     <div class="section-heading">For Fans</div>
     <div class="fan-nudge">
+      <strong>Your club uses MatchPass?</strong> Everything you need to know &mdash;
+      setup, the card system, your data, and more.
+      <br><br>
+      <a href="/fans/" class="btn btn-primary">Fan Guide</a>
+    </div>
+    <div class="fan-nudge" style="margin-top:1rem;">
       <strong>Think your club should be on the network?</strong>
       <br>Find your club below and let them know there's demand.
       Every club that joins makes every other club safer.
@@ -1536,6 +1545,586 @@ function nostrJson(clubs) {
 }
 
 // ---------------------------------------------------------------------------
+// Fan page CSS
+// ---------------------------------------------------------------------------
+
+const CSS_FAN = `
+.fan-page { max-width: var(--max-width); margin: 0 auto; padding: 2rem 1.5rem; }
+
+.fan-hero {
+  text-align: center;
+  padding: 3rem 0 2rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.5rem;
+}
+.fan-hero h1 {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 3rem);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.5rem;
+}
+.fan-hero h1 span { color: var(--green-bright); }
+.fan-hero .subtitle {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  max-width: 500px;
+  margin: 0 auto 1.5rem;
+}
+.fan-hero .reassurance {
+  font-size: 1.2rem;
+  color: var(--green-light);
+  font-weight: 600;
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+.fan-section {
+  margin-bottom: 3rem;
+}
+.fan-section h2 {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+.fan-section .section-sub {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 1.25rem;
+}
+.fan-section > p {
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+/* Signet bridge callout */
+.bridge-callout {
+  background: var(--green-wash);
+  border-left: 4px solid var(--green-bright);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2.5rem;
+}
+.bridge-callout p {
+  color: var(--text);
+  line-height: 1.7;
+  margin: 0;
+}
+.bridge-callout strong { color: var(--green-light); }
+.bridge-callout a {
+  display: inline-block;
+  margin-top: 0.75rem;
+  background: var(--green);
+  color: var(--text);
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+.bridge-callout a:hover { background: var(--green-bright); text-decoration: none; }
+
+/* Steps */
+.steps-list {
+  list-style: none;
+  counter-reset: step;
+  padding: 0;
+}
+.steps-list > li {
+  counter-increment: step;
+  position: relative;
+  padding-left: 3rem;
+  margin-bottom: 1.5rem;
+}
+.steps-list > li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2rem;
+  height: 2rem;
+  background: var(--green);
+  color: var(--text);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+.steps-list .step-title {
+  font-weight: 700;
+  color: var(--text);
+  font-size: 1rem;
+}
+.steps-list .step-desc {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+/* Collapsible details */
+.fan-section details {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+}
+.fan-section summary {
+  padding: 0.9rem 1.25rem;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--text);
+  font-size: 0.95rem;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+}
+.fan-section summary::-webkit-details-marker { display: none; }
+.fan-section summary::after {
+  content: '\\203A';
+  font-size: 1.3rem;
+  color: var(--text-dim);
+  transition: transform 0.2s;
+  flex-shrink: 0;
+  margin-left: 1rem;
+}
+.fan-section details[open] summary::after {
+  transform: rotate(90deg);
+}
+.fan-section details[open] summary {
+  border-bottom: 1px solid var(--border);
+}
+.fan-section .details-body {
+  padding: 1rem 1.25rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  font-size: 0.9rem;
+}
+.fan-section .details-body p { margin-bottom: 0.75rem; }
+.fan-section .details-body p:last-child { margin-bottom: 0; }
+.fan-section .details-body ul {
+  padding-left: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+.fan-section .details-body li {
+  margin-bottom: 0.35rem;
+}
+
+/* Card colour indicators */
+.card-yellow {
+  display: inline-block;
+  width: 12px;
+  height: 16px;
+  background: var(--amber);
+  border-radius: 2px;
+  vertical-align: middle;
+  margin-right: 0.3rem;
+}
+.card-red {
+  display: inline-block;
+  width: 12px;
+  height: 16px;
+  background: #dc2626;
+  border-radius: 2px;
+  vertical-align: middle;
+  margin-right: 0.3rem;
+}
+
+/* Retention table */
+.retention-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  margin: 0.75rem 0;
+}
+.retention-table th,
+.retention-table td {
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+.retention-table th {
+  color: var(--text);
+  font-weight: 600;
+}
+.retention-table td {
+  color: var(--text-muted);
+}
+
+@media (max-width: 640px) {
+  .fan-page { padding: 1.25rem 1rem; }
+  .fan-hero { padding: 2rem 0 1.5rem; }
+  .fan-hero .reassurance { font-size: 1.05rem; }
+}
+`;
+
+// ---------------------------------------------------------------------------
+// Fan page
+// ---------------------------------------------------------------------------
+
+function fanPage() {
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MatchPass &mdash; For Fans</title>
+  <link rel="canonical" href="https://matchpass.club/fans/">
+  <meta name="description" content="Everything fans need to know about MatchPass. Setup guide, the card system, your data rights, and how it all works on matchday.">
+  <style>
+    ${CSS_VARS}
+    ${CSS_BASE}
+    ${CSS_HEADER}
+    ${CSS_FOOTER}
+    ${CSS_FAN}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="site-logo">Match<span>Pass</span></a>
+    <nav class="site-nav">
+      <a href="/fans/">For Fans</a>
+      <a href="/#for-clubs">For Clubs</a>
+      <a href="/#directory">All Clubs</a>
+    </nav>
+  </header>
+
+  <div class="fan-page">
+
+    <!-- HERO -->
+    <div class="fan-hero">
+      <h1>For <span>Fans</span></h1>
+      <p class="subtitle">Your club uses MatchPass. Here's everything you need to know.</p>
+      <p class="reassurance">If you've set up the app, you won't get turned away. It takes two minutes.</p>
+    </div>
+
+    <!-- WHAT IS MATCHPASS -->
+    <div class="fan-section">
+      <h2>What is MatchPass?</h2>
+      <p>MatchPass is a safety system your club uses to manage entry and keep matchdays safe for everyone. Instead of queuing with a paper ticket, you scan a QR code at the turnstile &mdash; two seconds and you're in. Your clean record follows you to any club on the network. Think of it like a matchday passport.</p>
+    </div>
+
+    <!-- SIGNET BRIDGE -->
+    <div class="bridge-callout">
+      <p>Your club uses <strong>MatchPass</strong>. You'll use an app called <strong>Signet</strong> &mdash; it's your personal identity wallet. You set up once, and it works at every club on the network.</p>
+      <a href="https://mysignet.app">Get Signet &rarr;</a>
+    </div>
+
+    <!-- GETTING STARTED -->
+    <div class="fan-section">
+      <h2>Getting Started</h2>
+      <p class="section-sub">Set up takes about two minutes.</p>
+
+      <ol class="steps-list">
+        <li>
+          <div class="step-title">Download Signet</div>
+          <div class="step-desc">Free from <a href="https://mysignet.app">mysignet.app</a>. Works on any modern phone.</div>
+          <details>
+            <summary>More about the app</summary>
+            <div class="details-body">
+              <p>Signet works on iOS and Android. If you don't have a smartphone, your club can issue an NFC wristband instead &mdash; see below.</p>
+            </div>
+          </details>
+        </li>
+        <li>
+          <div class="step-title">Create your identity</div>
+          <div class="step-desc">Pick a name. Set a PIN. That's it.</div>
+          <details>
+            <summary>What kind of identity?</summary>
+            <div class="details-body">
+              <p>There's no account, no email address, no password. Your identity is generated on your device and stays there. You own it. Nobody else has access &mdash; not even MatchPass.</p>
+            </div>
+          </details>
+        </li>
+        <li>
+          <div class="step-title">Add your photo</div>
+          <div class="step-desc">Taken once, stored on your device. Used to verify you at the gate.</div>
+          <details>
+            <summary>Where is my photo stored?</summary>
+            <div class="details-body">
+              <p>On your phone, with a backup to a decentralised storage network. It is not stored on MatchPass servers. At the gate, your photo is checked against the one from your first scan of the season to make sure it's really you.</p>
+            </div>
+          </details>
+        </li>
+        <li>
+          <div class="step-title">Show up on matchday</div>
+          <div class="step-desc">Open the app, show your QR code at the turnstile. Two seconds.</div>
+          <details>
+            <summary>What happens at the gate?</summary>
+            <div class="details-body">
+              <p>The steward scans your QR code. Your photo appears on their screen for a visual match. They see a status light &mdash; green (all clear), amber (has a card, admitted as normal), or red (not admitted). That's all they see. No name, no history, no personal details.</p>
+            </div>
+          </details>
+        </li>
+      </ol>
+    </div>
+
+    <!-- NO SMARTPHONE -->
+    <div class="fan-section">
+      <h2>No smartphone? No problem.</h2>
+      <p>Your club can issue an NFC wristband. Tap it at the turnstile instead of scanning a QR code. Works the same way &mdash; two seconds and you're in. Ask at the club office or the turnstile on matchday.</p>
+      <details>
+        <summary>How wristbands work</summary>
+        <div class="details-body">
+          <p>The wristband is linked to your identity, just like the app. Tap it at the reader and you're through. No battery needed, no screen to crack.</p>
+          <p>Your club may provide them free or at a small cost &mdash; typically under two quid. If you lose yours, get a replacement at the club office. The old one is deactivated immediately.</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- BRINGING CHILDREN -->
+    <div class="fan-section">
+      <h2>Bringing Children</h2>
+      <p class="section-sub">Under-16s need a parent or guardian to set them up.</p>
+      <p>If your child is under 16, you need to link their identity to yours before matchday. This requires a one-time in-person visit to the club's safeguarding officer &mdash; you'll both need to be present. Once linked, your child's identity works at the turnstile just like yours.</p>
+
+      <details>
+        <summary>Why does it have to be in person?</summary>
+        <div class="details-body">
+          <p>Safeguarding. The officer verifies that you're the parent or guardian. It can't be done online because the relationship needs to be confirmed face to face. This protects your child.</p>
+        </div>
+      </details>
+      <details>
+        <summary>What do I need to bring?</summary>
+        <div class="details-body">
+          <p>You and your child. Both of you will need your devices (or wristbands). The safeguarding officer will verify the link between the two.</p>
+        </div>
+      </details>
+      <details>
+        <summary>What about 16 and 17 year olds?</summary>
+        <div class="details-body">
+          <p>16 and 17 year olds can self-certify for turnstile entry. Full online features require the same in-person verification as under-16s.</p>
+        </div>
+      </details>
+      <details>
+        <summary>What does the club see about my child?</summary>
+        <div class="details-body">
+          <p>Their chosen name, their photo (stored on their device, not on MatchPass servers), and which parent or guardian is linked. The safeguarding officer's identity is published on your club's matchpass.club page so you can verify who they are before your visit.</p>
+        </div>
+      </details>
+      <details>
+        <summary>What happens when they turn 19?</summary>
+        <div class="details-body">
+          <p>The parent-child link is automatically removed. Their identity becomes fully independent. All linkage data is deleted within one year.</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- THE CARD SYSTEM -->
+    <div class="fan-section">
+      <h2>The Card System</h2>
+      <p class="section-sub">Yellow and red, just like on the pitch.</p>
+      <p>If a steward sees behaviour that isn't on &mdash; abuse, aggression, pitch incursion, that sort of thing &mdash; they can issue you a card. Yellow for a warning, red for something serious. The vast majority of fans will never see one. But if you do, here's how it works.</p>
+
+      <details>
+        <summary><span class="card-yellow"></span> Yellow card</summary>
+        <div class="details-body">
+          <p><strong>What it means:</strong> A warning. You can still attend matches. Stewards are aware you've had an incident.</p>
+          <p><strong>How long it lasts:</strong> Active for 12 months. After 5 matches attended without incident, it's automatically cleared. If you don't get another within 12 months, it's deleted from the system entirely.</p>
+          <p><strong>What happens next match:</strong> You'll see it in your app. At the gate, the steward sees an amber status &mdash; you're admitted as normal, but they know to keep an eye out.</p>
+        </div>
+      </details>
+      <details>
+        <summary><span class="card-red"></span> Red card</summary>
+        <div class="details-body">
+          <p><strong>What it means:</strong> A serious incident. Depending on club policy, you may need to show ID at the gate next time.</p>
+          <p><strong>How long it lasts:</strong> Active for 24 months. After 10 clean matches, it can be cleared. Deleted after 24 months either way.</p>
+          <p><strong>Two yellows:</strong> Two yellows in a rolling period triggers an automatic red, reviewed by the safety officer.</p>
+          <p><strong>Identity verification:</strong> If you receive a red card, you'll be asked to show government photo ID to a designated club official at your next visit. This is a one-time check &mdash; once verified, you don't need to show ID again unless you receive another red.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Suspensions and bans</summary>
+        <div class="details-body">
+          <p><strong>Suspensions:</strong> A set number of matches you cannot attend. Issued for more serious or repeated incidents. Records kept for 2 years after the suspension ends, then deleted.</p>
+          <p><strong>Bans:</strong> Time-limited or indefinite. For the most serious incidents &mdash; violence, weapons, racial abuse. Records kept 5&ndash;10 years depending on severity, then reviewed.</p>
+          <p><strong>Cross-club visibility:</strong> If you're banned at one club on the network, other clubs on the network can see it. Your reputation &mdash; good or bad &mdash; travels with you.</p>
+        </div>
+      </details>
+      <details>
+        <summary>What behaviour gets a card?</summary>
+        <div class="details-body">
+          <ul>
+            <li>Assault or threatening behaviour</li>
+            <li>Racial, religious, or sexual abuse</li>
+            <li>Throwing objects</li>
+            <li>Pitch incursion</li>
+            <li>Excessive intoxication</li>
+            <li>Weapons (automatic red card and identity verification)</li>
+            <li>Theft</li>
+            <li>Other disorderly conduct at the steward's discretion</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+
+    <!-- CHALLENGING A CARD -->
+    <div class="fan-section">
+      <h2>Think it's wrong? Challenge it.</h2>
+      <p class="section-sub">Cards aren't final. Here's how the process works.</p>
+      <p>If you think a card was issued unfairly, you can challenge it. Every card is reviewed. You'll get a decision.</p>
+
+      <details>
+        <summary>How to challenge</summary>
+        <div class="details-body">
+          <p>Through the Signet app. You'll see the card, the reason it was issued, and an option to submit your side of the story.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Review timeline</summary>
+        <div class="details-body">
+          <p>Yellow cards are reviewed within 48 hours. Red cards within 7 days.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Possible outcomes</summary>
+        <div class="details-body">
+          <p><strong>Confirmed</strong> &mdash; the card stands.</p>
+          <p><strong>Downgraded</strong> &mdash; a red reduced to a yellow.</p>
+          <p><strong>Dismissed</strong> &mdash; removed entirely.</p>
+          <p>You'll see the outcome in the app.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Appealing suspensions and bans</summary>
+        <div class="details-body">
+          <p>Suspensions and bans can also be appealed. The appeal is reviewed by the club. If overturned, the record is updated and you'll see the outcome in the app.</p>
+        </div>
+      </details>
+      <details>
+        <summary>What if I disagree with the review?</summary>
+        <div class="details-body">
+          <p>The club's decision is the club's decision &mdash; MatchPass provides the process, not the judgement. If you believe the club has acted unfairly, your recourse is with the club directly or with the relevant football authority.</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- YOUR DATA -->
+    <div class="fan-section">
+      <h2>Your Data</h2>
+      <p class="section-sub">What we collect, how long we keep it, and your rights.</p>
+      <p>MatchPass collects the minimum needed to run safely. Your club is the data controller &mdash; they decide what happens with your data, not us.</p>
+
+      <details>
+        <summary>What's collected</summary>
+        <div class="details-body">
+          <p>Your public identity (the name you chose), a reference to your photo (the photo itself stays on your device), attendance records, and any cards or sanctions.</p>
+        </div>
+      </details>
+      <details>
+        <summary>What stewards see at the gate</summary>
+        <div class="details-body">
+          <p>Your photo and a status light: green (all clear), amber (has a card &mdash; admitted, monitored), or red (banned or suspended &mdash; not admitted). They don't see your history, your name, or anything else.</p>
+        </div>
+      </details>
+      <details>
+        <summary>How long it's kept</summary>
+        <div class="details-body">
+          <table class="retention-table">
+            <tr><th>Record</th><th>Retention</th></tr>
+            <tr><td>Scan logs</td><td>30 days</td></tr>
+            <tr><td>Yellow cards</td><td>12 months (or cleared after 5 clean matches)</td></tr>
+            <tr><td>Red cards</td><td>24 months (or cleared after 10 clean matches)</td></tr>
+            <tr><td>Suspensions</td><td>2 years after end date</td></tr>
+            <tr><td>Bans</td><td>5&ndash;10 years depending on severity</td></tr>
+            <tr><td>Parent-child links</td><td>Until the child turns 19, plus 1 year</td></tr>
+          </table>
+          <p>All deletions are automatic. No human decides to keep your data longer than the schedule allows.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Your rights</summary>
+        <div class="details-body">
+          <p>You can ask to see your data (subject access request). You can ask for it to be deleted &mdash; but if you have an active card, suspension, or ban, the club can lawfully refuse under UK GDPR because the record is necessary for safety. Once the retention period ends, it's gone &mdash; automatically and permanently.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Where it's stored</summary>
+        <div class="details-body">
+          <p>In your club's own database, hosted in Germany. Not shared with the FA, the police, or any third party unless required by law.</p>
+        </div>
+      </details>
+    </div>
+
+    <!-- FAQ -->
+    <div class="fan-section">
+      <h2>Common Questions</h2>
+
+      <details>
+        <summary>Do I need to pay for anything?</summary>
+        <div class="details-body">
+          <p>No. MatchPass is free for fans. Always. Your club doesn't pay either.</p>
+        </div>
+      </details>
+      <details>
+        <summary>What if my phone dies on matchday?</summary>
+        <div class="details-body">
+          <p>Talk to the stewards at the turnstile. The club can look you up or issue a temporary wristband. You won't be turned away.</p>
+        </div>
+      </details>
+      <details>
+        <summary>What if I haven't set up and I turn up on matchday?</summary>
+        <div class="details-body">
+          <p>Talk to the stewards at the turnstile. Your club may be able to help you set up on the spot or let you in with a temporary arrangement for your first visit. But it's much easier to do it the night before &mdash; two minutes on your phone.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Can I use this at other clubs?</summary>
+        <div class="details-body">
+          <p>Yes &mdash; at any club on the MatchPass network. Your identity and reputation travel with you. One setup, every ground.</p>
+        </div>
+      </details>
+      <details>
+        <summary>What if my club isn't on the network yet?</summary>
+        <div class="details-body">
+          <p>Find your club on <a href="/">matchpass.club</a> and let them know you'd like them to join. Fan demand is the fastest way clubs come on board.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Is this like a government ID scheme?</summary>
+        <div class="details-body">
+          <p>No. MatchPass is community-owned, not government-run. Your identity lives on your own device &mdash; there's no central database. No email address, no account, no register.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Can I delete my identity?</summary>
+        <div class="details-body">
+          <p>Yes. You can wipe your identity from your device at any time. Active discipline records at your club will remain until their retention period ends (this is a legal requirement for safety), but your personal identity data is deleted.</p>
+        </div>
+      </details>
+      <details>
+        <summary>What if I'm banned at one club &mdash; can I go to another?</summary>
+        <div class="details-body">
+          <p>If both clubs are on the MatchPass network, the other club will see your ban and can refuse entry. Your reputation goes with you, good and bad. That's the point: it keeps everyone safe.</p>
+        </div>
+      </details>
+      <details>
+        <summary>I don't want to use an app at a football match.</summary>
+        <div class="details-body">
+          <p>That's fine. Ask your club about an NFC wristband &mdash; tap and go, no phone needed.</p>
+        </div>
+      </details>
+    </div>
+
+  </div>
+
+  <footer class="site-footer">
+    matchpass.club &mdash; football safety, community owned &mdash; v${version}
+    <br><a href="/">Home</a> &middot; <a href="/#directory">Find Your Club</a>
+  </footer>
+</body>
+</html>`;
+}
+
+// ---------------------------------------------------------------------------
 // Build
 // ---------------------------------------------------------------------------
 
@@ -1577,6 +2166,12 @@ function build() {
   // Generate index page
   fs.writeFileSync(path.join(DIST_DIR, 'index.html'), indexPage(clubs));
   console.log('  index.html');
+
+  // Generate fan page
+  const fansDir = path.join(DIST_DIR, 'fans');
+  ensureDir(fansDir);
+  fs.writeFileSync(path.join(fansDir, 'index.html'), fanPage());
+  console.log('  fans/index.html');
 
   // Generate .well-known/nostr.json
   const wellKnownDir = path.join(DIST_DIR, '.well-known');
