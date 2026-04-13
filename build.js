@@ -199,6 +199,9 @@ function pageShell(title, bodyContent, { canonical = '', extraHead = '', scripts
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${escapeHtml(title)}</title>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   ${canonical ? `<link rel="canonical" href="https://matchpass.club/${canonical}">` : ''}
   <meta name="description" content="${escapeHtml(title)} — club profile on the MatchPass football safety network">
   <style>
@@ -212,7 +215,7 @@ function pageShell(title, bodyContent, { canonical = '', extraHead = '', scripts
 </head>
 <body>
   <header class="site-header">
-    <a href="../" class="site-logo">Match<span>Pass</span></a>
+    <a href="../" class="site-logo"><img src="/logo.svg" alt="" width="22" height="22" style="vertical-align:middle;margin-right:4px;border-radius:3px;">Match<span>Pass</span></a>
     <nav class="site-nav">
       <a href="/fans/">For Fans</a>
       <a href="/#for-clubs">For Clubs</a>
@@ -1254,7 +1257,7 @@ function indexPage(clubs) {
 </head>
 <body>
   <header class="site-header">
-    <a href="./" class="site-logo">Match<span>Pass</span></a>
+    <a href="./" class="site-logo"><img src="/logo.svg" alt="" width="22" height="22" style="vertical-align:middle;margin-right:4px;border-radius:3px;">Match<span>Pass</span></a>
     <nav class="site-nav">
       <a href="/fans/">For Fans</a>
       <a href="#for-clubs">For Clubs</a>
@@ -1789,7 +1792,7 @@ function fanPage() {
 </head>
 <body>
   <header class="site-header">
-    <a href="/" class="site-logo">Match<span>Pass</span></a>
+    <a href="/" class="site-logo"><img src="/logo.svg" alt="" width="22" height="22" style="vertical-align:middle;margin-right:4px;border-radius:3px;">Match<span>Pass</span></a>
     <nav class="site-nav">
       <a href="/fans/">For Fans</a>
       <a href="/#for-clubs">For Clubs</a>
