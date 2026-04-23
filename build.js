@@ -225,6 +225,7 @@ function pageShell(title, bodyContent, { canonical = '', extraHead = '', scripts
   ${bodyContent}
   <footer class="site-footer">
     matchpass.club &mdash; football safety, community owned &mdash; v${version}
+    <br><a href="/fans/">For Fans</a> &middot; <a href="/ifr/">IFR</a>
   </footer>
   ${scripts}
 </body>
@@ -1438,6 +1439,7 @@ function indexPage(clubs) {
 
   <footer class="site-footer">
     matchpass.club &mdash; football safety, community owned &mdash; v${version}
+    <br><a href="/fans/">For Fans</a> &middot; <a href="/ifr/">IFR</a>
   </footer>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -2121,7 +2123,269 @@ function fanPage() {
 
   <footer class="site-footer">
     matchpass.club &mdash; football safety, community owned &mdash; v${version}
-    <br><a href="/">Home</a> &middot; <a href="/#directory">Find Your Club</a>
+    <br><a href="/">Home</a> &middot; <a href="/#directory">Find Your Club</a> &middot; <a href="/ifr/">IFR</a>
+  </footer>
+</body>
+</html>`;
+}
+
+// ---------------------------------------------------------------------------
+// IFR page
+// ---------------------------------------------------------------------------
+
+const CSS_IFR = `
+.ifr-lane {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--green-bright);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+}
+.ifr-lane h3 {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+}
+.ifr-lane p {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.75;
+  margin: 0;
+}
+.ifr-status-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0;
+}
+.ifr-status-list li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+.ifr-status-list li:last-child { border-bottom: none; }
+.ifr-status-list .badge {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.18rem 0.55rem;
+  border-radius: 3px;
+  margin-right: 0.6rem;
+  vertical-align: middle;
+}
+.ifr-status-list .badge-shipping { background: var(--green); color: var(--text); }
+.ifr-status-list .badge-roadmap { background: var(--amber-wash); color: var(--amber); border: 1px solid var(--amber); }
+.ifr-principle {
+  background: var(--green-wash);
+  border-left: 4px solid var(--green-bright);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin: 1.5rem 0;
+}
+.ifr-principle p { color: var(--text); margin: 0; line-height: 1.75; }
+.ifr-principle strong { color: var(--green-light); }
+.ifr-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+.ifr-stat {
+  background: var(--bg-section);
+  border-radius: var(--radius);
+  padding: 0.9rem 1rem;
+}
+.ifr-stat .stat-number {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--green-light);
+  margin-bottom: 0.15rem;
+  line-height: 1.2;
+}
+.ifr-stat .stat-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+.ifr-contact {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin-top: 1rem;
+}
+.ifr-contact p { color: var(--text-muted); margin-bottom: 0.5rem; }
+.ifr-contact p:last-child { margin-bottom: 0; }
+`;
+
+function ifrPage() {
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MatchPass &mdash; IFR Compliance Reference</title>
+  <link rel="canonical" href="https://matchpass.club/ifr/">
+  <meta name="description" content="An open-source reference implementation for matchday safety, fan engagement, and steward credentialling under the Football Governance Act 2025. Append-only credential chain, portable fan and steward reputation, community-owned.">
+  <meta name="keywords" content="IFR, Independent Football Regulator, Football Governance Act 2025, matchday safety compliance, open source football, club licensing, fan engagement standard, steward credentialling, Hillsborough Law, SGSA Green Guide">
+  <meta property="og:title" content="MatchPass and the IFR">
+  <meta property="og:description" content="Open-source reference implementation for matchday safety compliance under the Football Governance Act 2025.">
+  <meta property="og:url" content="https://matchpass.club/ifr/">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <style>
+    ${CSS_VARS}
+    ${CSS_BASE}
+    ${CSS_HEADER}
+    ${CSS_FOOTER}
+    ${CSS_FAN}
+    ${CSS_IFR}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="site-logo"><img src="/logo.svg" alt="" width="22" height="22" style="vertical-align:middle;margin-right:4px;border-radius:3px;">Match<span>Pass</span></a>
+    <nav class="site-nav">
+      <a href="/fans/">For Fans</a>
+      <a href="/#for-clubs">For Clubs</a>
+      <a href="/#directory">All Clubs</a>
+    </nav>
+  </header>
+
+  <div class="fan-page">
+
+    <!-- HERO -->
+    <div class="fan-hero">
+      <h1>MatchPass and the <span>IFR</span></h1>
+      <p class="subtitle">An open-source reference implementation for matchday safety, fan engagement, and steward credentialling under the Football Governance Act 2025.</p>
+      <p class="reassurance">Append-only. Community owned. No central vendor.</p>
+    </div>
+
+    <!-- PURPOSE -->
+    <div class="fan-section">
+      <h2>Who This Page Is For</h2>
+      <p>Independent Football Regulator staff, club safety officers, supporter trusts, the Football Supporters' Association, the Football Safety Officers Association, the Sports Grounds Safety Authority, journalists, and anyone else researching how football's new licensing regime will be discharged in practice at club level.</p>
+      <p>This is not a vendor pitch. MatchPass is an open-source protocol and reference implementation. Any club can self-host. Any safety regulator or supporter body can inspect, audit, and extend the code. There is no licensing fee, no vendor contract, and no single point of capture.</p>
+    </div>
+
+    <!-- CONTEXT -->
+    <div class="fan-section">
+      <h2>The Regulatory Context</h2>
+      <p>The Independent Football Regulator begins statutory work on <strong>5 May 2026</strong>. 116 clubs across the Premier League, Championship, League One, League Two, and National League require provisional licences before the 2027/28 season. Non-compliance penalties include unlimited fines, licence suspension, and closure.</p>
+
+      <div class="ifr-stats">
+        <div class="ifr-stat">
+          <div class="stat-number">2,439</div>
+          <div class="stat-label">Active Football Banning Orders (June 2025, highest since 2012/13)</div>
+        </div>
+        <div class="ifr-stat">
+          <div class="stat-number">1,583</div>
+          <div class="stat-label">Matches with reported incidents in 2024/25 (&uarr;18%)</div>
+        </div>
+        <div class="ifr-stat">
+          <div class="stat-number">1,803</div>
+          <div class="stat-label">Football-related arrests across top six tiers, 2024/25 (&darr;12%)</div>
+        </div>
+        <div class="ifr-stat">
+          <div class="stat-number">&pound;70M+</div>
+          <div class="stat-label">Annual policing cost; clubs contribute &pound;15M, taxpayers bear &pound;56M</div>
+        </div>
+      </div>
+
+      <p>The pattern is clear: fewer people are being arrested, but the ones who are are doing more severe things more often. Hate crime (420 matches), thrown missiles (363), and pyrotechnics (319) lead the incident categories. The existing enforcement infrastructure has not kept pace, and lower-league clubs lack the budget for closed commercial safety platforms built for Premier League economics.</p>
+    </div>
+
+    <!-- WHAT MATCHPASS IS -->
+    <div class="fan-section">
+      <h2>What MatchPass Is</h2>
+      <p>MatchPass is a matchday identity and safety platform. Fans carry cryptographic credentials on their own device. Stewards scan a QR code at the gate. Clubs record scans, incidents, cards, sanctions, and reviews on an append-only credential chain. A ban at one club is visible at every club on the network. A clean record travels too.</p>
+      <p>The gate server is stateless: no central database holds fan records. Fan data lives on fans' devices and on a public relay network the fan controls. This is privacy-first architecture by design &mdash; it also happens to sidestep GDPR retention questions that closed ticketing schemes have to engineer around.</p>
+    </div>
+
+    <!-- DESIGN PRINCIPLE -->
+    <div class="fan-section">
+      <h2>Design Principle</h2>
+      <div class="ifr-principle">
+        <p>The credential chain is <strong>append-only</strong>. Once an event, card, or sanction is published, it cannot be retroactively edited or removed. A club cannot rewrite its own history. This is culturally aligned with Hillsborough Law's duty of candour and is, we think, the single strongest reason a safety regulator should prefer an open chain over a closed club-controlled system.</p>
+      </div>
+    </div>
+
+    <!-- FOUR LANES -->
+    <div class="fan-section">
+      <h2>How MatchPass Maps to Expected Licence Conditions</h2>
+      <p class="section-sub">IFR's licence framework is not yet published. Four areas where MatchPass provides working reference capability:</p>
+
+      <div class="ifr-lane">
+        <h3>1. Operational safety and compliance reporting</h3>
+        <p>Every matchday emits a structured chain of scans, events, cards, reviews, and sanctions. These can be exported as a compliance evidence pack per fixture or per reporting period, cryptographically signed and auditable. Clubs generate licence-application evidence automatically rather than assembling it after the fact.</p>
+      </div>
+
+      <div class="ifr-lane">
+        <h3>2. Fan engagement standard</h3>
+        <p>MatchPass credentials identify verified fans cryptographically. This supports authenticated consultation &mdash; sentiment surveys, structured feedback, and cryptographic voting on heritage matters (ground moves, colour and crest changes, name changes). Eligibility rules are chain-verifiable. A fan's relationship with their club is durable and portable across years, clubs, and club ownership changes.</p>
+      </div>
+
+      <div class="ifr-lane">
+        <h3>3. Independent complaint and whistleblowing channels</h3>
+        <p>The fan-side identity layer supports anonymous-but-verified-as-fan reporting. A fan can raise a safety or governance concern without the club filtering what the regulator sees, while the regulator can still verify that the reporter is a bona fide fan of the relevant club.</p>
+      </div>
+
+      <div class="ifr-lane">
+        <h3>4. Steward workforce credentialling</h3>
+        <p>Stewards are hard to recruit and retain &mdash; the FSOA has described the worst recruitment crisis in five years, with pay averages at &pound;12.27 per hour nationally and stewards able to earn more at a supermarket. MatchPass supports portable steward reputation: competencies, years of service, cross-club endorsements, and incidents handled can be cryptographically recorded and carried between clubs. A steward who works two seasons at one club arrives at another with verifiable reputation.</p>
+      </div>
+    </div>
+
+    <!-- STATUS -->
+    <div class="fan-section">
+      <h2>Current Status</h2>
+      <ul class="ifr-status-list">
+        <li><span class="badge badge-shipping">Shipping</span>Gate server and steward / admin Progressive Web App. Two security audit rounds closed. Offline queue, service worker, admin roster editor, card issuance with challenge / review flow, sanction lifecycle, photo verification via decentralised storage.</li>
+        <li><span class="badge badge-shipping">Shipping</span>Role delegation (<code>staff_manager</code> role with per-entry expiry) for matchday temp and agency stewards.</li>
+        <li><span class="badge badge-shipping">Shipping</span>Append-only credential chain on a public relay network. Stateless gate verification. Nothing retroactively editable.</li>
+        <li><span class="badge badge-roadmap">Roadmap</span>Compliance Evidence Pipeline &mdash; structured export of existing chain data as IFR licence-application evidence.</li>
+        <li><span class="badge badge-roadmap">Roadmap</span>Fan Engagement &amp; Heritage Voting Layer &mdash; authenticated consultation infrastructure using existing credentials.</li>
+        <li><span class="badge badge-roadmap">Roadmap</span>Portable Steward Credentialling &mdash; cross-club reputation, competencies, and training records.</li>
+        <li><span class="badge badge-roadmap">Roadmap</span>Independent fan reporting channel.</li>
+        <li><span class="badge badge-roadmap">Roadmap</span>Banning order registry with UKFPU interop.</li>
+        <li><span class="badge badge-roadmap">Roadmap</span>Real-time matchday risk telemetry for Safety Advisory Groups.</li>
+      </ul>
+    </div>
+
+    <!-- OPEN SOURCE -->
+    <div class="fan-section">
+      <h2>Community Ownership</h2>
+      <p>MatchPass is community-owned. There is no gatekeeping vendor. Clubs do not pay to participate. The protocols are open (built on Nostr). The code is public. Design decisions are recorded openly in the project's decision log. Any club can self-host, and any regulator or supporter body can inspect, audit, and extend the implementation.</p>
+      <p>The problem is in the football community. The solution is in the football community. Government programmes are context, not the answer.</p>
+    </div>
+
+    <!-- WHAT WE'RE LOOKING FOR -->
+    <div class="fan-section">
+      <h2>What We're Looking For</h2>
+      <p class="section-sub">Conversations, not contracts. Specifically:</p>
+      <div class="ifr-contact">
+        <p><strong>IFR staff</strong> framing licence conditions &mdash; we would like to describe what is already working and to ensure conditions can be discharged by open-source decentralised implementations, not only by a single closed scheme.</p>
+        <p><strong>Club safety officers</strong> preparing for provisional licence applications &mdash; we can demonstrate the compliance evidence pipeline and the steward credentialling model.</p>
+        <p><strong>Supporter trusts and the Football Supporters' Association</strong> &mdash; the fan engagement layer is designed around the role you already play; we would like to align on authentication and consultation infrastructure.</p>
+        <p><strong>The Football Safety Officers Association</strong> &mdash; the workforce credentialling layer is the direct response to the recruitment and retention picture your members describe.</p>
+        <p><strong>The Sports Grounds Safety Authority</strong> &mdash; the values alignment is visible (open access, safety-first, community-focused). We would like to align on Green Guide compliance mapping.</p>
+      </div>
+      <p style="margin-top: 1.5rem;">Contact: via the public project on GitHub at <a href="https://github.com/renegaid-org/matchpass-app">renegaid-org/matchpass-app</a>, or via the club directory at <a href="/">matchpass.club</a>. An introductory email via GitHub issues or via a club already on the directory will reach the project lead.</p>
+    </div>
+
+  </div>
+
+  <footer class="site-footer">
+    matchpass.club &mdash; football safety, community owned &mdash; v${version}
+    <br><a href="/">Home</a> &middot; <a href="/fans/">For Fans</a> &middot; <a href="/#directory">Find Your Club</a>
   </footer>
 </body>
 </html>`;
@@ -2175,6 +2439,12 @@ function build() {
   ensureDir(fansDir);
   fs.writeFileSync(path.join(fansDir, 'index.html'), fanPage());
   console.log('  fans/index.html');
+
+  // Generate IFR compliance reference page
+  const ifrDir = path.join(DIST_DIR, 'ifr');
+  ensureDir(ifrDir);
+  fs.writeFileSync(path.join(ifrDir, 'index.html'), ifrPage());
+  console.log('  ifr/index.html');
 
   // Generate .well-known/nostr.json
   const wellKnownDir = path.join(DIST_DIR, '.well-known');
