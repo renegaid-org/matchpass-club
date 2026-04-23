@@ -225,7 +225,7 @@ function pageShell(title, bodyContent, { canonical = '', extraHead = '', scripts
   ${bodyContent}
   <footer class="site-footer">
     matchpass.club &mdash; football safety, community owned &mdash; v${version}
-    <br><a href="/fans/">For Fans</a> &middot; <a href="/ifr/">IFR</a>
+    <br><a href="/fans/">For Fans</a> &middot; <a href="/ifr/">IFR</a> &middot; <a href="/never/">Never</a>
   </footer>
   ${scripts}
 </body>
@@ -1439,7 +1439,7 @@ function indexPage(clubs) {
 
   <footer class="site-footer">
     matchpass.club &mdash; football safety, community owned &mdash; v${version}
-    <br><a href="/fans/">For Fans</a> &middot; <a href="/ifr/">IFR</a>
+    <br><a href="/fans/">For Fans</a> &middot; <a href="/ifr/">IFR</a> &middot; <a href="/never/">Never</a>
   </footer>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -2123,7 +2123,7 @@ function fanPage() {
 
   <footer class="site-footer">
     matchpass.club &mdash; football safety, community owned &mdash; v${version}
-    <br><a href="/">Home</a> &middot; <a href="/#directory">Find Your Club</a> &middot; <a href="/ifr/">IFR</a>
+    <br><a href="/">Home</a> &middot; <a href="/#directory">Find Your Club</a> &middot; <a href="/ifr/">IFR</a> &middot; <a href="/never/">Never</a>
   </footer>
 </body>
 </html>`;
@@ -2230,12 +2230,12 @@ function ifrPage() {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MatchPass &mdash; IFR Compliance Reference</title>
+  <title>MatchPass and the Independent Football Regulator &mdash; Open-Source Identity Component</title>
   <link rel="canonical" href="https://matchpass.club/ifr/">
-  <meta name="description" content="An open-source reference implementation for matchday safety, fan engagement, and steward credentialling under the Football Governance Act 2025. Append-only credential chain, portable fan and steward reputation, community-owned.">
-  <meta name="keywords" content="IFR, Independent Football Regulator, Football Governance Act 2025, matchday safety compliance, open source football, club licensing, fan engagement standard, steward credentialling, Hillsborough Law, SGSA Green Guide">
-  <meta property="og:title" content="MatchPass and the IFR">
-  <meta property="og:description" content="Open-source reference implementation for matchday safety compliance under the Football Governance Act 2025.">
+  <meta name="description" content="MatchPass is the open-source portable identity, reputation, and event-chain component that any IFR-aligned compliance stack can embed. Append-only credential chain, fan-held Signet identity, community-owned. Designed to sit inside compliance stacks under the Football Governance Act 2025, not to compete with them.">
+  <meta name="keywords" content="IFR, Independent Football Regulator, Football Governance Act 2025, matchday safety compliance, open source football, club licensing, fan engagement standard, steward credentialling, Hillsborough Law, SGSA Green Guide, Signet identity, portable football reputation">
+  <meta property="og:title" content="MatchPass and the Independent Football Regulator">
+  <meta property="og:description" content="The open-source portable identity and reputation component for IFR-aligned compliance stacks. Fan-held Signet identity, append-only chain, community-owned.">
   <meta property="og:url" content="https://matchpass.club/ifr/">
   <meta property="og:type" content="website">
   <link rel="icon" href="/favicon.ico" sizes="any">
@@ -2264,16 +2264,16 @@ function ifrPage() {
 
     <!-- HERO -->
     <div class="fan-hero">
-      <h1>MatchPass and the <span>IFR</span></h1>
-      <p class="subtitle">An open-source reference implementation for matchday safety, fan engagement, and steward credentialling under the Football Governance Act 2025.</p>
-      <p class="reassurance">Append-only. Community owned. No central vendor.</p>
+      <h1>MatchPass and the <span>Independent Football Regulator</span></h1>
+      <p class="subtitle">The open-source portable identity, reputation, and event-chain component that any IFR-aligned compliance stack can embed. Fan-held Signet identity, append-only credential chain, community-owned.</p>
+      <p class="reassurance">We are a component, not a stack. We do one thing well and embed inside anyone else's.</p>
     </div>
 
     <!-- PURPOSE -->
     <div class="fan-section">
       <h2>Who This Page Is For</h2>
-      <p>Independent Football Regulator staff, club safety officers, supporter trusts, the Football Supporters' Association, the Football Safety Officers Association, the Sports Grounds Safety Authority, journalists, and anyone else researching how football's new licensing regime will be discharged in practice at club level.</p>
-      <p>This is not a vendor pitch. MatchPass is an open-source protocol and reference implementation. Any club can self-host. Any safety regulator or supporter body can inspect, audit, and extend the code. There is no licensing fee, no vendor contract, and no single point of capture.</p>
+      <p>Independent Football Regulator staff, club safety officers, supporter trusts, the Football Supporters' Association, the Football Safety Officers Association, the Sports Grounds Safety Authority, compliance-stack vendors evaluating components, journalists, and anyone else researching how football's new licensing regime will be discharged in practice at club level.</p>
+      <p>This is not a vendor pitch for a full-stack compliance product. MatchPass does not aspire to cover every aspect of IFR licensing. MatchPass covers <em>one</em> aspect &mdash; fan and steward identity on an open, portable, append-only chain &mdash; and does it under durable published principles (<a href="/never/">see what we will never do</a>). Other parts of the compliance stack (financial reporting, fit-and-proper, administrative dashboards, safety-operations software) are left to vendors and partners better placed to provide them.</p>
     </div>
 
     <!-- CONTEXT -->
@@ -2305,43 +2305,53 @@ function ifrPage() {
 
     <!-- WHAT MATCHPASS IS -->
     <div class="fan-section">
-      <h2>What MatchPass Is</h2>
-      <p>MatchPass is a matchday identity and safety platform. Fans carry cryptographic credentials on their own device. Stewards scan a QR code at the gate. Clubs record scans, incidents, cards, sanctions, and reviews on an append-only credential chain. A ban at one club is visible at every club on the network. A clean record travels too.</p>
-      <p>The gate server is stateless: no central database holds fan records. Fan data lives on fans' devices and on a public relay network the fan controls. This is privacy-first architecture by design &mdash; it also happens to sidestep GDPR retention questions that closed ticketing schemes have to engineer around.</p>
+      <h2>What MatchPass Is (and How It Relates to Signet)</h2>
+      <p>MatchPass is one end of a two-part identity system:</p>
+      <ul>
+        <li><strong>Signet</strong> (<a href="https://mysignet.app">mysignet.app</a>) &mdash; a free identity wallet on the fan's own device. The fan generates and owns the keys. Signet works everywhere, not just at football.</li>
+        <li><strong>MatchPass</strong> &mdash; the matchday verification layer that recognises a Signet-holding fan at the turnstile and records scans, cards, sanctions, and reviews on an append-only credential chain. Stateless gate server, no central database.</li>
+      </ul>
+      <p>A ban at one club is visible at every club on the network. A clean record travels too. Fan data lives on the fan's device and on a public relay network the fan controls.</p>
+      <p><strong>The strategic consequence is deliberate.</strong> Clubs adopt MatchPass to run safer matchdays. Fans gain a Signet identity they can carry beyond matchday &mdash; age verification at the bar, login at the supporter-trust portal, verified-fan proof in any consultation, reputation at any venue that wants to recognise it. MatchPass is, in effect, a bottom-up distribution channel that puts portable cryptographic identity in mainstream UK hands via the familiar matchday doorway. Closed biometric schemes cannot produce this outcome, because their templates are useless outside the scheme.</p>
+    </div>
+
+    <!-- COMPONENT MODEL -->
+    <div class="fan-section">
+      <h2>The Component Model</h2>
+      <p>Full-stack IFR compliance vendors will emerge. Some will be better resourced than us. Some will bundle licensing-application tooling, financial reporting, administrative dashboards, and fan management into a single invoice. That is a legitimate product shape for a club that wants to hand the compliance problem to one vendor.</p>
+      <p>MatchPass is not that product. MatchPass is the identity and reputation <em>layer</em> that any such stack can embed, the same way countless products embed payment, mapping, or authentication components rather than building them from scratch. If you are building an IFR-aligned compliance stack for football clubs, MatchPass is a licence-ready component. If you are a club evaluating compliance stacks, ask your vendor whether they embed MatchPass &mdash; because the fan-held portable identity is the piece no closed stack can replicate.</p>
+      <p>MatchPass also works standalone for clubs that want to self-host the gate verification layer directly. Component-first does not mean stack-only.</p>
     </div>
 
     <!-- DESIGN PRINCIPLE -->
     <div class="fan-section">
-      <h2>Design Principle</h2>
+      <h2>Design Principle: Append-Only, Hillsborough-Aligned</h2>
       <div class="ifr-principle">
-        <p>The credential chain is <strong>append-only</strong>. Once an event, card, or sanction is published, it cannot be retroactively edited or removed. A club cannot rewrite its own history. This is culturally aligned with Hillsborough Law's duty of candour and is, we think, the single strongest reason a safety regulator should prefer an open chain over a closed club-controlled system.</p>
+        <p>The credential chain is <strong>append-only</strong>. Once an event, card, or sanction is published, it cannot be retroactively edited or removed. A club cannot rewrite its own history. This is culturally aligned with Hillsborough Law's duty of candour and is the single strongest reason a safety regulator should prefer an open chain over a closed club-controlled system. It is also the first of our durable commitments; <a href="/never/">the full list is published</a>.</p>
       </div>
     </div>
 
-    <!-- FOUR LANES -->
+    <!-- EMBEDDABLE CAPABILITIES -->
     <div class="fan-section">
-      <h2>How MatchPass Maps to Expected Licence Conditions</h2>
-      <p class="section-sub">IFR's licence framework is not yet published. Four areas where MatchPass provides working reference capability:</p>
+      <h2>Embeddable Capabilities Inside a Compliance Stack</h2>
+      <p class="section-sub">IFR's licence framework is not yet published. Three areas where MatchPass provides component-level capability a stack can embed:</p>
 
       <div class="ifr-lane">
-        <h3>1. Operational safety and compliance reporting</h3>
-        <p>Every matchday emits a structured chain of scans, events, cards, reviews, and sanctions. These can be exported as a compliance evidence pack per fixture or per reporting period, cryptographically signed and auditable. Clubs generate licence-application evidence automatically rather than assembling it after the fact.</p>
+        <h3>1. Operational safety and compliance evidence</h3>
+        <p>Every matchday emits a structured chain of scans, events, cards, reviews, and sanctions. MatchPass exposes these as cryptographically signed, auditable exports that a compliance stack can fold into a licence-application package. The stack composes the full submission; MatchPass provides the part of the evidence that covers matchday identity, incident lifecycle, and sanction history.</p>
       </div>
 
       <div class="ifr-lane">
-        <h3>2. Fan engagement standard</h3>
-        <p>MatchPass credentials identify verified fans cryptographically. This supports authenticated consultation &mdash; sentiment surveys, structured feedback, and cryptographic voting on heritage matters (ground moves, colour and crest changes, name changes). Eligibility rules are chain-verifiable. A fan's relationship with their club is durable and portable across years, clubs, and club ownership changes.</p>
+        <h3>2. Authenticated-fan credentials for consultation and reporting</h3>
+        <p>MatchPass identifies verified fans cryptographically without revealing their personal data. This is the primitive the IFR fan-engagement standard needs: a way to know someone is a bona fide fan of a specific club without handing over name, address, or contact details. Fan-engagement platforms, heritage-voting systems, and independent reporting channels can authenticate against MatchPass credentials and build whatever interface suits their audience. We do not build the consultation UI or the reporting dashboard ourselves &mdash; we provide the credential spec so the rest of the ecosystem can build them correctly.</p>
       </div>
 
       <div class="ifr-lane">
-        <h3>3. Independent complaint and whistleblowing channels</h3>
-        <p>The fan-side identity layer supports anonymous-but-verified-as-fan reporting. A fan can raise a safety or governance concern without the club filtering what the regulator sees, while the regulator can still verify that the reporter is a bona fide fan of the relevant club.</p>
+        <h3>3. Portable steward credentialling</h3>
+        <p>Stewards are hard to recruit and retain &mdash; the FSOA has described the worst recruitment crisis in five years, with pay averages at &pound;12.27 per hour nationally and stewards able to earn more at a supermarket. MatchPass supports portable steward reputation: competencies, years of service, cross-club endorsements, and incidents handled can be cryptographically recorded and carried between clubs. A steward who works two seasons at one club arrives at another with verifiable reputation. Workforce-management platforms can embed this as the credentialling layer under their rota, pay, and training tools.</p>
       </div>
 
-      <div class="ifr-lane">
-        <h3>4. Steward workforce credentialling</h3>
-        <p>Stewards are hard to recruit and retain &mdash; the FSOA has described the worst recruitment crisis in five years, with pay averages at &pound;12.27 per hour nationally and stewards able to earn more at a supermarket. MatchPass supports portable steward reputation: competencies, years of service, cross-club endorsements, and incidents handled can be cryptographically recorded and carried between clubs. A steward who works two seasons at one club arrives at another with verifiable reputation.</p>
-      </div>
+      <p style="margin-top: 1.25rem; font-size: 0.92rem; color: var(--text-muted); line-height: 1.7;">Things MatchPass deliberately does not build: administrative compliance dashboards, financial reporting tools, fit-and-proper checks, real-time safety-operations telemetry, closed biometric identification, centralised fan CRMs. Those belong in the compliance stack that embeds MatchPass, or in adjacent vendor products.</p>
     </div>
 
     <!-- STATUS -->
@@ -2360,23 +2370,20 @@ function ifrPage() {
       </ul>
     </div>
 
-    <!-- OPEN SOURCE -->
+    <!-- COMMUNITY OWNERSHIP -->
     <div class="fan-section">
-      <h2>Community Ownership</h2>
-      <p>MatchPass is community-owned. There is no gatekeeping vendor. Clubs do not pay to participate. The protocols are open (built on Nostr). The code is public. Design decisions are recorded openly in the project's decision log. Any club can self-host, and any regulator or supporter body can inspect, audit, and extend the implementation.</p>
-      <p>The problem is in the football community. The solution is in the football community. Government programmes are context, not the answer.</p>
+      <h2>Community Ownership and Durable Principles</h2>
+      <p>MatchPass is community-owned. There is no gatekeeping vendor. Clubs do not pay to participate. The protocols are open (built on Nostr). The code is public. Design decisions are recorded openly in the project's decision log. Any club can self-host; any regulator, supporter body, or partner stack vendor can inspect, audit, and extend the implementation.</p>
+      <p>Because "community-owned" is only as strong as what you refuse to do, we have published a list of commitments at <a href="/never/"><strong>matchpass.club/never</strong></a> &mdash; concrete, specific things MatchPass will never do, including never capturing biometric templates, never centralising fan data, never retroactively editing published records, never charging fans, never reselling fan data, and never integrating with closed schemes that break portability. The list is protective: it makes the privacy-first, community-ownership posture an enforceable public artifact rather than an implicit value.</p>
     </div>
 
     <!-- WHAT WE'RE LOOKING FOR -->
     <div class="fan-section">
       <h2>What We're Looking For</h2>
-      <p class="section-sub">Conversations, not contracts. Specifically:</p>
+      <p class="section-sub">Two tracks:</p>
       <div class="ifr-contact">
-        <p><strong>IFR staff</strong> framing licence conditions &mdash; we would like to describe what is already working and to ensure conditions can be discharged by open-source decentralised implementations, not only by a single closed scheme.</p>
-        <p><strong>Club safety officers</strong> preparing for provisional licence applications &mdash; we can demonstrate the compliance evidence pipeline and the steward credentialling model.</p>
-        <p><strong>Supporter trusts and the Football Supporters' Association</strong> &mdash; the fan engagement layer is designed around the role you already play; we would like to align on authentication and consultation infrastructure.</p>
-        <p><strong>The Football Safety Officers Association</strong> &mdash; the workforce credentialling layer is the direct response to the recruitment and retention picture your members describe.</p>
-        <p><strong>The Sports Grounds Safety Authority</strong> &mdash; the values alignment is visible (open access, safety-first, community-focused). We would like to align on Green Guide compliance mapping.</p>
+        <p><strong>Integration partners (compliance-stack vendors, workforce-management vendors, fan-engagement platforms, supporter-trust tech providers).</strong> If you are building a product that covers aspects of IFR licensing we deliberately don't, we would like to discuss embedding MatchPass as the identity and reputation layer. Your stack ships with an open portable fan identity; your competitors cannot provide that. Terms must preserve the <a href="/never/">published principles</a>; no exclusive partnerships.</p>
+        <p><strong>Clubs, safety officers, supporter trusts, and regulators (IFR, SGSA, FSOA, FSA).</strong> If you want MatchPass operating standalone &mdash; as a self-hosted matchday gate and credential chain &mdash; we can demonstrate what is currently shipping and walk through how the component is designed to interoperate with whatever wider compliance tooling you use. Conversations, not contracts.</p>
       </div>
       <p style="margin-top: 1.5rem;">Contact: via the public project on GitHub at <a href="https://github.com/renegaid-org/matchpass-app">renegaid-org/matchpass-app</a>, or via the club directory at <a href="/">matchpass.club</a>. An introductory email via GitHub issues or via a club already on the directory will reach the project lead.</p>
     </div>
@@ -2385,7 +2392,218 @@ function ifrPage() {
 
   <footer class="site-footer">
     matchpass.club &mdash; football safety, community owned &mdash; v${version}
-    <br><a href="/">Home</a> &middot; <a href="/fans/">For Fans</a> &middot; <a href="/#directory">Find Your Club</a>
+    <br><a href="/">Home</a> &middot; <a href="/fans/">For Fans</a> &middot; <a href="/#directory">Find Your Club</a> &middot; <a href="/never/">Never</a>
+  </footer>
+</body>
+</html>`;
+}
+
+// ---------------------------------------------------------------------------
+// "Things MatchPass Will Never Do" page
+// ---------------------------------------------------------------------------
+
+const CSS_NEVER = `
+.never-intro {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 2rem;
+}
+.never-intro p { color: var(--text); line-height: 1.75; margin-bottom: 0.75rem; }
+.never-intro p:last-child { margin-bottom: 0; }
+.never-intro strong { color: var(--green-light); }
+
+.never-list {
+  counter-reset: never;
+  list-style: none;
+  padding: 0;
+}
+.never-list > li {
+  counter-increment: never;
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--green-bright);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem 1.25rem 3.75rem;
+  margin-bottom: 1rem;
+}
+.never-list > li::before {
+  content: counter(never);
+  position: absolute;
+  left: 1rem;
+  top: 1.25rem;
+  width: 2rem;
+  height: 2rem;
+  background: var(--green);
+  color: var(--text);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  font-family: var(--font-heading);
+}
+.never-list h3 {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.4rem;
+}
+.never-list .why {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.75;
+  margin: 0.5rem 0 0;
+  font-style: italic;
+}
+.never-list p {
+  color: var(--text);
+  font-size: 0.95rem;
+  line-height: 1.75;
+  margin: 0;
+}
+.never-footer {
+  background: var(--green-wash);
+  border-left: 4px solid var(--green-bright);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin-top: 2rem;
+}
+.never-footer p { color: var(--text); line-height: 1.75; margin: 0; }
+`;
+
+function neverPage() {
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Things MatchPass Will Never Do &mdash; Our Principles</title>
+  <link rel="canonical" href="https://matchpass.club/never/">
+  <meta name="description" content="Ten durable public commitments that bound what MatchPass is. No biometric capture. No centralised fan data. No retroactive editing of published records. No closed-source core. No charging fans. No reselling fan data. No closed-scheme integrations that break portability. Published so partners, regulators, and fans can hold us to them.">
+  <meta name="keywords" content="MatchPass principles, privacy-first football, open source football safety, append-only credential chain, Hillsborough Law, community ownership, no biometric, GDPR football, Signet identity">
+  <meta property="og:title" content="Things MatchPass Will Never Do">
+  <meta property="og:description" content="Ten durable public commitments that bound what MatchPass is. Privacy-first, community-owned, append-only by design.">
+  <meta property="og:url" content="https://matchpass.club/never/">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <style>
+    ${CSS_VARS}
+    ${CSS_BASE}
+    ${CSS_HEADER}
+    ${CSS_FOOTER}
+    ${CSS_FAN}
+    ${CSS_NEVER}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="site-logo"><img src="/logo.svg" alt="" width="22" height="22" style="vertical-align:middle;margin-right:4px;border-radius:3px;">Match<span>Pass</span></a>
+    <nav class="site-nav">
+      <a href="/fans/">For Fans</a>
+      <a href="/#for-clubs">For Clubs</a>
+      <a href="/#directory">All Clubs</a>
+    </nav>
+  </header>
+
+  <div class="fan-page">
+
+    <!-- HERO -->
+    <div class="fan-hero">
+      <h1>Things <span>MatchPass</span> Will Never Do</h1>
+      <p class="subtitle">Ten durable public commitments that bound what MatchPass is. Published so partners, regulators, and fans can hold us to them.</p>
+      <p class="reassurance">Community ownership is only as strong as what you refuse to do.</p>
+    </div>
+
+    <!-- INTRO -->
+    <div class="fan-section">
+      <div class="never-intro">
+        <p>MatchPass is an open-source matchday identity, reputation, and event-chain component. It is <strong>community-owned</strong>, privacy-first, and designed to sit inside compliance stacks as an embeddable layer &mdash; not to become a gate-kept commercial bundle.</p>
+        <p>Principles stated loosely are principles that get negotiated away under pressure. The commitments below are stated concretely so breaking them would be an obvious, public violation. They apply to the MatchPass project, its maintainers, its reference implementations, and any partnership we enter into. Partners who want MatchPass embedded in their stack accept these commitments as part of the integration.</p>
+        <p>If MatchPass is ever on a path to break one of these, expect that decision to be argued through in public, in the project's ADR log, before it happens.</p>
+      </div>
+    </div>
+
+    <!-- THE LIST -->
+    <div class="fan-section">
+      <ol class="never-list">
+        <li>
+          <h3>Never capture or store biometric templates</h3>
+          <p>No face prints. No fingerprints. No iris scans. No gait analysis. No voice prints. Fan identity is held on the fan's own device, verified cryptographically against a photo that fans control and can rotate.</p>
+          <p class="why">Why: biometric data is the category where consent is most often theoretical and harm is most often permanent. The only way to never leak it is to never hold it.</p>
+        </li>
+
+        <li>
+          <h3>Never centralise fan personal data</h3>
+          <p>No central database of fan names, addresses, contact details, or incident histories. Fan data lives on the fan's device and on a public relay network the fan controls. The gate server is stateless; when it shuts down, nothing of the fan remains on it.</p>
+          <p class="why">Why: centralised fan databases become the target of breaches, subpoenas, and feature creep. Not holding the data is the only reliable protection.</p>
+        </li>
+
+        <li>
+          <h3>Never retroactively edit, delete, or hide published records</h3>
+          <p>Events, cards, sanctions, reviews, and roster changes are append-only. A correction is a new event that references the earlier one, not a rewrite of the earlier one. The chain is the history; the history cannot be silently revised.</p>
+          <p class="why">Why: Hillsborough Law's duty of candour says officials must tell the truth about what went wrong. A club cannot rewrite its own history, and neither can we.</p>
+        </li>
+
+        <li>
+          <h3>Never close-source the core</h3>
+          <p>The gate server, credential chain protocol, steward and admin PWA, verification library, and every component a club depends on to operate remain open source under a permissive licence. No dual-licence traps. No "source available" sleight-of-hand.</p>
+          <p class="why">Why: clubs depend on the software continuing to exist under terms they control. Closed-source ingredients can be withdrawn; open-source ingredients cannot.</p>
+        </li>
+
+        <li>
+          <h3>Never charge fans</h3>
+          <p>The fan-facing identity (Signet) is free forever. The matchday QR code is free forever. Nothing a fan needs to walk through a turnstile with a MatchPass-using club ever costs money.</p>
+          <p class="why">Why: paying to exist as a fan is the line. Football's community depends on the people who cannot and should not have to pay an identity tax to attend.</p>
+        </li>
+
+        <li>
+          <h3>Never charge clubs for the core gate-verification system</h3>
+          <p>Clubs may pay partners and operators for hosting, support, training, integration, and adjacent services. Clubs will never pay MatchPass itself for the ability to verify fans at the gate. The core is permanently free-to-clubs.</p>
+          <p class="why">Why: safety is not a premium feature, and lower-league clubs must not be priced out of the network they most need.</p>
+        </li>
+
+        <li>
+          <h3>Never resell fan data</h3>
+          <p>No advertising business. No analytics resale. No demographic products sold to sponsors, leagues, or brands. No partnerships that monetise who fans are or what they do. MatchPass revenue, where it exists, comes from value delivered to clubs and partners &mdash; never from selling the community it serves.</p>
+          <p class="why">Why: community ownership is meaningless if the community is the product.</p>
+        </li>
+
+        <li>
+          <h3>Never build features that cannot be audited by the fans they affect</h3>
+          <p>Card issuance, sanction decisions, review outcomes, and roster changes are visible on the public chain. No opaque server-side scoring. No secret sauce that decides whether a fan is admitted. No algorithms the fan cannot inspect.</p>
+          <p class="why">Why: a system that judges people must be inspectable by the people it judges. That is the minimum bar for legitimacy.</p>
+        </li>
+
+        <li>
+          <h3>Never require a government-issued ID to be a fan</h3>
+          <p>Fans may choose to attach verified attestations (age, address, eligibility) via Signet when a specific context calls for them. Holding a MatchPass identity is never conditional on a passport, driving licence, national ID, or any state-issued credential match.</p>
+          <p class="why">Why: community ownership, not government dependency. Football identity must not become an ID-card-by-the-back-door.</p>
+        </li>
+
+        <li>
+          <h3>Never integrate with closed schemes that break Signet portability</h3>
+          <p>If a potential partner requires fans to give up their chain reputation, hand credentials to a central authority, accept a non-portable identity, or surrender keys to a vendor, we do not integrate. Portability across clubs, across contexts, and across time is the core of the thesis.</p>
+          <p class="why">Why: a closed scheme that wraps MatchPass inside itself would defeat the reason MatchPass exists. The component is only valuable if it remains open at every edge.</p>
+        </li>
+      </ol>
+
+      <div class="never-footer">
+        <p>If you are a partner integrating MatchPass, a club adopting MatchPass, a regulator writing licence conditions that touch MatchPass, or a fan using MatchPass, these commitments apply to your interaction with the project. They are public precisely so you can hold us to them and cite them to others.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="site-footer">
+    matchpass.club &mdash; football safety, community owned &mdash; v${version}
+    <br><a href="/">Home</a> &middot; <a href="/fans/">For Fans</a> &middot; <a href="/ifr/">IFR</a> &middot; <a href="/#directory">Find Your Club</a>
   </footer>
 </body>
 </html>`;
@@ -2445,6 +2663,12 @@ function build() {
   ensureDir(ifrDir);
   fs.writeFileSync(path.join(ifrDir, 'index.html'), ifrPage());
   console.log('  ifr/index.html');
+
+  // Generate "things MatchPass will never do" principles page
+  const neverDir = path.join(DIST_DIR, 'never');
+  ensureDir(neverDir);
+  fs.writeFileSync(path.join(neverDir, 'index.html'), neverPage());
+  console.log('  never/index.html');
 
   // Generate .well-known/nostr.json
   const wellKnownDir = path.join(DIST_DIR, '.well-known');
